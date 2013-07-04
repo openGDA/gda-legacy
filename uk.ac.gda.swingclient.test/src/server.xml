@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding="UTF-8"?>
+<ObjectFactory>
+   <name>IIS</name>
+
+    <CoboldTDC>
+     <name>cobold2TDCHP</name>
+     <channelLabel>readoutInterval </channelLabel>
+     <channelLabel>graphicsFile</channelLabel>
+     <usedByDefault>false</usedByDefault>
+   </CoboldTDC>
+
+   <JythonServer>
+      <name>command_server</name>
+   </JythonServer>
+
+</ObjectFactory>

@@ -1,0 +1,1513 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapping>
+   <!-- general objects -->
+   <class name="dl.factory.Findable" auto-complete="true"
+      verify-constructable="false"/>
+
+   <class name="dl.factory.ObjectFactory" auto-complete="true">
+      <map-to xml="ObjectFactory"/>
+      <field name="findables" type="dl.factory.Findable"
+         collection="collection" container="false">
+         <bind-xml name="Findables" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.device.DeviceBase" identity="name">
+      <map-to xml="deviceBase" table="motor"/>
+      <field name="name" type="string">
+         <sql name="name" type="varchar" />
+         <bind-xml name="name" node="element"/>
+      </field>
+      <field name="local" type="boolean">
+         <sql name="local" type="varchar" />
+         <bind-xml name="local" node="element"/>
+      </field>
+   </class>
+
+   <!-- configuration utility classes -->
+   <class name="dl.util.database.DBConnection" identity="name">
+      <map-to xml="dbconnection" table="dbconnection"/>
+      <field name="name" type="string">
+         <sql name="name" type="varchar" />
+         <bind-xml name="name" node="element"/>
+      </field>
+      <field name="driver" type="string">
+         <sql name="driver" type="varchar" />
+         <bind-xml name="driver" node="element"/>
+      </field>
+      <field name="url" type="string">
+         <sql name="url" type="varchar" />
+         <bind-xml name="url" node="element"/>
+      </field>
+      <field name="user" type="string">
+         <sql name="user" type="varchar" />
+         <bind-xml name="user" node="element"/>
+      </field>
+      <field name="password" type="string">
+         <sql name="password" type="varchar" />
+         <bind-xml name="password" node="element"/>
+      </field>
+      <field name="maxconn" type="integer">
+         <sql name="maxconn" type="integer" />
+         <bind-xml name="maxconn" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.util.database.metadata.MetadataListEntry" identity="name">
+      <map-to xml="MetadataListEntry" table="MetadataListEntry"/>
+      <field name="name" type="string">
+         <sql name="name" type="varchar" />
+         <bind-xml name="name" node="element"/>
+      </field>
+      <field name="type" type="integer">
+         <sql name="type" type="integer" />
+         <bind-xml name="type" node="element"/>
+      </field>
+      <field name="object" type="string">
+         <sql name="object" type="varchar" />
+         <bind-xml name="object" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.util.database.metadata.MetadataList" identity="name">
+      <map-to xml="MetadataList" table="MetadataList"/>
+      <field name="name" type="string">
+         <sql name="name" type="varchar" />
+         <bind-xml name="name" node="element"/>
+      </field>
+      <field name="ListEntry"
+         type="dl.factory.Findable"
+         collection="collection"
+         set-method="addMetadataListEntry"
+         get-method="getMetadataListEntries">
+         <bind-xml name="ListEntry" node="element"/>
+      </field>
+   </class>
+
+
+   <!-- amplifiers -->
+   <class name="dl.device.amplifier.Keithley" identity="name">
+      <map-to xml="Keithley" table="amp_keithley"/>
+      <field name="name" type="string">
+         <sql name="name" type="varchar" />
+         <bind-xml name="name" node="element"/>
+      </field>
+      <field name="gpibInterfaceName" type="string">
+         <sql name="gpibInterfaceName" type="varchar" />
+         <bind-xml name="gpibInterfaceName" node="element"/>
+      </field>
+      <field name="deviceName" type="string">
+         <sql name="deviceName" type="varchar" />
+         <bind-xml name="deviceName" node="element"/>
+      </field>
+      <field name="timeout" type="integer">
+         <sql name="timeout" type="integer" />
+         <bind-xml name="timeout" node="element"/>
+      </field>
+   </class>
+
+   <!-- datalogger -->
+   <class name="dl.device.datalogger.HPDataLogger" identity="name" extends="dl.device.DeviceBase">
+      <map-to xml="HPDataLogger" table="datalogger_hp"/>
+      <field name="serialDeviceName" type="string">
+         <sql name="serialDeviceName" type="varchar" />
+         <bind-xml name="serialDeviceName" node="element"/>
+      </field>
+      <field name="active" type="boolean">
+         <sql name="active" type="boolean" />
+         <bind-xml name="active" node="element"/>
+      </field>
+      <field name="polltime" type="long">
+         <sql name="polltime" type="float" />
+         <bind-xml name="polltime" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.device.datalogger.DummyDataLogger" identity="name" extends="dl.device.DeviceBase">
+      <map-to xml="DummyDataLogger" table="datalogger_dummy"/>
+      <field name="serialDeviceName" type="string">
+         <sql name="serialDeviceName" type="varchar" />
+         <bind-xml name="serialDeviceName" node="element"/>
+      </field>
+      <field name="active" type="boolean">
+         <sql name="active" type="boolean" />
+         <bind-xml name="active" node="element"/>
+      </field>
+      <field name="polltime" type="long">
+         <sql name="polltime" type="float" />
+         <bind-xml name="polltime" node="element"/>
+      </field>
+   </class>
+
+   <!-- detectors -->
+   <class name="dl.device.countertimer.DummyCounterTimer" identity="name" extends="dl.device.DeviceBase">
+      <map-to xml="DummyCounterTimer" table="detector_dummycountertimer"/>
+      <field name="active" type="boolean">
+         <sql name="active" type="boolean" />
+         <bind-xml name="active" node="element"/>
+      </field>
+      <field name="totalChans" type="int">
+         <bind-xml name="totalChans" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.device.countertimer.NI6602" identity="name" extends="dl.device.DeviceBase">
+      <map-to xml="NI6602" table="detector_ni6602"/>
+      <field name="active" type="boolean">
+         <sql name="active" type="boolean" />
+         <bind-xml name="active" node="element"/>
+      </field>
+      <field name="totalChans" type="int">
+         <bind-xml name="totalChans" node="element"/>
+      </field>
+      <field name="timingChannel" type="int">
+         <bind-xml name="timingChannel" node="element"/>
+      </field>
+      <field name="deviceNumber" type="int">
+         <bind-xml name="deviceNumber" node="element"/>
+      </field>
+   <field name="channelLabel0" type="string">
+        <sql name="channelLabel0" type="varchar"/>
+         <bind-xml name="channelLabel0" node="element"/>
+      </field>
+   <field name="channelLabel1" type="string">
+        <sql name="channelLabel1" type="varchar"/>
+         <bind-xml name="channelLabel1" node="element"/>
+      </field>
+   <field name="channelLabel2" type="string">
+        <sql name="channelLabel2" type="varchar"/>
+         <bind-xml name="channelLabel2" node="element"/>
+      </field>
+   <field name="channelLabel3" type="string">
+        <sql name="channelLabel3" type="varchar"/>
+         <bind-xml name="channelLabel3" node="element"/>
+      </field>
+   <field name="channelLabel4" type="string">
+        <sql name="channelLabel4" type="varchar"/>
+         <bind-xml name="channelLabel4" node="element"/>
+      </field>
+   <field name="channelLabel5" type="string">
+        <sql name="channelLabel5" type="varchar"/>
+         <bind-xml name="channelLabel5" node="element"/>
+      </field>
+   <field name="channelLabel6" type="string">
+        <sql name="channelLabel6" type="varchar"/>
+         <bind-xml name="channelLabel6" node="element"/>
+      </field>
+   <field name="channelLabel7" type="string">
+        <sql name="channelLabel7" type="varchar"/>
+         <bind-xml name="channelLabel7" node="element"/>
+      </field>
+   </class>
+
+   <!-- gpib -->
+   <class name="dl.device.gpib.GpibNiWin" identity="name">
+      <field name="name" type="string">
+         <sql name="name" type="varchar" />
+         <bind-xml name="name" node="element"/>
+      </field>
+      <!-- other attributes have a two argument accessor functions -->
+   </class>
+
+   <!-- memory -->
+   <class name="dl.ncd.Dimension" identity="height">
+      <!-- the identity is not unique!! -->
+      <map-to xml="Dimension" table="dimension"/>
+      <field name="width" type="integer">
+         <sql name="width" type="integer" />
+         <bind-xml name="width" node="element"/>
+      </field>
+      <field name="height" type="integer">
+         <sql name="height" type="integer" />
+         <bind-xml name="height" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.device.memory.Gdhist" identity="name" extends="dl.device.DeviceBase">
+      <map-to xml="Gdhist" table="memory_gdhist"/>
+      <field name="daServerName" type="string">
+         <sql name="daServerName" type="varchar" />
+         <bind-xml name="daServerName" node="element"/>
+      </field>
+      <field name="dimension" type="dl.ncd.Dimension">
+         <sql name="dimension_id"/>
+         <bind-xml name="Dimension" node="element"/>
+      </field>
+      <field name="openCommand" type="string">
+         <sql name="openCommand" type="varchar" />
+         <bind-xml name="openCommand" node="element"/>
+      </field>
+      <field name="startupScript" type="string">
+         <sql name="startupScript" type="varchar" />
+         <bind-xml name="startupScript" node="element"/>
+      </field>
+      <field name="sizeCommand" type="string">
+         <sql name="sizeCommand" type="varchar" />
+         <bind-xml name="sizeCommand" node="element"/>
+      </field>
+   </class>
+
+   <!-- DummyMemory -->
+   <class name="dl.device.memory.DummyMemory" identity="name" extends="dl.device.DeviceBase">
+      <map-to xml="DummyMemory" table="memory_dummy"/>
+      <field name="dimension" type="dl.ncd.Dimension">
+         <sql name="dimension_id"/>
+         <bind-xml name="Dimension" node="element"/>
+      </field>
+   </class>
+
+   <!-- DaServer -->
+   <class name="dl.ncd.DAServer" identity="name" extends="dl.device.DeviceBase">
+      <map-to xml="DAServer" table="ncd_daserver"/>
+      <field name="startupScript" type="string">
+         <bind-xml name="startupScript" node="element"/>
+      </field>
+      <field name="host" type="string">
+         <bind-xml name="host" node="element"/>
+      </field>
+      <field name="port" type="integer">
+         <bind-xml name="port" node="element"/>
+      </field>
+      <field name="dataPort" type="integer">
+         <bind-xml name="dataPort" node="element"/>
+      </field>
+    </class>
+
+   <!-- TfgScaler -->
+   <class name="dl.device.countertimer.TfgScaler" identity="name" extends="dl.device.DeviceBase">
+      <map-to xml="TfgScaler" table="countertimer_tfgscaler"/>
+      <field name="scalerName" type="string">
+         <sql name="scalerName" type="varchar" />
+         <bind-xml name="scalerName" node="element"/>
+      </field>
+      <field name="tfgName" type="string">
+         <sql name="tfgName" type="varchar" />
+         <bind-xml name="tfgName" node="element"/>
+      </field>
+    </class>
+
+   <!-- Tfg-->
+   <class name="dl.device.timer.Tfg" identity="name" extends="dl.device.DeviceBase">
+      <map-to xml="Tfg" table="timer_tfg"/>
+      <field name="daServerName" type="string">
+         <sql name="daServerName" type="varchar" />
+         <bind-xml name="daServerName" node="element"/>
+      </field>
+    </class>
+
+   <!-- Otoko Header FileWriter-->
+   <class name="dl.ncd.headerfilewriter.OtokoWriter" identity="name" extends="dl.device.DeviceBase">
+      <map-to xml="OtokoWriter" table="ncd_otokowriter"/>
+      <field name="daServerName" type="string">
+         <sql name="daServerName" type="varchar" />
+         <bind-xml name="daServerName" node="element"/>
+      </field>
+    </class>
+
+   <!-- modulators -->
+   <class name="dl.device.modulator.PEM90" identity="name">
+      <map-to xml="PEM90" table="modulator_pem90"/>
+      <field name="name" type="string">
+         <sql name="name" type="varchar" />
+         <bind-xml name="name" node="element"/>
+      </field>
+      <field name="serialDeviceName" type="string">
+         <sql name="serialDeviceName" type="varchar" />
+         <bind-xml name="serialDeviceName" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.device.modulator.DummyPEM90" identity="name">
+      <map-to xml="DummyPEM90" table="modulator_dummypem90"/>
+      <field name="name" type="string">
+         <sql name="name" type="varchar" />
+         <bind-xml name="name" node="element"/>
+      </field>
+   </class>
+
+
+   <!-- motors -->
+   <class name="dl.device.motor.MotorBase" identity="name" extends="dl.device.DeviceBase">
+      <map-to xml="motorBase" table="motor"/>
+      <field name="backlashSteps" type="double">
+         <sql name="backlashSteps" type="double" />
+         <bind-xml name="backlashSteps" node="element"/>
+      </field>
+      <field name="fastSpeed" type="integer">
+         <sql name="fastSpeed" type="integer"/>
+         <bind-xml name = "fastSpeed" node="element"/>
+      </field>
+      <field name="mediumSpeed" type="integer">
+         <sql name="mediumSpeed" type="integer"/>
+         <bind-xml name="mediumSpeed" node="element"/>
+      </field>
+      <field name="slowSpeed" type="integer">
+         <sql name="slowSpeed" type="integer"/>
+         <bind-xml name="slowSpeed" node="element"/>
+      </field>
+      <field name="limitsSettable" type="boolean">
+         <sql name="limitsSettable" type="boolean"/>
+         <bind-xml name="limitsSettable" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.device.motor.DummyMotor" identity="name" extends="dl.device.motor.MotorBase">
+      <map-to xml="DummyMotor" table="motor_dummy"/>
+      <field name="sleepTime" type="long">
+         <sql name="sleepTime" type="float" />
+         <bind-xml name="sleepTime" node="element"/>
+      </field>
+      <field name="nonContinuousIncrements" type="integer">
+         <sql name="nonContinuousIncrements" type="integer" />
+         <bind-xml name="nonContinuousIncrements" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.device.motor.DummySRControl" identity="name" extends="dl.device.DeviceBase">
+      <map-to xml="DummySRControl" table="controller_sr"/>
+   </class>
+
+   <class name="dl.device.motor.SRControl" identity="name" extends="dl.device.DeviceBase">
+      <map-to xml="SRControl" table="controller_sr"/>
+   </class>
+
+
+   <class name="dl.device.motor.SRControlMotor" identity="name" extends="dl.device.motor.MotorBase">
+      <map-to xml="SRControlMotor" table="motor_srcontrol"/>
+      <field name="deviceID" type="string">
+         <bind-xml name="deviceID" node="element"/>
+      </field>
+      <field name="srControlName" type="string">
+         <sql name="srControlName" type="varchar"/>
+         <bind-xml name="srControlName" node="element"/>
+      </field>
+      <field name="minPosition" type="double">
+         <sql name="minPosition" type="double"/>
+         <bind-xml name = "minPosition" node="element"/>
+      </field>
+      <field name="maxPosition" type="double">
+         <sql name="maxPosition" type="double"/>
+         <bind-xml name = "maxPosition" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.device.motor.McLennanController" identity="name" extends="dl.device.DeviceBase">
+      <map-to xml="McLennanController" table="controller_mclennan"/>
+      <field name="serialDeviceName" type="string">
+         <sql name="serialDeviceName" type="varchar" />
+         <bind-xml name="serialDeviceName" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.device.motor.McLennanStepperMotor" identity="name" extends="dl.device.motor.MotorBase">
+      <map-to xml="McLennanStepperMotor" table="motor_mclennan_stepper"/>
+      <field name="McLennanControllerName" type="string">
+         <sql name="McLennanControllerName" type="varchar"/>
+         <bind-xml name="McLennanControllerName" node="element"/>
+      </field>
+      <field name="axis" type="integer">
+         <sql name="axis" type="integer" />
+         <bind-xml name="axis" node="element"/>
+      </field>
+      <field name="channel" type="integer">
+         <sql name="channel" type="integer" />
+         <bind-xml name="channel" node="element"/>
+      </field>
+      <field name="slewSpeed" type="double">
+         <sql name="slewSpeed" type="double" />
+         <bind-xml name="slewSpeed" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.device.motor.McLennanServoMotor" identity="name" extends="dl.device.motor.MotorBase">
+      <map-to xml="McLennanServoMotor" table="motor_mclennan_servo"/>
+      <field name="McLennanControllerName" type="string">
+         <sql name="McLennanControllerName" type="varchar"/>
+         <bind-xml name="McLennanControllerName" node="element"/>
+      </field>
+      <field name="axis" type="integer">
+         <sql name="axis" type="integer" />
+         <bind-xml name="axis" node="element"/>
+      </field>
+      <field name="offset" type="double">
+         <sql name="offset" type="double" />
+         <bind-xml name="offset" node="element"/>
+      </field>
+      <field name="slewSpeed" type="double">
+         <sql name="slewSpeed" type="double" />
+         <bind-xml name="slewSpeed" node="element"/>
+      </field>
+      <field name="isMaster" type="boolean" set-method="setMaster"
+         get-method="isMaster">
+         <sql name="isMaster" type="bit"/>
+         <bind-xml name = "isMaster" node="element"/>
+      </field>
+      <field name="slaveAxis" type="integer">
+         <sql name="slaveAxis" type="integer" />
+         <bind-xml name="slaveAxis" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.device.motor.McLennan600Motor" identity="name" extends="dl.device.motor.MotorBase">
+      <map-to xml="McLennan600Motor" table="motor_mclennan_600"/>
+      <field name="McLennanControllerName" type="string">
+         <sql name="McLennanControllerName" type="varchar"/>
+         <bind-xml name="McLennanControllerName" node="element"/>
+      </field>
+      <field name="axis" type="integer">
+         <sql name="axis" type="integer" />
+         <bind-xml name="axis" node="element"/>
+      </field>
+      <field name="slewSpeed" type="double">
+         <sql name="slewSpeed" type="double" />
+         <bind-xml name="slewSpeed" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.device.motor.Parker6kControllerEnet" identity="name" extends = "dl.device.DeviceBase">
+      <map-to xml="Parker6kControllerEnet" table="controller_parker6k_enet"/>
+      <field name="name" type="string">
+         <sql name="name" type="varchar" />
+         <bind-xml name="name" node="element"/>
+      </field>
+      <field name="port" type="integer">
+         <sql name="port" type="integer" />
+         <bind-xml name="port" node="element"/>
+      </field>
+      <field name="host" type="string">
+         <sql name="host" type="varchar" />
+         <bind-xml name="host" node="element"/>
+      </field>
+      <field name="controllerNo" type="integer">
+         <sql name="controllerNo" type="integer" />
+         <bind-xml name="controllerNo" node="element"/>
+      </field>
+      <field name="maxNoOfMotors" type="integer">
+         <sql name="maxNoOfMotors" type="integer" />
+         <bind-xml name="maxNoOfMotors" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.device.motor.Parker6kMotor" identity="name" extends="dl.device.motor.MotorBase">
+      <map-to xml="Parker6kMotor" table="motor_parker6k"/>
+      <field name="parker6kControllerName" type="string">
+         <sql name="Parker6kControllerName" type="varchar"/>
+         <bind-xml name="parker6kControllerName" type="string" />
+      </field>
+      <field name="axisNo" type="integer">
+         <sql name="axisNo" type="integer"/>
+         <bind-xml name = "axisNo" node="element"/>
+      </field>
+      <field name="stepper" type="boolean" set-method="setStepper"
+         get-method="isStepper">
+         <sql name="isStepper" type="bit"/>
+         <bind-xml name = "stepper" node="element"/>
+      </field>
+      <field name="minPosition" type="double">
+         <sql name="minPosition" type="double"/>
+         <bind-xml name = "minPosition" node="element"/>
+      </field>
+      <field name="maxPosition" type="double">
+         <sql name="maxPosition" type="double"/>
+         <bind-xml name = "maxPosition" node="element"/>
+      </field>
+      <field name="minSpeed" type="double">
+         <sql name="minSpeed" type="double"/>
+         <bind-xml name = "minSpeed" node="element"/>
+      </field>
+      <field name="maxSpeed" type="double">
+         <sql name="maxSpeed" type="double"/>
+         <bind-xml name = "maxSpeed" node="element"/>
+      </field>
+      <field name="encoderScalingFactor" type="double">
+         <sql name="encoderScalingFactor" type="double"/>
+         <bind-xml name = "encoderScalingFactor" node="element"/>
+      </field>
+      <field name="homeCommandString" type="string">
+          <bind-xml name="homeCommandString" node="element"/>
+      </field>
+      <field name="homingStatusLocation" type="string">
+          <bind-xml name="homingStatusLocation" node="element"/>
+      </field>
+      <field name="storedPosLocation" type="string">
+          <bind-xml name="storedPosLocation" node="element"/>
+      </field>
+      <field name="homeable" type="boolean">
+          <bind-xml name="homeable" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.device.motor.NewportController" identity="name" extends="dl.device.DeviceBase">
+      <map-to xml="NewportController" table="controller_newport"/>
+      <field name="serialDeviceName" type="string">
+         <sql name="serialDeviceName" type="varchar" />
+         <bind-xml name="serialDeviceName" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.device.motor.NewportMotor" identity="name"  extends="dl.device.motor.MotorBase">
+      <map-to xml="NewportMotor" table="motor_newport"/>
+      <field name="NewportControllerName" type="string">
+         <sql name="NewportControllerName" type="varchar"/>
+         <bind-xml name="NewportControllerName" type="string" />
+      </field>
+      <field name="axis" type="integer">
+         <sql name="axis" type="integer" />
+         <bind-xml name="axis" node="element"/>
+      </field>
+    </class>
+
+   <class name="dl.device.motor.Aerotech3200Controller" identity="name" extends="dl.device.DeviceBase">
+      <map-to xml="Aerotech3200Controller" table="controller_aerotech3200"/>
+      <field name="paramFile" type="string">
+          <bind-xml name="paramFile" node="element"/>
+      </field>
+      <field name="numMotors" type="integer">
+         <bind-xml name="numMotors" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.device.motor.AerotechMotor" identity="name" extends="dl.device.motor.MotorBase">
+      <map-to xml="AerotechMotor" table="motor_aerotech"/>
+      <field name="AerotechControllerName" type="string">
+         <sql name="AerotechControllerName" type="varchar"/>
+         <bind-xml name="AerotechControllerName" type="string" />
+      </field>
+      <field name="axis" type="integer">
+         <bind-xml name="axis" node="element"/>
+      </field>
+      <field name="homeable" type="boolean">
+         <bind-xml name="homeable" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.vuv.spectrometer.TriaxControllerGPIB" identity="name">
+      <map-to xml="TriaxControllerGPIB" table="controller_triax_gpib"/>
+      <field name="name" type="string">
+         <sql name="name" type="varchar" />
+         <bind-xml name="name" node="element"/>
+      </field>
+      <field name="deviceName" type="string">
+         <sql name="deviceName" type="varchar" />
+         <bind-xml name="deviceName" node="element"/>
+      </field>
+      <field name="GpibInterfaceName" type="string">
+         <sql name="GpibInterfaceName" type="varchar" />
+         <bind-xml name="GpibInterfaceName" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.device.motor.TriaxMotor" identity="name" extends="dl.device.motor.MotorBase">
+      <map-to xml="TriaxMotor" table="motor_triax"/>
+      <field name="triaxControllerName" type="string">
+         <sql name="triaxControllerName" type="varchar" />
+         <bind-xml name="triaxControllerName" node="element"/>
+      </field>
+      <field name="identifier" type="string">
+         <sql name="identifier" type="varchar" />
+         <bind-xml name="identifier" node="element"/>
+      </field>
+      <field name="slitNumber" type="integer">
+         <sql name="slitNumber" type="integer" />
+         <bind-xml name="slitNumber" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.device.motor.DummyQueensgate" identity="name" extends="dl.device.motor.MotorBase">
+      <map-to xml="DummyQueensgate" table="motor_dummy_queensgate"/>
+      <field name="queensgateControllerName" type="string">
+         <sql name="queensgateControllerName" type="varchar" />
+         <bind-xml name="queensgateControllerName" node="element"/>
+      </field>
+      <field name="axis" type="integer">
+         <sql name="axis" type="integer" />
+         <bind-xml name="axis" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.device.motor.Queensgate" identity="name" extends="dl.device.motor.MotorBase">
+      <map-to xml="Queensgate" table="motor_queensgate"/>
+      <field name="queensgateControllerName" type="string">
+         <sql name="queensgateControllerName" type="varchar" />
+         <bind-xml name="queensgateControllerName" node="element"/>
+      </field>
+      <field name="axis" type="integer">
+         <sql name="axis" type="integer" />
+         <bind-xml name="axis" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.device.motor.DummyQueensgateController" identity="name" extends="dl.device.DeviceBase">
+      <map-to xml="DummyQueensgateController" table="controller_queensgate"/>
+      <field name="serialDeviceName" type="string">
+         <sql name="serialDeviceName" type="varchar" />
+         <bind-xml name="serialDeviceName" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.device.motor.QueensgateController" identity="name" extends="dl.device.DeviceBase">
+      <map-to xml="QueensgateController" table="controller_queensgate"/>
+      <field name="serialDeviceName" type="string">
+         <sql name="serialDeviceName" type="varchar" />
+         <bind-xml name="serialDeviceName" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.util.MotordController" identity="name">
+      <map-to xml="SRS122Controller" table="controller_srs122"/>
+      <field name="name" type="string">
+         <sql name="name" type="varchar" />
+         <bind-xml name="name" node="element"/>
+      </field>
+      <field name="motordHost" type="string">
+         <sql name="motordHost" type="varchar" />
+         <bind-xml name="motordHost" node="element"/>
+      </field>
+      <field name="motordPort" type="integer">
+         <sql name="motordPort" type="integer" />
+         <bind-xml name="motordPort" node="element"/>
+      </field>
+      <field name="persistentConnection" type="boolean">
+         <sql name="persistentConnection" type="boolean" />
+         <bind-xml name="persistentConnection" node="element"/>
+      </field>
+      <field name="monitoringTimeout" type="integer">
+         <sql name="monitoringTimeout" type="integer" />
+         <bind-xml name="monitoringTimeout" node="element"/>
+      </field>
+      <field name="disconnectCount" type="integer">
+         <sql name="disconnectCount" type="integer" />
+         <bind-xml name="disconnectCount" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.device.motor.SRS122Motor" identity="name" extends="dl.device.motor.MotorBase">
+      <map-to xml="SRS122Motor" table="motor_srs122"/>
+      <field name="name" type="string">
+         <sql name="name" type="varchar" />
+         <bind-xml name="name" node="element"/>
+      </field>
+      <field name="mnemonic" type="string">
+         <sql name="mnemonic" type="varchar"/>
+         <bind-xml name="mnemonic" type="string" />
+      </field>
+   </class>
+
+   <!-- serial -->
+   <class name = "dl.device.serial.SerialComm" identity="name">
+      <map-to xml="SerialComm" table="comm_serial"/>
+      <field name="name" type="string">
+         <sql name="name" type="varchar" />
+         <bind-xml name="name" node="element"/>
+      </field>
+      <field name="portName" type="string">
+         <sql name="portName" type="varchar" />
+         <bind-xml name="portName" node="element"/>
+      </field>
+      <field name="baudRate" type="integer" >
+         <sql name="baudRate" type="integer" />
+         <bind-xml name="baudRate" node="element"/>
+      </field>
+      <field name="byteSize" type="integer" >
+         <sql name="byteSize" type="integer" />
+         <bind-xml name="byteSize" node="element"/>
+      </field>
+      <field name="stopBits" type="integer">
+         <sql name="stopBits" type="integer" />
+         <bind-xml name="stopBits" node="element"/>
+      </field>
+      <field name="parity" type="string">
+         <sql name="parity" type="varchar" />
+         <bind-xml name="parity" node="element"/>
+      </field>
+      <field name="flowControl" type="string">
+         <bind-xml name="flowControl" node="element"/>
+      </field>
+   </class>
+
+   <!-- temperature -->
+   <class name="dl.device.temperature.Eurotherm2000" identity="name">
+      <map-to xml="Eurotherm2000" table="temp_eurotherm2000"/>
+      <field name="probeName" type="string" get-method="getProbeNames"
+         set-method="setProbeNames" collection="collection">
+         <bind-xml name="probeName" node="element"/>
+      </field>
+      <field name="name" type="string">
+         <sql name="name" type="varchar" />
+         <bind-xml name="name" node="element"/>
+      </field>
+      <field name="serialDeviceName" type="string">
+         <sql name="serialDeviceName" type="varchar" />
+         <bind-xml name="serialDeviceName" node="element"/>
+      </field>
+      <field name="accuracy" type="double">
+         <sql name="accuracy" type="double" />
+         <bind-xml name="accuracy" node="element"/>
+      </field>
+      <field name="polltime" type="long">
+         <sql name="polltime" type="float" />
+         <bind-xml name="polltime" node="element"/>
+      </field>
+      <field name="gid" type="integer">
+         <sql name="gid" type="integer" />
+         <bind-xml name="gid" node="element"/>
+      </field>
+      <field name="uid" type="integer">
+         <sql name="uid" type="integer" />
+         <bind-xml name="uid" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.device.temperature.DummyTemp" identity="name">
+      <map-to xml="DummyTemp" table="temp_dummy"/>
+      <field name="name" type="string">
+         <sql name="name" type="varchar" />
+         <bind-xml name="name" node="element"/>
+      </field>
+     <!--
+      <field name="accuracy" type="double">
+         <sql name="accuracy" type="double" />
+         <bind-xml name="accuracy" node="element"/>
+      </field>
+      -->
+   </class>
+
+   <class name="dl.device.gpib.DummyGpib" identity="name">
+      <map-to xml="DummyGpib" table="dummygpib"/>
+      <field name="name" type="string">
+         <sql name="name" type="varchar" />
+         <bind-xml name="name" node="element"/>
+      </field>
+   </class>
+
+   <!-- generic oe -->
+   <class name="dl.oe.GenericOE" identity="name">
+      <map-to xml="GenericOE" table="generic_oe"/>
+      <field name="name" type="string">
+         <sql name="name" type="varchar"/>
+         <bind-xml name="name" node="element"/>
+      </field>
+      <field name="DOF" type="dl.oe.dofs.DOF" collection="collection" set-method="addDOF" get-method="getDOFList">
+         <bind-xml name="DOF" node="element"/>
+      </field>
+      <field name="Moveable" type="dl.oe.Moveable" collection="collection" set-method="addMoveable" get-method="getMoveableList">
+         <bind-xml name="Moveable" node="element"/>
+      </field>
+   </class>
+
+   <!--dofs -->
+
+   <class name="dl.oe.dofs.DOF" identity="name">
+      <map-to xml="DOF" table="dof"/>
+      <field name="name" type="string">
+         <sql name="name" type="varchar" />
+         <bind-xml name="name" node="element"/>
+      </field>
+      <field name="moveableName" type="string" collection="collection" set-method="addMoveableName" get-method="getMoveableNames">
+         <bind-xml name="moveableName" node="element"/>
+      </field>
+      <field name="protectionLevel" type="integer">
+         <sql name="protectionLevel" type="integer" />
+         <bind-xml name="protectionLevel" node="element"/>
+      </field>
+      <field name="reportingUnit" type="string">
+         <sql name="reportingUnit" type="varchar" />
+         <bind-xml name="reportingUnit" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.oe.dofs.SingleAxisLinearDOF" identity="name" extends="dl.oe.dofs.DOF">
+      <map-to xml="SingleAxisLinearDOF" table="dof_singleaxislinear"/>
+   </class>
+
+   <class name="dl.oe.dofs.SingleAxisAngularDOF" identity="name" extends="dl.oe.dofs.DOF">
+      <map-to xml="SingleAxisAngularDOF" table="dof_singleaxisangular"/>
+   </class>
+
+   <class name="dl.oe.dofs.DoubleAxisGapWidthDOF" identity="name" extends="dl.oe.dofs.DOF">
+      <map-to xml="DoubleAxisGapWidthDOF" table="dof_doubleaxisgapwidth"/>
+   </class>
+
+   <class name="dl.oe.dofs.DoubleAxisGapPositionDOF" identity="name" extends="dl.oe.dofs.DOF">
+      <map-to xml="DoubleAxisGapPositionDOF" table="dof_doubleaxisgapposition"/>
+   </class>
+
+   <class name="dl.oe.dofs.DoubleAxisLinearDOF" identity="name" extends="dl.oe.dofs.DOF">
+      <map-to xml="DoubleAxisLinearDOF" table="dof_doubleaxislinear"/>
+      <field name="axisOffset" type="double">
+         <bind-xml name="axisOffset" node="element"/>
+      </field>
+      <field name="centralOffset" type="boolean">
+         <bind-xml name="centralOffset" node="element"/>
+      </field>
+      <field name="separation" type="double">
+         <bind-xml name="separation" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.oe.dofs.DoubleAxisAngularDOF" identity="name" extends="dl.oe.dofs.DOF">
+      <map-to xml="DoubleAxisAngularDOF" table="dof_doubleaxisangular"/>
+      <field name="axisOffset" type="double">
+         <bind-xml name="axisOffset" node="element"/>
+      </field>
+      <field name="centralOffset" type="boolean">
+         <bind-xml name="centralOffset" node="element"/>
+      </field>
+      <field name="separation" type="double">
+         <bind-xml name="separation" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.oe.dofs.UndulatorPhaseDOF" identity="name" extends="dl.oe.dofs.SingleAxisLinearDOF">
+      <map-to xml="UndulatorPhaseDOF" table="dof_undulatorphase"/>
+      <field name="mode" type="string">
+         <bind-xml name="mode" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.oe.dofs.MonoDOF" identity="name" extends="dl.oe.dofs.DOF">
+      <map-to xml="MonoDOF" table="dof_mono"/>
+      <field name="twoD" type="double">
+         <bind-xml name="twoD" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.oe.dofs.MonoWithSettleTimeDOF" identity="name" extends="dl.oe.dofs.DOF">
+      <map-to xml="MonoWithSettleTimeDOF" table="dof_mono_settle"/>
+      <field name="twoD" type="double">
+         <bind-xml name="twoD" node="element"/>
+      </field>
+      <field name="settleTime" type="double">
+         <bind-xml name="settleTime" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.oe.dofs.CoupledDOF" identity="name" extends="dl.oe.dofs.DOF">
+      <map-to xml="CoupledDOF" table="dof_coupled"/>
+      <field name="Function" type="dl.function.Function" collection="collection" set-method="addFunction" get-method="getFunctionList">
+         <bind-xml name="Function" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.oe.dofs.SineDriveDOF" identity="name" extends="dl.oe.dofs.DOF">
+      <map-to xml="SineDriveDOF" table="dof_sinedrive"/>
+      <field name="gratingDensity" type="double">
+          <bind-xml name="gratingDensity" node="element"/>
+      </field>
+      <field name="correctionFactor" type="double">
+          <bind-xml name="correctionFactor" node="element"/>
+      </field>
+      <field name="sineArmLength" type="double">
+          <bind-xml name="sineArmLength" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.oe.dofs.SineDriveWavelengthDOF" identity="name" extends="dl.oe.dofs.DOF">
+      <map-to xml="SineDriveWavelengthDOF" table="dof_sinedrivewavelength"/>
+      <field name="gratingDensity" type="double">
+          <bind-xml name="gratingDensity" node="element"/>
+      </field>
+      <field name="correctionFactor" type="double">
+          <bind-xml name="correctionFactor" node="element"/>
+      </field>
+      <field name="sineArmLength" type="double">
+          <bind-xml name="sineArmLength" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.oe.dofs.SineDriveEnergyDOF" identity="name" extends="dl.oe.dofs.DOF">
+      <map-to xml="SineDriveEnergyDOF" table="dof_sinedriveenergy"/>
+      <field name="gratingDensity" type="double">
+          <bind-xml name="gratingDensity" node="element"/>
+      </field>
+      <field name="correctionFactor" type="double">
+          <bind-xml name="correctionFactor" node="element"/>
+      </field>
+      <field name="sineArmLength" type="double">
+          <bind-xml name="sineArmLength" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.oe.dofs.SineDriveAngularDOF" identity="name" extends="dl.oe.dofs.DOF">
+      <map-to xml="SineDriveAngularDOF" table="dof_sinedriveangular"/>
+      <field name="armLength" type="double">
+          <bind-xml name="armLength" node="element"/>
+      </field>
+       <field name="angleOffset" type="double">
+          <bind-xml name="angleOffset" node="element"/>
+      </field>
+       <field name="angleUpperLimit" type="double">
+          <bind-xml name="angleUpperLimit" node="element"/>
+      </field>
+       <field name="angleLowerLimit" type="double">
+          <bind-xml name="angleLowerLimit" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.oe.dofs.MirrorAndGratingMonoDOF" identity="name" extends="dl.oe.dofs.DOF">
+      <map-to xml="MirrorAndGratingMonoDOF" table="dof_mirrorandgratingmono"/>
+     <field name="monoMode" type="integer">
+          <bind-xml name="monoMode" node="element"/>
+      </field>
+     <field name="kFF" type="double">
+          <bind-xml name="kFF" node="element"/>
+      </field>
+     <field name="gratingLinesPerMM" type="double">
+          <bind-xml name="gratingLinesPerMM" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.oe.util.DOFRouteChecker" identity="name">
+      <map-to xml="DOFRouteChecker" table="dof_routechecker"/>
+      <field name="name" type="string">
+         <sql name="name" type="varchar"/>
+         <bind-xml name="name" node="element"/>
+      </field>
+      <field name="forbiddenZone" type="string">
+      </field>
+   </class>
+
+   <class name="dl.oe.dofs.UndulatorMoveMediatorDOF" identity="name" extends="dl.oe.dofs.DOF">
+      <map-to xml="UndulatorMoveMediatorDOF" table="dof_undulatormovemediator"/>
+      <field name="lookupTableList" type="string" get-method="getLookupTableList"
+         set-method="setLookupTableList" collection="collection">
+         <bind-xml name="lookupTable" node="element"/>
+      </field>
+      <field name="mutualPhaseGapPowerMap" type="dl.oe.util.DOFRouteChecker">
+      </field>
+      <field name="opposingPhaseGapPowerMap" type="dl.oe.util.DOFRouteChecker">
+      </field>
+   </class>
+
+   <class name="dl.oe.dofs.UndulatorHarmonicDOF" identity="name" extends="dl.oe.dofs.DOF">
+      <map-to xml="UndulatorHarmonicDOF" table="dof_undulatorharmonic"/>
+   </class>
+
+   <class name="dl.oe.dofs.UndulatorPolarizationDOF" identity="name" extends="dl.oe.dofs.DOF">
+      <map-to xml="UndulatorPolarizationDOF" table="dof_undulatorpolarization"/>
+   </class>
+
+   <class name="dl.oe.dofs.UndulatorEnergyDOF" identity="name" extends="dl.oe.dofs.DOF">
+      <map-to xml="UndulatorEnergyDOF" table="dof_undulatorenergy"/>
+   </class>
+
+   <class name="dl.function.ColumnDataFile" identity = "name">
+      <map-to xml="ColumnDataFile"/>
+      <field name="name" type="string">
+         <sql name="name" type="varchar" />
+         <bind-xml name="name" node="element"/>
+      </field>
+      <field name="filename" type="string">
+         <bind-xml name="filename" node="element"/>
+      </field>
+   </class>
+
+   <!-- functions -->
+   <class name="dl.function.Function" identity="name">
+      <field name="name" type="string">
+         <sql name="name" type="varchar" />
+         <bind-xml name="name" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.function.LinearFunction" extends="dl.function.Function">
+      <map-to xml="LinearFunction"/>
+      <field name="slopeDividend" type="string">
+         <bind-xml name="slopeDividend" node="element"/>
+      </field>
+      <field name="slopeDivisor" type="string">
+         <bind-xml name="slopeDivisor" node="element"/>
+      </field>
+      <field name="interception" type="string">
+         <bind-xml name="interception" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.function.InterpolationFunction" extends="dl.function.Function">
+      <map-to xml="InterpolationFunction"/>
+      <field name="cdfName" type="string">
+         <bind-xml name="cdfName" node="element"/>
+      </field>
+     <field name="xColumn" type="integer">
+          <bind-xml name="xColumn" node="element"/>
+      </field>
+     <field name="yColumn" type="integer">
+          <bind-xml name="yColumn" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.function.IdentityFunction" extends="dl.function.Function">
+      <map-to xml="IdentityFunction"/>
+   </class>
+
+   <!-- positioners -->
+   <class name="dl.oe.Moveable">
+   </class>
+
+   <class name="dl.oe.positioners.LinearPositioner" identity="name" extends="dl.oe.Moveable">
+      <map-to xml="LinearPositioner" table="positioner_linear"/>
+      <field name="name" type="string">
+         <sql name="name" type="varchar" />
+         <bind-xml name="name" node="element"/>
+      </field>
+      <field name="motorName" type="string">
+         <sql name="motorName" type="varchar" />
+         <bind-xml name="motorName" node="element"/>
+      </field>
+      <field name="stepsPerUnit" type="double">
+         <sql name="stepsPerUnit" type="double" />
+         <bind-xml name="stepsPerUnit" node="element"/>
+      </field>
+      <field name="pollTime" type="long">
+         <sql name="pollTime" type="float" />
+         <bind-xml name="pollTime" node="element"/>
+      </field>
+      <field name="softLimitLow" type="double">
+         <sql name="softLimitLow" type="double" />
+         <bind-xml name="softLimitLow" node="element"/>
+      </field>
+      <field name="softLimitHigh" type="double">
+         <sql name="softLimitHigh" type="double" />
+         <bind-xml name="softLimitHigh" node="element"/>
+      </field>
+      <field name="homeOffset" type="double">
+          <bind-xml name="homeOffset" node="element"/>
+      </field>
+      <field name="poll" type="boolean">
+         <sql name="poll" type="boolean" />
+         <bind-xml name="poll" node="element"/>
+      </field>
+   </class>
+   <class name="dl.oe.positioners.UndulatorPhasePositioner" identity="name" extends="dl.oe.positioners.LinearPositioner">
+      <map-to xml="UndulatorPhasePositioner" table="positioner_undulatorphase"/>
+   </class>
+
+   <class name="dl.oe.positioners.AngularPositioner" identity="name" extends="dl.oe.Moveable">
+      <map-to xml="AngularPositioner" table="positioner_angular"/>
+      <field name="name" type="string">
+         <sql name="name" type="varchar" />
+         <bind-xml name="name" node="element"/>
+      </field>
+      <field name="motorName" type="string">
+         <sql name="motorName" type="varchar" />
+         <bind-xml name="motorName" node="element"/>
+      </field>
+      <field name="stepsPerUnit" type="double">
+         <sql name="stepsPerUnit" type="double" />
+         <bind-xml name="stepsPerUnit" node="element"/>
+      </field>
+      <field name="softLimitLow" type="double">
+         <sql name="softLimitLow" type="double" />
+         <bind-xml name="softLimitLow" node="element"/>
+      </field>
+      <field name="softLimitHigh" type="double">
+         <sql name="softLimitHigh" type="double" />
+         <bind-xml name="softLimitHigh" node="element"/>
+      </field>
+      <field name="poll" type="boolean">
+         <sql name="poll" type="boolean" />
+         <bind-xml name="poll" node="element"/>
+      </field>
+   </class>
+
+   <!-- GUI panels -->
+
+   <class name="dl.ncd.ConfigurePanel" identity="name">
+      <map-to xml="ConfigurePanel" table="panel_configure"/>
+      <field name="name" type="string">
+         <sql name="name" type="varchar" />
+         <bind-xml name="name" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.ncd.StatusPanel" identity="name">
+      <map-to xml="StatusPanel" table="panel_status"/>
+      <field name="name" type="string">
+         <sql name="name" type="varchar" />
+         <bind-xml name="name" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.ncd.EnvironmentPanel" identity="name">
+      <map-to xml="EnvironmentPanel" table="panel_environment"/>
+      <field name="name" type="string">
+         <sql name="name" type="varchar" />
+         <bind-xml name="name" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.ncd.GraphPanel" identity="name">
+      <map-to xml="GraphPanel" table="panel_graph"/>
+      <field name="name" type="string">
+         <sql name="name" type="varchar" />
+         <bind-xml name="name" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.oe.oemove.OEMovePanel" identity="name">
+      <map-to xml="OEMovePanel" table="panel_oemove"/>
+      <field name="name" type="string">
+         <sql name="name" type="varchar" />
+         <bind-xml name="name" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.gui.xuv.MonoSetupPanel" identity="name">
+      <map-to xml="MonoSetupPanel" table="panel_monosetup"/>
+      <field name="name" type="string">
+         <sql name="name" type="varchar" />
+         <bind-xml name="name" node="element"/>
+      </field>
+      <field name="monochromatorName" type="string">
+         <bind-xml name="monochromatorName" node="element"/>
+      </field>
+      <field name="counter1Name" type="string">
+         <bind-xml name="counter1Name" node="element"/>
+      </field>
+      <field name="counter2Name" type="string">
+         <bind-xml name="counter2Name" node="element"/>
+      </field>
+      <field name="gratingMotorName" type="string">
+         <bind-xml name="gratingMotorName" node="element"/>
+      </field>
+      <field name="mirrorMotorName" type="string">
+         <bind-xml name="mirrorMotorName" node="element"/>
+      </field>
+      <field name="gratingDofName" type="string">
+         <bind-xml name="gratingDofName" node="element"/>
+      </field>
+      <field name="mirrorDofName" type="string">
+         <bind-xml name="mirrorDofName" node="element"/>
+      </field>
+      <field name="gratingAngleDofName" type="string">
+         <bind-xml name="gratingAngleDofName" node="element"/>
+      </field>
+      <field name="mirrorAngleDofName" type="string">
+         <bind-xml name="mirrorAngleDofName" node="element"/>
+      </field>
+      <field name="gratingLinesPerMM" type="double">
+          <bind-xml name="gratingLinesPerMM" node="element"/>
+      </field>
+      <field name="gratingArmLength" type="double">
+          <bind-xml name="gratingArmLength" node="element"/>
+      </field>
+      <field name="mirrorArmLength" type="double">
+          <bind-xml name="mirrorArmLength" node="element"/>
+      </field>
+       <field name="gratingAngleOffset" type="double">
+          <bind-xml name="gratingAngleOffset" node="element"/>
+      </field>
+       <field name="mirrorAngleOffset" type="double">
+          <bind-xml name="mirrorAngleOffset" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.gui.exafs.GeneralScanPanel" identity="name">
+      <map-to xml="GeneralScanPanel" table="panel_generalscan"/>
+      <field name="name" type="string">
+         <sql name="name" type="varchar" />
+         <bind-xml name="name" node="element"/>
+     </field>
+      <field name="beamMonitorName" type="string">
+         <bind-xml name="beamMonitorName" node="element"/>
+     </field>
+      <field name="beamMonitorChannel" type="integer">
+         <bind-xml name="beamMonitorChannel" node="element"/>
+      </field>
+      <field name="beamMonitorThreshold" type="double">
+         <bind-xml name="beamMonitorThreshold" node="element"/>
+      </field>
+      <field name="beamMonitorWaitTime" type="integer">
+         <bind-xml name="beamMonitorWaitTime" node="element"/>
+     </field>
+      <field name="beamMonitorCountTime" type="double">
+         <bind-xml name="beamMonitorCountTime" node="element"/>
+     </field>
+      <field name="beamMonitorConsecutiveCountsAboveThreshold" type="integer">
+         <bind-xml name="beamMonitorConsecutiveCountsAboveThreshold" node="element"/>
+     </field>
+    </class>
+
+    <class name="dl.gui.xuv.ScanPanel5U" identity="name" extends="dl.gui.exafs.GeneralScanPanel">
+      <map-to xml="ScanPanel5U" table="panel_5uscan"/>
+    </class>
+
+   <class name="dl.gui.exafs.ExafsPanel" identity="name">
+      <map-to xml="ExafsPanel" table="panel_exafs"/>
+      <field name="name" type="string">
+         <sql name="name" type="varchar" />
+         <bind-xml name="name" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.gui.mi.MiConfigurePanel" identity="name">
+      <map-to xml="MiConfigurePanel" table="panel_configure_mi"/>
+      <field name="name" type="string">
+         <sql name="name" type="varchar" />
+         <bind-xml name="name" node="element"/>
+      </field>
+      <field name="dataLoggerPanelName" type="string">
+         <bind-xml name="dataLoggerPanelName" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.jython.JythonServer" identity="name">
+      <map-to xml="JythonServer" table="panel_editor"/>
+      <field name="name" type="string">
+         <sql name="name" type="varchar" />
+         <bind-xml name="name" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.jython.JythonEditor" identity="name">
+      <map-to xml="JythonEditor" table="panel_editor"/>
+      <field name="name" type="string">
+         <sql name="name" type="varchar" />
+         <bind-xml name="name" node="element"/>
+      </field>
+      <!--field name="jythonTerminalName" type="string">
+         <sql name="jythonTerminalName" type="varchar" />
+         <bind-xml name="jythonTerminalName" node="element"/>
+      </field-->
+   </class>
+
+   <class name="dl.jython.JythonTerminal" identity="name">
+      <map-to xml="JythonTerminal" table="panel_terminal"/>
+      <field name="name" type="string">
+         <sql name="name" type="varchar" />
+         <bind-xml name="name" node="element"/>
+      </field>
+      <field name="layoutChoice" type="integer">
+         <sql name="layoutChoice" type="integer" />
+         <bind-xml name="layoutChoice" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.device.motor.QueensgatePanel" identity="name">
+      <map-to xml="QueensgatePanel" table="panel_queensgate"/>
+      <field name="name" type="string">
+         <sql name="name" type="varchar" />
+         <bind-xml name="name" node="element"/>
+      </field>
+      <field name="motorNameA" type="string">
+         <sql name="name" type="varchar" />
+         <bind-xml name="motorNameA" node="element"/>
+      </field>
+      <field name="motorNameB" type="string">
+         <sql name="name" type="varchar" />
+         <bind-xml name="motorNameB" node="element"/>
+      </field>
+      <field name="motorNameC" type="string">
+         <sql name="name" type="varchar" />
+         <bind-xml name="motorNameC" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.device.datalogger.DataLoggerPanel" identity="name">
+      <map-to xml="DataLoggerPanel" table="panel_datalogger"/>
+      <field name="name" type="string">
+         <sql name="name" type="varchar" />
+         <bind-xml name="name" node="element"/>
+      </field>
+      <field name="loggerName" type="string">
+         <bind-xml name="loggerName" node="element"/>
+      </field>
+      <field name="labelList" type="string" get-method="getLabelList"
+         set-method="setLabelList" collection="collection">
+         <bind-xml name="label" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.device.countertimer.NI6602CounterPanel" identity="name">
+      <map-to xml="NI6602CounterPanel" table="panel_ni6602counter"/>
+      <field name="name" type="string">
+         <sql name="name" type="varchar" />
+         <bind-xml name="name" node="element"/>
+      </field>
+      <field name="counter1Name" type="string">
+         <bind-xml name="counter1Name" node="element"/>
+      </field>
+      <field name="counter2Name" type="string">
+         <bind-xml name="counter2Name" node="element"/>
+      </field>
+      <field name="labelList" type="string" get-method="getLabelList"
+         set-method="setLabelList" collection="collection">
+         <bind-xml name="label" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.device.xspress.XspressPanel" identity="name">
+      <map-to xml="XspressPanel" table="panel_xspress"/>
+      <field name="name" type="string">
+         <sql name="name" type="varchar" />
+         <bind-xml name="name" node="element"/>
+      </field>
+      <field name="xspressSystemName" type="string">
+         <bind-xml name="xspressSystemName" node="element"/>
+      </field>
+      <field name="tfgName" type="string">
+         <bind-xml name="tfgName" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.vuv.ConfigurePane" identity="name">
+      <map-to xml="vuvConfigurePane" table="panel_vuv_configure"/>
+      <field name="name" type="string">
+         <sql name="name" type="varchar" />
+         <bind-xml name="name" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.vuv.ScanPane" identity="name">
+      <map-to xml="vuvScanPane" table="panel_vuv_scan"/>
+      <field name="name" type="string">
+         <sql name="name" type="varchar" />
+         <bind-xml name="name" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.vuv.TimeScanPane" identity="name">
+      <map-to xml="vuvTimeScanPane" table="panel_vuv_timescan"/>
+      <field name="name" type="string">
+         <sql name="name" type="varchar" />
+         <bind-xml name="name" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.vuv.TemperatureScan" identity="name">
+      <map-to xml="vuvTemperatureScan" table="panel_vuv_temperaturescan"/>
+      <field name="name" type="string">
+         <sql name="name" type="varchar" />
+         <bind-xml name="name" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.vuv.DataReductionPanel" identity="name">
+      <map-to xml="vuvDataReductionPanel" table="panel_vuv_datareduction"/>
+      <field name="name" type="string">
+         <sql name="name" type="varchar" />
+         <bind-xml name="name" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.gui.slavery5u1.SlaveModePanel" identity="name">
+      <map-to xml="SlaveModePanel" table="panel_slavemode"/>
+      <field name="name" type="string">
+         <sql name="name" type="varchar" />
+         <bind-xml name="name" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.util.database.metadata.MetadataPanel" identity="name">
+      <map-to xml="MetadataPanel" table="panel_metadata"/>
+      <field name="name" type="string">
+         <sql name="name" type="varchar" />
+         <bind-xml name="name" node="element"/>
+      </field>
+   </class>
+
+
+   <!-- PX Sample Changer -->
+   <class name="dl.px.sampleChanger.SampleChangerBase" identity="name">
+      <map-to xml="PXSampleChanger" table="pXSampleChanger"/>
+      <field name="name" type="string">
+         <sql name="name" type="varchar" />
+         <bind-xml name="name" node="element"/>
+      </field>
+      <field name="numberOfHolders" type="integer">
+         <sql name="numberOfHolders" type="integer" />
+         <bind-xml name="numberOfHolders" node="element"/>
+      </field>
+      <field name="samplesPerHolder" type="integer">
+         <sql name="samplesPerHolder" type="integer" />
+         <bind-xml name="samplesPerHolder" node="element"/>
+      </field>
+   </class>
+   <class name="dl.px.sampleChanger.NullSampleChanger" identity="name" extends="dl.px.sampleChanger.SampleChangerBase">
+      <map-to xml="NullSampleChanger" table="nullSampleChanger"/>
+   </class>
+   <class name="dl.px.sampleChanger.DummySampleChanger" identity="name" extends="dl.px.sampleChanger.SampleChangerBase">
+      <map-to xml="DummySampleChanger" table="dummySampleChanger"/>
+   </class>
+   <class name="dl.px.sampleChanger.ActorSampleChanger" identity="name" extends="dl.px.sampleChanger.SampleChangerBase">
+      <map-to xml="ActorSampleChanger" table="actorSampleChanger"/>
+   </class>
+
+   <!-- PX Detector -->
+   <class name="dl.px.detector.DetectorBase" identity="name">
+      <map-to xml="PXDetector" table="pXDetector"/>
+      <field name="name" type="string">
+         <sql name="name" type="varchar" />
+         <bind-xml name="name" node="element"/>
+      </field>
+   </class>
+   <class name="dl.px.detector.DummyDetector" identity="name" extends="dl.px.detector.DetectorBase">
+      <map-to xml="DummyPXDetector" table="dummyPXDetector"/>
+   </class>
+   <class name="dl.px.detector.Quantum4CCD" identity="name" extends="dl.px.detector.DetectorBase">
+      <map-to xml="Quantum4CCD" table="quantum4CCD"/>
+   </class>
+
+   <!-- PX Camera -->
+   <class name="dl.px.camera.CameraBase" identity="name">
+      <map-to xml="PXCamera" table="pXCamera"/>
+      <field name="name" type="string">
+         <sql name="name" type="varchar" />
+         <bind-xml name="name" node="element"/>
+      </field>
+   </class>
+   <class name="dl.px.camera.DummyCamera" identity="name" extends="dl.px.camera.CameraBase">
+      <map-to xml="DummyPXCamera" table="dummyPXCamera"/>
+   </class>
+   <class name="dl.px.camera.AdscBLCamera" identity="name" extends="dl.px.camera.CameraBase">
+      <map-to xml="AdscPXCamera" table="AdscPXCamera"/>
+   </class>
+
+   <!-- PX File Header -->
+   <class name="dl.px.fileHeader.DefaultFileHeader" identity="name">
+      <map-to xml="DefaultFileHeader" table="defaultFileHeader"/>
+      <field name="name" type="string">
+         <sql name="name" type="varchar" />
+         <bind-xml name="name" node="element"/>
+      </field>
+   </class>
+
+   <class name="dl.gui.slavery5u1.SlaveModeModel" identity="name" extends="dl.device.DeviceBase">
+      <map-to xml="SlaveModeModel" table="model_slavemode"/>
+      <field name="slaveModePanelName" type="string">
+         <sql name="slaveModePanelName" type="varchar" />
+         <bind-xml name="slaveModePanelName" node="element"/>
+      </field>
+      <field name="serialDeviceName" type="string">
+         <sql name="serialDeviceName" type="varchar" />
+         <bind-xml name="serialDeviceName" node="element"/>
+      </field>
+      <field name="commandTerminator" type="string">
+         <sql name="commandTerminator" type="varchar" />
+         <bind-xml name="commandTerminator" node="element"/>
+      </field>
+      <field name="replyTerminator" type="string">
+         <sql name="replyTerminator" type="varchar" />
+         <bind-xml name="replyTerminator" node="element"/>
+      </field>
+      <field name="readTimeoutMsec" type="integer">
+         <sql name="readTimeoutMsec" type="integer" />
+         <bind-xml name="readTimeoutMsec" node="element"/>
+      </field>
+   </class>
+
+
+<!-- EPICS device section-->
+   <class name="dl.device.motor.EpicsMotor" identity="name" extends="dl.device.motor.MotorBase">
+      <map-to xml="EpicsMotor" table="motor_epics"/>
+      <field name="pvName" type="string">
+         <sql name="pvName" type="varchar" />
+         <bind-xml name="pvName" node="element"/>
+      </field>
+      <field name="simulation" type="boolean">
+         <sql name="simulation" type="varchar" />
+         <bind-xml name="simulation" node="element"/>
+      </field>
+   </class>
+
+</mapping>

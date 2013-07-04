@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<!-- N.B. this stuff breaks Xerlin
+ targetNamespace="http://www.dl.ac.uk/GDASchema" xmlns="http://www.dl.ac.uk/GDASchema">
+ -->
+ 	 <xsd:element name="EventNotificationParams">
+	 	<xsd:complexType>
+ 			<xsd:sequence>
+ 				<xsd:element name="name" type="xsd:string" maxOccurs="1" minOccurs="1"/>
+ 				<xsd:choice maxOccurs="unbounded" minOccurs="1">
+					<xsd:element name="pvPanel" type="PvPanel"/>
+					<xsd:element name="metadataPanel" type="MetadataPanel"/>
+					<xsd:element name="dofPanel" type="DofPanel"/>
+				</xsd:choice>
+			</xsd:sequence>
+		</xsd:complexType>
+	
+	</xsd:element>
+	
+	<xsd:complexType name="PvPanel">
+		<xsd:complexContent>
+			<xsd:extension base="NotificationPanel">
+				<xsd:sequence>
+					<xsd:element name="description" type="xsd:string"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="MetadataPanel">
+		<xsd:complexContent>
+			<xsd:extension base="NotificationPanel">
+				<xsd:sequence>
+					<xsd:choice maxOccurs="unbounded" minOccurs="1">
+						<xsd:element name="metadataRow" type="MetadataRow"/>
+					</xsd:choice>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="MetadataRow">
+		<xsd:sequence>
+			<xsd:element name="name" type="xsd:string"/>
+			<xsd:element name="guiLabel" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+<!-- 
+	<xsd:complexType name="MetadataPanel">
+		<xsd:complexContent>
+			<xsd:extension base="JPanel">
+				<xsd:sequence>
+					<xsd:element name="guiLabel" type="xsd:string"/>
+					<xsd:element name="newMetadataContainer" type="xsd:boolean" maxOccurs="1" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType> -->
+	
+	<xsd:complexType name="DofPanel">
+		<xsd:complexContent>
+			<xsd:extension base="NotificationPanel">
+				<xsd:sequence>
+					<xsd:element name="description" type="xsd:string"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	
+	<xsd:complexType name="NotificationPanel">
+		<xsd:sequence>
+			<xsd:element name="name" type="xsd:string"/>
+			<xsd:element name="placePanelOnNewLine" type="xsd:boolean" maxOccurs="1" minOccurs="0"/>
+			<xsd:element name="textPositioning" type="xsd:string" maxOccurs="1" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>	

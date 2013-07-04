@@ -1,0 +1,48 @@
+<project name="plugin-uk.ac.gda.oe" basedir=".">
+
+    <dirname property="GDA-plugin.basedir" file="${ant.file.${ant.project.name}}" />
+    <pathconvert property="workspace.loc" setonempty="false">
+        <regexpmapper from="(.*)_git/.+" to="\1"/>
+        <path><pathelement location="${GDA-plugin.basedir}" /></path>
+    </pathconvert>
+    <pathconvert property="workspace.loc" setonempty="false">
+        <regexpmapper from="(.*)/plugins/.+" to="\1"/>
+        <path><pathelement location="${GDA-plugin.basedir}" /></path>
+    </pathconvert>
+    <property name="workspace.git.loc" value="${workspace.loc}_git" />
+    <import file="${workspace.loc}/builder/build-common.xml" />
+
+    <!-- ====================================================================
+           Build
+         ==================================================================== -->    
+
+    <!-- this plugin has corba classes  -->
+    <property name="corba.jar.name" value="gda-corba-oe.jar" />
+
+    <!-- ====================================================================
+           Invoke the tests
+         ==================================================================== -->
+
+    <target name="junit-tests" depends="toolCheck, set-test-base-GDA">
+        <junit-call description="${ant.project.name} Java JUnit tests">
+            <formatter type="xml" />
+            <classpath>
+                <pathelement location="${junitjar.loc}" />
+                <pathelement location="${jythonjar.loc}" />
+                <path refid="libs.jars.path" />
+                <path refid="plugins.classes.path" />
+                <path refid="plugins.jars.path" />
+                <path refid="thirdparty.bundles.path" />
+            </classpath>
+            <batchtest todir="@{report.dir}">
+                <fileset dir="${GDA-plugin.basedir}/src">
+                    <include name="**/*Test.java" />
+                </fileset>
+                <fileset dir="${GDA-plugin.basedir}/test">
+                    <include name="**/*Test.java" />
+                </fileset>
+            </batchtest>
+        </junit-call>
+    </target>
+
+</project>

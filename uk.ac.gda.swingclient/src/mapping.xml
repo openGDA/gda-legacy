@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapping>
+
+	<class name="gda.gui.oemove.RepresentationFactory">
+		<map-to xml="RepresentationFactory" />
+		<field name="name" type="string">
+			<sql name="name" type="varchar" />
+			<bind-xml name="name" node="element" />
+		</field>
+		<field name="RepresentationList"
+			type="gda.gui.oemove.Representation" collection="collection"
+			set-method="addRepresentation" get-method="getRepresentationList">
+			<bind-xml auto-naming="deriveByClass" node="element" />
+		</field>
+	</class>
+
+	<class name="gda.gui.oemove.Representation"
+		verify-constructable="false" />
+
+	<class name="gda.gui.oemove.OERepresentation">
+		<map-to xml="OERepresentation" />
+		<field name="name" type="string">
+			<bind-xml name="name" node="element" />
+		</field>
+		<field name="xPosition" type="integer">
+			<bind-xml name="xPosition" node="element" />
+		</field>
+		<field name="yPosition" type="integer">
+			<bind-xml name="yPosition" node="element" />
+		</field>
+		<field name="frameWidth" type="integer">
+			<bind-xml name="frameWidth" node="element" />
+		</field>
+		<field name="frameHeight" type="integer">
+			<bind-xml name="frameHeight" node="element" />
+		</field>
+		<field name="thumbNail" type="string">
+			<bind-xml name="thumbNail" node="element" />
+		</field>
+		<field name="showAtStartup" type="boolean">
+			<bind-xml name="showAtStartup" node="element" />
+		</field>
+		<field name="Representation"
+			type="gda.gui.oemove.Representation" collection="collection"
+			set-method="addRepresentation" get-method="getRepresentationList">
+			<bind-xml auto-naming="deriveByClass" node="element" />
+		</field>
+	</class>
+
+	<class name="gda.gui.oemove.OEImageView">
+		<map-to xml="OEImageView" />
+		<field name="name" type="string">
+			<bind-xml name="name" node="element" />
+		</field>
+		<field name="xImagePosition" type="integer">
+			<bind-xml name="xImagePosition" node="element" />
+		</field>
+		<field name="yImagePosition" type="integer">
+			<bind-xml name="yImagePosition" node="element" />
+		</field>
+		<field name="oeGifName" type="string">
+			<bind-xml name="oeGifName" node="element" />
+		</field>
+		<field name="showAtStartup" type="boolean">
+			<bind-xml name="showAtStartup" node="element" />
+		</field>
+		<field name="protectionLevel" type="int">
+			<bind-xml name="protectionLevel" node="element" />
+		</field>
+		<field name="Viewable" type="gda.gui.oemove.Viewable"
+			collection="collection" set-method="addViewable"
+			get-method="getViewableList">
+			<bind-xml auto-naming="deriveByClass" node="element" />
+		</field>
+	</class>
+
+	<class name="gda.gui.oemove.Viewable" verify-constructable="false" />
+
+	<class name="gda.gui.oemove.DOFImageView">
+		<map-to xml="DOFImageView" />
+		<field name="name" type="string">
+			<bind-xml name="name" node="element" />
+		</field>
+		<field name="xImagePosition" type="integer">
+			<bind-xml name="xImagePosition" node="element" />
+		</field>
+		<field name="yImagePosition" type="integer">
+			<bind-xml name="yImagePosition" node="element" />
+		</field>
+		<field name="arrowGifName" type="string">
+			<bind-xml name="arrowGifName" node="element" />
+		</field>
+		<field name="labelPosition" type="string">
+			<bind-xml name="labelPosition" node="element" />
+		</field>
+		<field name="labelSize" type="integer">
+			<bind-xml name="labelSize" node="element" />
+		</field>
+		<field name="defaultInputValue" type="double">
+			<bind-xml name="defaultInputValue" node="element" />
+		</field>
+		<field name="modeName" type="string"
+			get-method="getModeNameList" set-method="setModeNameList"
+			collection="collection">
+			<bind-xml name="modeName" node="element" />
+		</field>
+		<field name="speedName" type="string"
+			get-method="getSpeedNameList" set-method="setSpeedNameList"
+			collection="collection">
+			<bind-xml name="speedName" node="element" />
+		</field>
+	</class>
+
+	<class name="gda.gui.oemove.OEPlugin">
+		<map-to xml="OEPlugin" />
+		<field name="name" type="string">
+			<bind-xml name="name" node="element" />
+		</field>
+		<field name="xPosition" type="integer">
+			<bind-xml name="xPosition" node="element" />
+		</field>
+		<field name="yPosition" type="integer">
+			<bind-xml name="yPosition" node="element" />
+		</field>
+		<field name="frameWidth" type="integer">
+			<bind-xml name="frameWidth" node="element" />
+		</field>
+		<field name="frameHeight" type="integer">
+			<bind-xml name="frameHeight" node="element" />
+		</field>
+		<field name="thumbNail" type="string">
+			<bind-xml name="thumbNail" node="element" />
+		</field>
+		<field name="showAtStartup" type="boolean">
+			<bind-xml name="showAtStartup" node="element" />
+		</field>
+		<field name="pluginName" type="string">
+			<bind-xml name="pluginName" node="element" />
+		</field>
+	</class>
+</mapping>

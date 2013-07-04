@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- for use by unit tests -->
+<ObjectFactory>
+    <name>ObjectFactory</name>
+    <DummyMotor>
+		<name>Test01Dummy</name>
+		<backlashSteps>2</backlashSteps>
+		<sleepTime>5000</sleepTime>
+		<nonContinuousIncrements>10</nonContinuousIncrements>
+		<fastSpeed>50</fastSpeed>
+		<mediumSpeed>25</mediumSpeed>
+		<slowSpeed>5</slowSpeed>
+    </DummyMotor>
+
+
+    <GenericOE>
+        <name>OneDegreeTable</name>
+        <LinearPositioner>
+            <name>ypositioner</name>
+            <motorName>Test01Dummy</motorName>
+            <stepsPerUnit>1000</stepsPerUnit>
+            <softLimitLow>-10000</softLimitLow>
+            <softLimitHigh>10000</softLimitHigh>
+         </LinearPositioner>
+        <SingleAxisLinearDOF>
+            <name>YTrans</name>
+            <protectionLevel>0</protectionLevel>
+            <reportingUnit>mm</reportingUnit>
+            <moveableName>ypositioner</moveableName>
+        </SingleAxisLinearDOF>
+    </GenericOE>
+
+
+   <!-- Slit -->
+   <GenericOE>
+        <name>slit01</name>
+        <LinearPositioner>
+            <name>positioner6</name>
+            <motorName>Test01Dummy</motorName>
+            <stepsPerUnit>1000</stepsPerUnit>
+            <softLimitLow>-10000</softLimitLow>
+            <softLimitHigh>10000</softLimitHigh>
+        </LinearPositioner>
+        <LinearPositioner>
+            <name>positioner7</name>
+            <motorName>Test01Dummy</motorName>
+            <stepsPerUnit>1000</stepsPerUnit>
+            <softLimitLow>-10000</softLimitLow>
+            <softLimitHigh>10000</softLimitHigh>
+        </LinearPositioner>
+
+        <DoubleAxisGapWidthDOF>
+            <name>HorizGapWidth01</name>
+            <protectionLevel>0</protectionLevel>
+            <reportingUnit>mm</reportingUnit>
+            <moveableName>positioner6</moveableName>
+            <moveableName>positioner7</moveableName>
+        </DoubleAxisGapWidthDOF>
+        <DoubleAxisGapPositionDOF>
+            <name>HorizGapPosition01</name>
+            <protectionLevel>0</protectionLevel>
+            <reportingUnit>mm</reportingUnit>
+            <moveableName>positioner6</moveableName>
+            <moveableName>positioner7</moveableName>
+        </DoubleAxisGapPositionDOF>
+    </GenericOE>
+<!-- Mirror -->
+    <GenericOE>
+        <name>Mirror01</name>
+        <LinearPositioner>
+            <name>positioner12</name>
+            <motorName>Test01Dummy</motorName>
+            <stepsPerUnit>1000</stepsPerUnit>
+            <softLimitLow>-10000</softLimitLow>
+            <softLimitHigh>10000</softLimitHigh>
+        </LinearPositioner>
+        <LinearPositioner>
+            <name>positioner13</name>
+            <motorName>Test01Dummy</motorName>
+            <stepsPerUnit>1000</stepsPerUnit>
+            <softLimitLow>-10000</softLimitLow>
+            <softLimitHigh>10000</softLimitHigh>
+        </LinearPositioner>
+        <DoubleAxisLinearDOF>
+            <name>VertMoveMirror01</name>
+            <protectionLevel>0</protectionLevel>
+            <reportingUnit>mm</reportingUnit>
+            <moveableName>positioner12</moveableName>
+            <moveableName>positioner13</moveableName>
+        </DoubleAxisLinearDOF>
+       <DoubleAxisAngularDOF>
+            <name>RotateMirror01</name>
+            <protectionLevel>0</protectionLevel>
+            <reportingUnit>degree</reportingUnit>
+            <moveableName>positioner12</moveableName>
+            <moveableName>positioner13</moveableName>
+            <separation>1250.0</separation>
+            <axisOffset>625.0</axisOffset>
+            <centralOffset>true</centralOffset>
+         </DoubleAxisAngularDOF>
+    </GenericOE>
+</ObjectFactory>
+

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- for use by unit tests -->
+<ObjectFactory>
+    <name>ObjectFactory</name>
+    <DummyMotor>
+		<name>Test01Dummy</name>
+		<backlashSteps>2</backlashSteps>
+		<sleepTime>5000</sleepTime>
+		<nonContinuousIncrements>10</nonContinuousIncrements>
+		<fastSpeed>50</fastSpeed>
+		<mediumSpeed>25</mediumSpeed>
+		<slowSpeed>5</slowSpeed>
+    </DummyMotor>
+
+
+    <GenericOE>
+        <name>OneDegreeTable</name>
+        <LinearPositioner>
+            <name>ypositioner</name>
+            <motorName>Test01Dummy</motorName>
+            <stepsPerUnit>1000</stepsPerUnit>
+            <softLimitLow>-10000</softLimitLow>
+            <softLimitHigh>10000</softLimitHigh>
+         </LinearPositioner>
+        <SingleAxisLinearDOF>
+            <name>YTrans</name>
+            <protectionLevel>0</protectionLevel>
+            <reportingUnit>mm</reportingUnit>
+            <moveableName>ypositioner</moveableName>
+        </SingleAxisLinearDOF>
+    </GenericOE>
+
+</ObjectFactory>
+

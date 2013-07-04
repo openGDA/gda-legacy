@@ -1,0 +1,68 @@
+/*-
+ * Copyright © 2009 Diamond Light Source Ltd., Science and Technology
+ * Facilities Council
+ *
+ * This file is part of GDA.
+ *
+ * GDA is free software: you can redistribute it and/or modify it under the
+ * terms of the GNU General Public License version 3 as published by the Free
+ * Software Foundation.
+ *
+ * GDA is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with GDA. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+package gda.gui.dv.panels;
+
+import java.util.LinkedList;
+
+import de.jreality.math.MatrixBuilder;
+import de.jreality.scene.SceneGraphComponent;
+
+/**
+ * Hand stack (like a hand of playing cards) movement
+ */
+public class HandStackMovement extends GeometryMovement {
+
+	/**
+	 * @param texFrame
+	 * @param stackBuffer
+	 * @param stackPositions
+	 * @param slides
+	 * @param numberOfDataSets
+	 */
+	public HandStackMovement(DataSetImages texFrame, LinkedList<Integer> stackBuffer, int[] stackPositions,
+			SceneGraphComponent[] slides, int numberOfDataSets) {
+		super(texFrame, stackBuffer, stackPositions, slides, numberOfDataSets);
+	}
+
+	@Override
+	protected void moveGeometryForward() {
+		for (int i = 0; i < numSlides; i++) {
+			stackPos[i]--;
+			if (stackPos[i] < 0)
+				stackPos[i] = numSlides - 1;
+			MatrixBuilder.euclidean().translate(stackPos[i] * 0.25, -5,
+					-5.0 - stackPos[i] * 2 * DataSetImages.GAPINSTACK).rotateZ(
+					numSlides * 0.0375 * Math.PI - stackPos[i] * 0.075 * Math.PI).translate(0, 5, 0)
+					.assignTo(slides[i]);
+		}
+	}
+
+	@Override
+	protected void moveGeometryBackward() {
+		for (int i = 0; i < numSlides; i++) {
+			stackPos[i] = (stackPos[i] + 1) % numSlides;
+			MatrixBuilder.euclidean().translate(stackPos[i] * 0.25, -5,
+					-5.0 - stackPos[i] * 2 * DataSetImages.GAPINSTACK).rotateZ(
+					numSlides * 0.0375 * Math.PI - stackPos[i] * 0.075 * Math.PI).translate(0, 5, 0)
+					.assignTo(slides[i]);
+		}
+	}
+
+}

@@ -1,0 +1,209 @@
+<?xml version="1.0" ?>
+<mapping>
+	<!-- general objects -->
+	<class name="gda.factory.ObjectFactory">
+		<map-to xml="ObjectFactory" />
+		<field name="name" type="java.lang.String">
+			<bind-xml name="name" node="element" />
+		</field>
+		<field collection="collection" get-method="getFindables" name="findables"
+			set-method="addFindable" type="gda.factory.Findable">
+			<bind-xml name="findables" node="element" />
+		</field>
+	</class>
+
+	<class identity="name" name="gda.device.DeviceBase">
+		<map-to xml="deviceBase" />
+		<field name="name" type="string">
+			<bind-xml name="name" node="element" />
+		</field>
+		<field name="protectionLevel" type="integer">
+			<bind-xml name="protectionLevel" node="element" />
+		</field>
+		<field name="local" type="boolean">
+			<bind-xml name="local" node="element" />
+		</field>
+		<field name="configureAtStartup" type="boolean">
+			<bind-xml name="configureAtStartup" node="element" />
+		</field>
+	</class>
+	<!-- messaging / logging service classes -->
+	<class identity="name" name="gda.util.MessageOutput">
+		<map-to xml="MessagePanel" />
+		<field name="name" type="string">
+			<bind-xml name="name" node="element" />
+		</field>
+	</class>
+	<!--logging classes -->
+	<class identity="name" name="gda.util.LogPanel">
+		<map-to xml="LogPanel" />
+		<field name="name" type="string">
+			<bind-xml name="name" node="element" />
+		</field>
+	</class>
+	<class identity="name" name="gda.util.DebugPanel">
+		<map-to xml="DebugPanel" />
+		<field name="name" type="string">
+			<bind-xml name="name" node="element" />
+		</field>
+	</class>
+	<!-- GUI panels -->
+	<class identity="name" name="gda.gui.util.CurrentAmplifierPanel">
+		<map-to xml="CurrentAmplifierPanel" />
+		<field name="name" type="string">
+			<bind-xml name="name" node="element" />
+		</field>
+		<field name="scannableName" type="string">
+			<bind-xml name="scannableName" node="element" />
+		</field>
+		<field name="threshold" type="double">
+			<bind-xml name="threshold" node="element" />
+		</field>
+	</class>
+	<class identity="name" name="gda.gui.util.ValueDisplayPanel">
+		<map-to xml="ValueDisplayPanel" />
+		<field name="name" type="string">
+			<bind-xml name="name" node="element" />
+		</field>
+		<field name="findableName" type="string">
+			<bind-xml name="findableName" node="element" />
+		</field>
+		<field name="valueTitle" type="string">
+			<bind-xml name="valueTitle" node="element" />
+		</field>
+	</class>
+	<class identity="name" name="gda.gui.Plugin">
+		<map-to xml="Plugin" />
+		<field name="name" type="string">
+			<bind-xml name="name" node="element" />
+		</field>
+		<field name="pluginName" type="string">
+			<bind-xml name="pluginName" node="element" />
+		</field>
+	</class>
+
+	<class identity="name" name="gda.analysis.utils.CurrentScanHolder">
+		<map-to xml="CurrentScanHolder" />
+		<field name="name" type="string">
+			<bind-xml name="name" node="element" />
+		</field>
+	</class>
+	<class extends="gda.device.DeviceBase" identity="name"
+		name="gda.analysis.plotmanager.PlotManager">
+		<map-to xml="PlotManager" />
+	</class>
+	<class extends="gda.gui.AcquisitionPanel" identity="name"
+		name="gda.jython.scriptcontroller.ScriptControllerDemoPanel">
+		<map-to xml="ScriptControllerDemoPanel" />
+	</class>
+	<class identity="name" name="gda.gui.AcquisitionPanel">
+		<field name="name" type="string">
+			<bind-xml name="name" node="element" />
+		</field>
+		<field name="InitMode" type="string">
+			<bind-xml name="InitMode" node="element" />
+		</field>
+		<field name="VerticalScrollBarPolicy" type="string">
+			<bind-xml name="VerticalScrollBarPolicy" node="element" />
+		</field>
+		<field name="HorizontalScrollBarPolicy" type="string">
+			<bind-xml name="HorizontalScrollBarPolicy" node="element" />
+		</field>
+	</class>
+	<class extends="gda.gui.AcquisitionPanel" identity="name"
+		name="gda.gui.BatonPanel">
+		<map-to xml="BatonPanel" />
+	</class>
+	<class extends="gda.gui.AcquisitionPanel" identity="name"
+		name="gda.jython.gui.JythonEditor">
+		<map-to xml="JythonEditor" />
+	</class>
+	<class extends="gda.gui.AcquisitionPanel" identity="name"
+		name="gda.jython.gui.JythonTerminalAcqPanel">
+		<map-to xml="JythonTerminal" />
+		<field name="numberInitialGraphs" type="integer">
+			<bind-xml name="numberInitialGraphs" node="element" />
+		</field>
+		<field name="extraGraphs" type="boolean">
+			<bind-xml name="extraGraphs" node="element" />
+		</field>
+		<field collection="collection" get-method="getShutterList" name="shutterList"
+			set-method="addShutter" type="string">
+			<bind-xml name="shutter" node="element" />
+		</field>
+		<field collection="collection" get-method="getAmplifierList"
+			name="amplifierList" set-method="addAmplifier" type="string">
+			<bind-xml name="amplifier" node="element" />
+		</field>
+		<field collection="collection" get-method="getValueList" name="valueList"
+			set-method="addValue" type="string">
+			<bind-xml name="value" node="element" />
+		</field>
+	</class>
+	<class identity="name" name="gda.gui.JythonClient">
+		<map-to xml="JythonClient" />
+		<field name="name" type="string">
+			<bind-xml name="name" node="element" />
+		</field>
+	</class>
+	<class extends="gda.gui.AcquisitionPanel" identity="name"
+		name="gda.device.motor.QueensgatePanel">
+		<map-to xml="QueensgatePanel" />
+		<field name="motorNameA" type="string">
+			<bind-xml name="motorNameA" node="element" />
+		</field>
+		<field name="motorNameB" type="string">
+			<bind-xml name="motorNameB" node="element" />
+		</field>
+		<field name="motorNameC" type="string">
+			<bind-xml name="motorNameC" node="element" />
+		</field>
+	</class>
+	<class extends="gda.gui.AcquisitionPanel" identity="name"
+		name="gda.device.detector.CounterTimerPanel">
+		<map-to xml="CounterTimerPanel" />
+		<field name="counter1Name" type="string">
+			<bind-xml name="counter1Name" node="element" />
+		</field>
+		<field name="counter2Name" type="string">
+			<bind-xml name="counter2Name" node="element" />
+		</field>
+	</class>
+	<class extends="gda.gui.AcquisitionPanel" identity="name"
+		name="gda.device.xspress.XsPress2MonitorPanel">
+		<map-to xml="Xspress2MonitorPanel" />
+		<field name="xspressSystemName" type="string">
+			<bind-xml name="xspressSystemName" node="element" />
+		</field>
+		<field name="counterTimerName" type="string">
+			<bind-xml name="counterTimerName" node="element" />
+		</field>
+	</class>
+
+	<class extends="gda.gui.AcquisitionPanel" identity="name"
+		name="gda.gui.mi.ImageCollectionPanel">
+		<map-to xml="ImageCollectionPanel" />
+	</class>
+	<class extends="gda.gui.AcquisitionPanel" identity="name"
+		name="gda.device.detector.odccd.ODCCDPanel">
+		<map-to xml="ODCCDPanel" />
+		<field name="ccdName" type="string">
+			<bind-xml name="ccdName" node="element" />
+		</field>
+	</class>
+	<!-- DataVector Pannels -->
+	<class extends="gda.gui.AcquisitionPanel" identity="name"
+		name="gda.gui.dv.DataVectorPlot">
+		<map-to xml="DataVectorPlot" />
+		<field name="mainPlotPosition" type="string">
+			<bind-xml name="mainPlotPosition" node="element" />
+		</field>
+		<field collection="collection" name="panelList" type="string">
+			<bind-xml name="panelClassName" node="element" />
+		</field>
+	</class>
+	<class extends="gda.gui.AcquisitionPanel" identity="name"
+		name="gda.gui.dv.DataViewPanel">
+		<map-to xml="DataViewPanel" />
+	</class>
+</mapping>

@@ -1,0 +1,482 @@
+<?xml version="1.0" ?>
+<mapping>
+	<!-- general objects -->
+	<class name="gda.factory.ObjectFactory">
+		<map-to xml="ObjectFactory"/>
+		<field name="name" type="java.lang.String">
+			<bind-xml name="name" node="element"/>
+		</field>
+		<field collection="collection" get-method="getFindables" name="findables" set-method="addFindable" type="gda.factory.Findable">
+			<bind-xml name="findables" node="element"/>
+		</field>
+	</class>
+	<class identity="name" name="gda.device.DeviceBase">
+		<map-to xml="deviceBase"/>
+		<field name="name" type="string">
+			<bind-xml name="name" node="element"/>
+		</field>
+		<field name="protectionLevel" type="integer">
+			<bind-xml name="protectionLevel" node="element"/>
+		</field>
+		<field name="local" type="boolean">
+			<bind-xml name="local" node="element"/>
+		</field>
+		<field name="configureAtStartup" type="boolean">
+			<bind-xml name="configureAtStartup" node="element"/>
+		</field>
+	</class>
+	<class identity="name" name="gda.function.ColumnDataFile">
+		<map-to xml="ColumnDataFile" />
+		<field name="name" type="string">
+			<bind-xml name="name" node="element" />
+		</field>
+		<field name="filename" type="string">
+			<bind-xml name="filename" node="element" />
+		</field>
+	</class>
+	<class identity="name" name="gda.function.lookup.LookupTable">
+		<map-to xml="LookupTable" />
+		<field name="name" type="string">
+			<bind-xml name="name" node="element" />
+		</field>
+		<field name="filename" type="string">
+			<bind-xml name="filename" node="element" />
+		</field>
+	</class>
+	<!-- functions -->
+	<class identity="name" name="gda.function.Function">
+		<field name="name" type="string">
+			<bind-xml name="name" node="element" />
+		</field>
+	</class>
+	<class extends="gda.function.Function" name="gda.function.LinearFunction">
+		<map-to xml="LinearFunction" />
+		<field name="slopeDividend" type="string">
+			<bind-xml name="slopeDividend" node="element" />
+		</field>
+		<field name="slopeDivisor" type="string">
+			<bind-xml name="slopeDivisor" node="element" />
+		</field>
+		<field name="interception" type="string">
+			<bind-xml name="interception" node="element" />
+		</field>
+	</class>
+	<class extends="gda.function.Function" name="gda.function.InterpolationFunction">
+		<map-to xml="InterpolationFunction" />
+		<field name="cdfName" type="string">
+			<bind-xml name="cdfName" node="element" />
+		</field>
+		<field name="xColumn" type="integer">
+			<bind-xml name="xColumn" node="element" />
+		</field>
+		<field name="yColumn" type="integer">
+			<bind-xml name="yColumn" node="element" />
+		</field>
+	</class>
+	<class extends="gda.function.Function" name="gda.function.IdentityFunction">
+		<map-to xml="IdentityFunction" />
+	</class>
+	<class extends="gda.function.Function" name="gda.function.SimpleTrigFunction">
+		<map-to xml="SimpleTrigFunction" />
+		<field name="outerConstant" type="string">
+			<bind-xml name="outerConstant" node="element" />
+		</field>
+		<field name="innerConstant" type="string">
+			<bind-xml name="innerConstant" node="element" />
+		</field>
+		<field name="trigFunc" type="string">
+			<bind-xml name="trigFunc" node="element" />
+		</field>
+	</class>
+
+		<!-- generic oe -->
+	<class identity="name" name="gda.oe.GenericOE">
+		<map-to xml="GenericOE"/>
+		<field name="name" type="string">
+			<bind-xml name="name" node="element"/>
+		</field>
+		<field collection="collection" get-method="getMoveableList" name="Moveable" set-method="addMoveable" type="gda.oe.Moveable">
+			<bind-xml name="Moveable" node="element"/>
+		</field>
+	</class>
+	
+	<class name="gda.oe.AbstractMoveable">
+		<field collection="array" get-method="getTolerance" name="tolerance" set-method="setTolerance" type="double">
+			<bind-xml name="tolerance" node="element"/>
+		</field>	
+	</class>
+	
+	<!--dofs -->
+	<class extends="gda.oe.AbstractMoveable" identity="name" name="gda.oe.dofs.DOF">
+		<map-to xml="DOF"/>
+		<field name="name" type="string">
+			<bind-xml name="name" node="element"/>
+		</field>
+		<field name="docString" type="string">
+			<bind-xml name="docString" node="element"/>
+		</field>
+		<field collection="collection" get-method="getMoveableNames" name="moveableName" set-method="addMoveableName" type="string">
+			<bind-xml name="moveableName" node="element"/>
+		</field>
+		<field name="protectionLevel" type="integer">
+			<bind-xml name="protectionLevel" node="element"/>
+		</field>
+		<field name="decimalPlaces" type="integer">
+			<bind-xml name="decimalPlaces" node="element"/>
+		</field>
+		<field collection="collection" get-method="getAcceptableUnits" name="acceptableUnit" set-method="addAcceptableUnit" type="string">
+			<bind-xml name="acceptableUnit" node="element"/>
+		</field>
+	</class>
+	
+	<class extends="gda.oe.dofs.DOF" identity="name" name="gda.oe.dofs.SingleAxisLinearDOF">
+		<map-to xml="SingleAxisLinearDOF"/>
+	</class>
+	<class extends="gda.oe.dofs.DOF" identity="name" name="gda.oe.dofs.SingleAxisAngularDOF">
+		<map-to xml="SingleAxisAngularDOF"/>
+	</class>
+	<class extends="gda.oe.dofs.SingleAxisAngularDOF" identity="name" name="gda.oe.dofs.SingleAxisAngularFixedSpeedDOF">
+		<map-to xml="SingleAxisAngularFixedSpeedDOF"/>
+	</class>
+	<class extends="gda.oe.dofs.DOF" identity="name" name="gda.oe.dofs.EpicsAxisLinearDOF">
+		<map-to xml="EpicsAxisLinearDOF"/>
+	</class>
+	<class extends="gda.oe.dofs.DOF" identity="name" name="gda.oe.dofs.EpicsAxisAngularDOF">
+		<map-to xml="EpicsAxisAngularDOF"/>
+	</class>
+	<class extends="gda.oe.dofs.DOF" identity="name" name="gda.oe.dofs.EpicsEnergyDOF">
+		<map-to xml="EpicsEnergyDOF"/>
+	</class>
+	<class extends="gda.oe.dofs.DOF" identity="name" name="gda.oe.dofs.SingleAxisWavelengthDOF">
+		<map-to xml="SingleAxisWavelengthDOF"/>
+	</class>
+	<class extends="gda.oe.dofs.DOF" identity="name" name="gda.oe.dofs.DoubleAxisGapWidthDOF">
+		<map-to xml="DoubleAxisGapWidthDOF"/>
+	</class>
+	<class extends="gda.oe.dofs.DOF" identity="name" name="gda.oe.dofs.DoubleAxisGapPositionDOF">
+		<map-to xml="DoubleAxisGapPositionDOF"/>
+	</class>
+	<class extends="gda.oe.dofs.DOF" identity="name" name="gda.oe.dofs.DoubleAxisLinearDOF">
+		<map-to xml="DoubleAxisLinearDOF"/>
+		<field name="axisOffset" type="double">
+			<bind-xml name="axisOffset" node="element"/>
+		</field>
+		<field name="centralOffset" type="boolean">
+			<bind-xml name="centralOffset" node="element"/>
+		</field>
+		<field name="separation" type="double">
+			<bind-xml name="separation" node="element"/>
+		</field>
+	</class>
+	<class extends="gda.oe.dofs.DOF" identity="name" name="gda.oe.dofs.DoubleAxisAngularDOF">
+		<map-to xml="DoubleAxisAngularDOF"/>
+		<field name="axisOffset" type="double">
+			<bind-xml name="axisOffset" node="element"/>
+		</field>
+		<field name="centralOffset" type="boolean">
+			<bind-xml name="centralOffset" node="element"/>
+		</field>
+		<field name="separation" type="double">
+			<bind-xml name="separation" node="element"/>
+		</field>
+	</class>
+	<class extends="gda.oe.dofs.SingleAxisLinearDOF" identity="name" name="gda.oe.dofs.UndulatorPhaseDOF">
+		<map-to xml="UndulatorPhaseDOF"/>
+		<field name="mode" type="string">
+			<bind-xml name="mode" node="element"/>
+		</field>
+	</class>
+	<class extends="gda.oe.dofs.DOF" identity="name" name="gda.oe.dofs.MonoDOF">
+		<map-to xml="MonoDOF"/>
+		<field name="crystalType" type="string">
+			<bind-xml name="crystalType" node="element"/>
+		</field>
+	</class>
+	<class extends="gda.oe.dofs.DOF" identity="name" name="gda.oe.dofs.SlaveMonoDOF">
+		<map-to xml="SlaveMonoDOF"/>
+	</class>
+	<class extends="gda.oe.dofs.DOF" identity="name" name="gda.oe.dofs.MonoWithSettleTimeDOF">
+		<map-to xml="MonoWithSettleTimeDOF"/>
+		<field name="twoD" type="double">
+			<bind-xml name="twoD" node="element"/>
+		</field>
+		<field name="settleTime" type="double">
+			<bind-xml name="settleTime" node="element"/>
+		</field>
+	</class>
+	<class extends="gda.oe.dofs.DOF" identity="name" name="gda.oe.dofs.CoupledDOF">
+		<map-to xml="CoupledDOF"/>
+		<field collection="collection" get-method="getFunctionList" name="Function" set-method="addFunction" type="gda.function.Function">
+			<bind-xml name="Function" node="element"/>
+		</field>
+	</class>
+	<class extends="gda.oe.dofs.DOF" identity="name" name="gda.oe.dofs.CombinedDOF">
+		<map-to xml="CombinedDOF"/>
+		<field get-method="getConverterName" name="ConverterName" set-method="setConverterName" type="string">
+			<bind-xml name="converterName" node="element"/>
+		</field>
+		<field get-method="getMoveablesOrderString" name="ConverterMoveablesOrder" set-method="setMoveablesOrderString" type="string">
+			<bind-xml name="converterMoveablesOrder" node="element"/>
+		</field>
+		<field name="MoveableToReport" type="string">
+			<bind-xml name="moveableToReport" node="element"/>
+		</field>
+		<field name="EvalUpperLimit" type="boolean">
+			<bind-xml name="evalUpperLimit" node="element"/>
+		</field>
+		<field name="EvalLowerLimit" type="boolean">
+			<bind-xml name="evalLowerLimit" node="element"/>
+		</field>
+		<field name="softLimitLow" type="double">
+			<bind-xml name="softLimitLow" node="element"/>
+		</field>
+		<field name="softLimitHigh" type="double">
+			<bind-xml name="softLimitHigh" node="element"/>
+		</field>
+		<field name="updatePositionFromMoveables" type="boolean">
+			<bind-xml name="updatePositionFromMoveables" node="element"/>
+		</field>
+	</class>
+		<class extends="gda.oe.dofs.CoupledDOF" identity="name" name="gda.oe.dofs.XafsMonoAndTableDOF">
+		<map-to xml="XafsMonoAndTableDOF"/>
+		<field name="crystalSpacing" type="double">
+			<bind-xml name="crystalSpacing" node="element"/>
+		</field>
+	</class>
+	<class extends="gda.oe.dofs.DOF" identity="name" name="gda.oe.dofs.SineDriveDOF">
+		<map-to xml="SineDriveDOF"/>
+		<field name="gratingDensity" type="double">
+			<bind-xml name="gratingDensity" node="element"/>
+		</field>
+		<field name="correctionFactor" type="double">
+			<bind-xml name="correctionFactor" node="element"/>
+		</field>
+		<field name="sineArmLength" type="double">
+			<bind-xml name="sineArmLength" node="element"/>
+		</field>
+	</class>
+	<class extends="gda.oe.dofs.DOF" identity="name" name="gda.oe.dofs.SineDriveAngularDOF">
+		<map-to xml="SineDriveAngularDOF"/>
+		<field name="armLength" type="double">
+			<bind-xml name="armLength" node="element"/>
+		</field>
+		<field name="angleOffset" type="double">
+			<bind-xml name="angleOffset" node="element"/>
+		</field>
+		<field name="angleUpperLimit" type="double">
+			<bind-xml name="angleUpperLimit" node="element"/>
+		</field>
+		<field name="angleLowerLimit" type="double">
+			<bind-xml name="angleLowerLimit" node="element"/>
+		</field>
+	</class>
+	<class extends="gda.oe.dofs.DOF" identity="name" name="gda.oe.dofs.SineDriveCoupledDOF">
+		<map-to xml="SineDriveCoupledDOF"/>
+		<field name="armLength" type="double">
+			<bind-xml name="armLength" node="element"/>
+		</field>
+		<field name="angleOffset" type="double">
+			<bind-xml name="angleOffset" node="element"/>
+		</field>
+		<field name="accuracy" type="double">
+			<bind-xml name="accuracy" node="element"/>
+		</field>
+		<field name="cageRadius" type="double">
+			<bind-xml name="cageRadius" node="element"/>
+		</field>
+	</class>
+	<class extends="gda.oe.dofs.DOF" identity="name" name="gda.oe.dofs.MirrorAndGratingMonoDOF">
+		<map-to xml="MirrorAndGratingMonoDOF"/>
+		<field name="monoMode" type="integer">
+			<bind-xml name="monoMode" node="element"/>
+		</field>
+		<field name="minEnergy" type="double">
+			<bind-xml name="minEnergy" node="element"/>
+		</field>
+		<field name="maxEnergy" type="double">
+			<bind-xml name="maxEnergy" node="element"/>
+		</field>
+		<field name="kFF" type="double">
+			<bind-xml name="kFF" node="element"/>
+		</field>
+		<field name="gratingLinesPerM" type="double">
+			<bind-xml name="gratingLinesPerM" node="element"/>
+		</field>
+	</class>
+		<class identity="name" name="gda.oe.util.DOFRouteChecker">
+		<map-to xml="DOFRouteChecker"/>
+		<field name="name" type="string">
+			<bind-xml name="name" node="element"/>
+		</field>
+		<field name="forbiddenZone" type="string"/>
+	</class>
+	<class identity="name" name="gda.oe.util.UndulatorMoveCalculator">
+		<map-to xml="UndulatorMoveCalculator"/>
+		<field name="name" type="string">
+			<bind-xml name="name" node="element"/>
+		</field>
+		<field name="oeName" type="string">
+			<bind-xml name="oeName" node="element"/>
+		</field>
+		<field collection="collection" get-method="getMoveableNames" name="moveableName" set-method="addMoveableName" type="string">
+			<bind-xml name="moveableName" node="element"/>
+		</field>
+		<field collection="collection" get-method="getLookupTableNames" name="lookupTableName" set-method="addLookupTableName" type="string">
+			<bind-xml name="lookupTable" node="element"/>
+		</field>
+		<field name="mutualPhaseGapPowerMap" type="gda.oe.util.DOFRouteChecker"/>
+		<field name="opposingPhaseGapPowerMap" type="gda.oe.util.DOFRouteChecker"/>
+		<field name="local" type="boolean">
+			<bind-xml name="local" node="element"/>
+		</field>
+	</class>
+	<class extends="gda.oe.dofs.DOF" identity="name" name="gda.oe.dofs.UndulatorHarmonicDOF">
+		<map-to xml="UndulatorHarmonicDOF"/>
+	</class>
+	<class extends="gda.oe.dofs.DOF" identity="name" name="gda.oe.dofs.UndulatorPolarizationDOF">
+		<map-to xml="UndulatorPolarizationDOF"/>
+	</class>
+	<class extends="gda.oe.dofs.DOF" identity="name" name="gda.oe.dofs.UndulatorEnergyDOF">
+		<map-to xml="UndulatorEnergyDOF"/>
+	</class>
+
+	<class extends="gda.oe.dofs.DOF" identity="name" name="gda.oe.dofs.LookupDOF">
+		<map-to xml="LookupDOF"/>
+		<field name="mode" type="integer">
+			<bind-xml name="mode" node="element"/>
+		</field>
+		<field name="lookupIndices" type="string">
+			<bind-xml name="lookupIndices" node="element"/>
+		</field>
+		<field name="functionIndices" type="string">
+			<bind-xml name="functionIndices" node="element"/>
+		</field>
+		<field name="defaultIndices" type="string">
+			<bind-xml name="defaultIndices" node="element"/>
+		</field>
+		<field collection="collection" get-method="getFunctionIndex" name="functionIndex" set-method="addFunctionIndex" type="string">
+			<bind-xml name="functionIndex" node="element"/>
+		</field>
+		<field collection="collection" get-method="getFunctionDesc" name="functionDesc" set-method="addFunctionDesc" type="string">
+			<bind-xml name="functionDesc" node="element"/>
+		</field>
+	</class>
+		<!-- positioners -->
+	<class extends="gda.oe.AbstractMoveable" identity="name" name="gda.oe.positioners.LinearPositioner">
+		<map-to xml="LinearPositioner"/>
+		<field name="name" type="string">
+			<bind-xml name="name" node="element"/>
+		</field>
+		<field name="motorName" type="string">
+			<bind-xml name="motorName" node="element"/>
+		</field>
+		<field name="stepsPerUnit" type="double">
+			<bind-xml name="stepsPerUnit" node="element"/>
+		</field>
+		<field name="pollTime" type="long">
+			<bind-xml name="pollTime" node="element"/>
+		</field>
+		<field name="softLimitLow" type="double">
+			<bind-xml name="softLimitLow" node="element"/>
+		</field>
+		<field name="softLimitHigh" type="double">
+			<bind-xml name="softLimitHigh" node="element"/>
+		</field>
+		<field name="homeOffsetValue" type="double">
+			<bind-xml name="homeOffset" node="element"/>
+		</field>
+		<field name="positionOffsetValue" type="double">
+			<bind-xml name="positionOffset" node="element"/>
+		</field>
+		<field name="poll" type="boolean">
+			<bind-xml name="poll" node="element"/>
+		</field>
+	</class>
+	<class extends="gda.oe.positioners.LinearPositioner" identity="name" name="gda.oe.positioners.UndulatorPhasePositioner">
+		<map-to xml="UndulatorPhasePositioner"/>
+	</class>
+	<class extends="gda.oe.AbstractMoveable" identity="name" name="gda.oe.positioners.AngularPositioner">
+		<map-to xml="AngularPositioner"/>
+		<field name="name" type="string">
+			<bind-xml name="name" node="element"/>
+		</field>
+		<field name="motorName" type="string">
+			<bind-xml name="motorName" node="element"/>
+		</field>
+		<field name="stepsPerUnit" type="double">
+			<bind-xml name="stepsPerUnit" node="element"/>
+		</field>
+		<field name="softLimitLow" type="double">
+			<bind-xml name="softLimitLow" node="element"/>
+		</field>
+		<field name="softLimitHigh" type="double">
+			<bind-xml name="softLimitHigh" node="element"/>
+		</field>
+		<field name="homeOffsetValue" type="double">
+			<bind-xml name="homeOffset" node="element"/>
+		</field>
+		<field name="positionOffsetValue" type="double">
+			<bind-xml name="positionOffset" node="element"/>
+		</field>
+		<field name="poll" type="boolean">
+			<bind-xml name="poll" node="element"/>
+		</field>
+	</class>
+	<class extends="gda.oe.AbstractMoveable" identity="name" name="gda.oe.positioners.AngularPositioner_ReverseOffset">
+		<map-to xml="AngularPositioner_ReverseOffset"/>
+		<field name="name" type="string">
+			<bind-xml name="name" node="element"/>
+		</field>
+		<field name="motorName" type="string">
+			<bind-xml name="motorName" node="element"/>
+		</field>
+		<field name="stepsPerUnit" type="double">
+			<bind-xml name="stepsPerUnit" node="element"/>
+		</field>
+		<field name="softLimitLow" type="double">
+			<bind-xml name="softLimitLow" node="element"/>
+		</field>
+		<field name="softLimitHigh" type="double">
+			<bind-xml name="softLimitHigh" node="element"/>
+		</field>
+		<field name="homeOffsetValue" type="double">
+			<bind-xml name="homeOffset" node="element"/>
+		</field>
+		<field name="positionOffsetValue" type="double">
+			<bind-xml name="positionOffset" node="element"/>
+		</field>
+		<field name="poll" type="boolean">
+			<bind-xml name="poll" node="element"/>
+		</field>
+	</class>
+	<class extends="gda.oe.AbstractMoveable" identity="name" name="gda.oe.positioners.EnergyPositioner">
+		<map-to xml="EnergyPositioner"/>
+		<field name="name" type="string">
+			<bind-xml name="name" node="element"/>
+		</field>
+		<field name="motorName" type="string">
+			<bind-xml name="motorName" node="element"/>
+		</field>
+		<field name="stepsPerUnit" type="double">
+			<bind-xml name="stepsPerUnit" node="element"/>
+		</field>
+		<field name="pollTime" type="long">
+			<bind-xml name="pollTime" node="element"/>
+		</field>
+		<field name="softLimitLow" type="double">
+			<bind-xml name="softLimitLow" node="element"/>
+		</field>
+		<field name="softLimitHigh" type="double">
+			<bind-xml name="softLimitHigh" node="element"/>
+		</field>
+		<field name="homeOffsetValue" type="double">
+			<bind-xml name="homeOffset" node="element"/>
+		</field>
+		<field name="positionOffsetValue" type="double">
+			<bind-xml name="positionOffset" node="element"/>
+		</field>
+		<field name="poll" type="boolean">
+			<bind-xml name="poll" node="element"/>
+		</field>
+	</class>
+</mapping>

@@ -1,0 +1,59 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+	<bean id="opticalCamera" class="gda.images.camera.DummyOpticalCamera">
+		<property name="name" value="opticalCamera" />
+	</bean>
+	
+	<bean id="sampleChanger" class="gda.px.sampleChanger.DummySampleChanger">
+		<property name="name" value="sampleChanger" />
+	</bean>
+	
+	<bean id="pxCamera" class="gda.px.camera.DummyCamera">
+		<property name="name" value="pxCamera" />
+	</bean>
+	
+	<bean id="samplexyz" class="gda.device.scannable.scannablegroup.ScannableGroup">
+		<property name="name" value="samplexyz" />
+		<property name="scannables">
+			<list>
+				<bean class="gda.device.scannable.DummyScannable">
+					<property name="name" value="x" />
+				</bean>
+				<bean class="gda.device.scannable.DummyScannable">
+					<property name="name" value="y" />
+				</bean>
+				<bean class="gda.device.scannable.DummyScannable">
+					<property name="name" value="z" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="gonomega" class="gda.device.scannable.DummyScannable">
+		<property name="name" value="gonomega" />
+	</bean>
+	
+	<bean id="s4_xsize" class="gda.device.scannable.DummyScannable">
+		<property name="name" value="s4_xsize" />
+	</bean>
+	
+	<bean id="s4_ysize" class="gda.device.scannable.DummyScannable">
+		<property name="name" value="s4_ysize" />
+	</bean>
+	
+	<bean id="visualiseBeamController" class="gda.jython.scriptcontroller.ScriptControllerBase">
+		<property name="name" value="visualiseBeamController" />
+	</bean>
+	
+	<bean id="samplechangerController" class="gda.jython.scriptcontroller.ScriptControllerBase">
+		<property name="name" value="samplechangerController" />
+	</bean>
+	
+	<bean id="makeSafeController" class="gda.jython.scriptcontroller.ScriptControllerBase">
+		<property name="name" value="makeSafeController" />
+	</bean>
+	
+</beans>

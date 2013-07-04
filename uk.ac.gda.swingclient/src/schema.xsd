@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" >
+<!-- N.B. this stuff breaks Xerlin
+ targetNamespace="http://www.dl.ac.uk/GDASchema" xmlns="http://www.dl.ac.uk/GDASchema">
+ -->
+ 
+   <xsd:annotation>	
+      <xsd:documentation>
+         oe representation section
+      </xsd:documentation>
+   </xsd:annotation> 
+
+   <xsd:complexType name="DOFImageView">
+      <xsd:sequence>
+         <xsd:element name="name" type="xsd:string" />
+         <xsd:element name="xImagePosition" type="xsd:integer" />
+         <xsd:element name="yImagePosition" type="xsd:integer" />
+         <xsd:element name="arrowGifName" type="xsd:string" />
+         <xsd:element name="labelPosition" type="xsd:string" minOccurs="0"/>
+         <xsd:element name="labelSize" type="xsd:integer" minOccurs="0"/>
+         <xsd:element name="defaultInputValue" type="xsd:double" minOccurs="0"/>
+         <xsd:element name="modeName" minOccurs="0" maxOccurs="unbounded">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:enumeration value="To"/>
+                  <xsd:enumeration value="By"/>
+                  <xsd:enumeration value="Continuous"/>
+                  <xsd:enumeration value="Home"/>
+                  <xsd:enumeration value="Set"/>
+                  <xsd:enumeration value="Home Set"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="speedName" minOccurs="0" maxOccurs="unbounded" >
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:enumeration value="Fast"/>
+                  <xsd:enumeration value="Medium"/>
+                  <xsd:enumeration value="Slow"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+      </xsd:sequence>
+   </xsd:complexType>
+
+   <xsd:complexType name="OEImageView">
+      <xsd:sequence>
+         <xsd:element name="name" type="xsd:string" />
+         <xsd:element name="xImagePosition" type="xsd:integer" />
+         <xsd:element name="yImagePosition" type="xsd:integer" />
+         <xsd:element name="oeGifName" type="xsd:string" />
+         <xsd:element name="showAtStartup" type="xsd:boolean" minOccurs="0"/>
+         <xsd:element name="protectionLevel" type="xsd:integer" minOccurs="0"/>
+         <xsd:element name="DOFImageView" type="DOFImageView" maxOccurs="unbounded" />       
+      </xsd:sequence>
+   </xsd:complexType>
+
+   <xsd:complexType name="OERepresentation">
+      <xsd:sequence>
+         <xsd:element name="name" type="xsd:string" />
+         <xsd:element name="xPosition" type="xsd:integer" />
+         <xsd:element name="yPosition" type="xsd:integer" />
+         <xsd:element name="frameWidth" type="xsd:integer" />
+         <xsd:element name="frameHeight" type="xsd:integer" />
+         <xsd:element name="thumbNail" type="xsd:string" minOccurs="0" />              
+         <xsd:element name="showAtStartup" type="xsd:boolean" minOccurs="0"/>
+         <xsd:element name="OEImageView" type="OEImageView" maxOccurs="unbounded" />       
+      </xsd:sequence>
+   </xsd:complexType>
+
+   <xsd:annotation>
+      <xsd:documentation>
+         Plugin section
+      </xsd:documentation>
+   </xsd:annotation> 
+  
+   <xsd:complexType name="OEPlugin">
+      <xsd:sequence>
+         <xsd:element name="name" type="xsd:string" />
+         <xsd:element name="xPosition" type="xsd:integer" />
+         <xsd:element name="yPosition" type="xsd:integer" />
+         <xsd:element name="frameWidth" type="xsd:integer" minOccurs="0"/>
+         <xsd:element name="frameHeight" type="xsd:integer" minOccurs="0"/>
+         <xsd:element name="thumbNail" type="xsd:string" minOccurs="0" />              
+         <xsd:element name="showAtStartup" type="xsd:boolean" minOccurs="0"/>
+         <xsd:element name="pluginName" type="xsd:string" />
+      </xsd:sequence>
+   </xsd:complexType>
+
+   <xsd:annotation>
+      <xsd:documentation>
+         representationfactory must be root of the oemove instance document
+      </xsd:documentation>
+   </xsd:annotation>
+
+   <xsd:element name="RepresentationFactory">
+      <xsd:complexType>
+         <xsd:sequence>
+            <xsd:element name="name" type="xsd:string" />
+            <xsd:choice minOccurs="0" maxOccurs="unbounded">
+               <xsd:element name="OERepresentation" type="OERepresentation"/>
+               <xsd:element name="OEPlugin" type="OEPlugin"/>
+            </xsd:choice>   
+         </xsd:sequence>
+      </xsd:complexType>
+   </xsd:element>
+   
+</xsd:schema>

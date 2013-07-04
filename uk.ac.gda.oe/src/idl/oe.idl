@@ -1,0 +1,257 @@
+/*-
+ * Copyright © 2009 Diamond Light Source Ltd., Science and Technology
+ * Facilities Council Daresbury Laboratory
+ *
+ * This file is part of GDA.
+ *
+ * GDA is free software: you can redistribute it and/or modify it under the
+ * terms of the GNU General Public License version 3 as published by the Free
+ * Software Foundation.
+ *
+ * GDA is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with GDA. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#include <findable.idl>
+
+module gda {
+module oe {
+module corba {
+
+   struct CorbaUnit
+   {
+      string unitString;
+   };
+      
+
+   struct CorbaQuantity 
+   {
+      string valueString;
+   };
+
+   struct CorbaLocker
+   {
+      long lockId;
+   };
+};
+
+module dofs {
+module corba {
+
+   enum CorbaMoveableStatusValue
+   {
+      SUCCESS,
+      ERROR,
+      BUSY,
+      READY,
+      POSITION_INVALID,
+      CONFIGURATION_FAILURE,
+      UPPERLIMIT,
+      LOWERLIMIT,
+      UNCHANGED,
+      INCORRECT_QUANTITY,
+      NOTLOCKED,
+      STATUS_ERROR,
+      INTO_LIMIT,
+      SOFT_LIMIT,
+      ALREADY_LOCKED,
+      AWAY_FROM_LIMIT,
+      MOVE_TYPE_NOT_SUPPORTED,
+      SPEEDLEVEL_ERROR,
+      COMMUNICATION_FAILURE,
+      NOT_HOMEABLE,
+      MOVEABLENAME_INVALID,
+      MOVE_NOT_ALLOWED
+   };
+   
+   struct CorbaMoveableStatus
+   {
+      CorbaMoveableStatusValue value;
+      string moveableName;
+      gda::oe::corba::CorbaQuantity position;
+      long id;
+      string message;
+   };
+
+   exception CorbaMoveableException
+   {
+      CorbaMoveableStatus status;
+      string message;
+   };
+   
+};};
+
+module corba {
+
+interface CorbaOE : gda::_factory::corba::CorbaFindable
+{
+   typedef sequence<string> stringArray;
+   typedef sequence<double> doubleArray;
+   typedef sequence<gda::oe::corba::CorbaUnit> unitArray;
+
+	string getDOFType(in string moveableName)
+      raises (gda::oe::dofs::corba::CorbaMoveableException);
+
+   stringArray getDOFNames();
+
+// As idl does not allow method overloading. Such methods will be
+// implemented as separate methods. The 2 will be removed in
+// the adapter classes.
+
+   void moveBy(in string moveableName, in gda::oe::corba::CorbaQuantity increment)
+      raises (gda::oe::dofs::corba::CorbaMoveableException);
+
+   void moveTo(in string moveableName, in gda::oe::corba::CorbaQuantity position)
+      raises (gda::oe::dofs::corba::CorbaMoveableException);
+
+   long moveLockedTo(in string moveableName, 
+                     in gda::oe::corba::CorbaQuantity position,
+                     in long lockId)
+      raises (gda::oe::dofs::corba::CorbaMoveableException);
+
+   void moveContinuously(in string moveableName, in long direction)
+      raises (gda::oe::dofs::corba::CorbaMoveableException);
+
+   void stop(in string moveableName)
+      raises (gda::oe::dofs::corba::CorbaMoveableException);
+
+   void stop2()
+      raises (gda::oe::dofs::corba::CorbaMoveableException);
+
+   boolean isMoving()
+      raises (gda::oe::dofs::corba::CorbaMoveableException);
+
+   boolean isMoving2(in string moveableName)
+      raises (gda::oe::dofs::corba::CorbaMoveableException);
+
+   void setPosition(in string moveableName, in gda::oe::corba::CorbaQuantity position)
+      raises (gda::oe::dofs::corba::CorbaMoveableException);
+
+   gda::oe::corba::CorbaQuantity getPosition(in string moveableName)
+      raises (gda::oe::dofs::corba::CorbaMoveableException);
+
+   gda::oe::corba::CorbaQuantity getPosition2(in string moveableName, in gda::oe::corba::CorbaUnit units)
+      raises (gda::oe::dofs::corba::CorbaMoveableException);
+
+   string formatPosition(in string moveableName, in double position)
+      raises (gda::oe::dofs::corba::CorbaMoveableException);
+
+   boolean isPositionValid(in string moveableName)
+      raises (gda::oe::dofs::corba::CorbaMoveableException);
+
+   boolean isSpeedLevelSettable(in string moveableName)
+      raises (gda::oe::dofs::corba::CorbaMoveableException);
+
+   unitArray getAcceptableUnits(in string moveableName)
+      raises (gda::oe::dofs::corba::CorbaMoveableException);
+
+   void setReportingUnits(in string moveableName, in gda::oe::corba::CorbaUnit units)
+      raises (gda::oe::dofs::corba::CorbaMoveableException);
+
+   gda::oe::corba::CorbaUnit getReportingUnits(in string moveableName)
+      raises (gda::oe::dofs::corba::CorbaMoveableException);
+
+   long getProtectionLevel(in string moveableName)
+      raises (gda::oe::dofs::corba::CorbaMoveableException);
+
+   gda::oe::dofs::corba::CorbaMoveableStatus getStatus(in string moveableName)
+      raises (gda::oe::dofs::corba::CorbaMoveableException);
+
+   void setSpeed(in string moveableName, in gda::oe::corba::CorbaQuantity speed)
+      raises (gda::oe::dofs::corba::CorbaMoveableException);
+
+   void setSpeed2(in string moveableName, in gda::oe::corba::CorbaQuantity start, in gda::oe::corba::CorbaQuantity end, in gda::oe::corba::CorbaQuantity time)
+      raises (gda::oe::dofs::corba::CorbaMoveableException);
+      
+   gda::oe::corba::CorbaQuantity getSpeed(in string moveableName)
+      raises (gda::oe::dofs::corba::CorbaMoveableException);
+      
+   void setSpeedLevel(in string moveableName, in long speed)
+      raises (gda::oe::dofs::corba::CorbaMoveableException);
+
+   void home(in string moveableName)
+      raises (gda::oe::dofs::corba::CorbaMoveableException);
+
+   gda::oe::corba::CorbaQuantity getHomeOffset(in string moveableName)
+      raises (gda::oe::dofs::corba::CorbaMoveableException);    
+
+   void setHomeOffset(in string moveableName, in gda::oe::corba::CorbaQuantity offset)
+      raises (gda::oe::dofs::corba::CorbaMoveableException);    
+
+   gda::oe::corba::CorbaQuantity getPositionOffset(in string moveableName)
+      raises (gda::oe::dofs::corba::CorbaMoveableException);    
+
+   void setPositionOffset(in string moveableName, in gda::oe::corba::CorbaQuantity offset)
+      raises (gda::oe::dofs::corba::CorbaMoveableException);    
+      
+   long lock(in string moveableName)
+      raises (gda::oe::dofs::corba::CorbaMoveableException);
+   
+   long lock2(in string moveableName, in gda::oe::corba::CorbaLocker locker)
+      raises (gda::oe::dofs::corba::CorbaMoveableException);
+
+   void unlock(in string moveableName, in long lockId)
+      raises (gda::oe::dofs::corba::CorbaMoveableException);
+
+   long moveCheck(in string moveableName, in gda::oe::corba::CorbaQuantity position)
+      raises (gda::oe::dofs::corba::CorbaMoveableException);
+
+   boolean isScannable(in string moveableName)
+      raises (gda::oe::dofs::corba::CorbaMoveableException);
+      
+   void refresh(in string moveableName)
+      raises (gda::oe::dofs::corba::CorbaMoveableException);
+      
+   gda::oe::corba::CorbaQuantity getSoftLimitLower(in string dofname)
+      raises (gda::oe::dofs::corba::CorbaMoveableException);
+
+   gda::oe::corba::CorbaQuantity getSoftLimitUpper(in string dofname)
+      raises (gda::oe::dofs::corba::CorbaMoveableException);
+      
+   void pushSpeed(in string moveableName)
+      raises (gda::oe::dofs::corba::CorbaMoveableException);
+      
+   void popSpeed(in string moveableName)
+      raises (gda::oe::dofs::corba::CorbaMoveableException);
+
+   stringArray getMoveableNames(in string moveableName)
+      raises (gda::oe::dofs::corba::CorbaMoveableException);
+      
+   any getDeviceAttribute(in string dofname, in string name)
+      raises (gda::oe::dofs::corba::CorbaMoveableException);
+      
+   void setDeviceAttribute(in string dofname, in string name, in Object value)
+      raises (gda::oe::dofs::corba::CorbaMoveableException);
+ 
+   string getDocString(in string dofname)
+      raises (gda::oe::dofs::corba::CorbaMoveableException);
+      
+   void setDocString(in string dofname, in string docString)
+      raises (gda::oe::dofs::corba::CorbaMoveableException);   
+      
+   doubleArray getLowerGdaLimits(in string dofname) raises (gda::oe::dofs::corba::CorbaMoveableException); 
+
+	doubleArray getTolerance(in string dofname) raises (gda::oe::dofs::corba::CorbaMoveableException); 
+
+	doubleArray getUpperGdaLimits(in string dofname) raises (gda::oe::dofs::corba::CorbaMoveableException); 
+	
+	void setLowerGdaLimits(in string dofname, in doubleArray lowerLim) raises (gda::oe::dofs::corba::CorbaMoveableException); 
+
+	void setLowerGdaLimits2(in string dofname, in double lowerLim) raises (gda::oe::dofs::corba::CorbaMoveableException); 
+
+	void setTolerance(in string dofname, in doubleArray tolerance) raises (gda::oe::dofs::corba::CorbaMoveableException); 
+
+	void setTolerance2(in string dofname, in double tolerance) raises (gda::oe::dofs::corba::CorbaMoveableException); 
+
+	void setUpperGdaLimits(in string dofname, in doubleArray upperLim) raises (gda::oe::dofs::corba::CorbaMoveableException); 
+
+	void setUpperGdaLimits2(in string dofname, in double upperLim) raises (gda::oe::dofs::corba::CorbaMoveableException); 
+};
+
+};};};
+

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapping>
+
+	<class name="gda.gui.eventnotification.EventNotificationParams" identity="name">
+		<map-to xml="EventNotificationParams" />
+		<field name="name" type="string">
+			<bind-xml name="name" node="element" />
+		</field>
+		<field name="JPanel" type="javax.swing.JPanel"
+			collection="collection" set-method="setPanels"
+			get-method="getPanels">
+			<bind-xml name="JPanel" node="element" />
+		</field> 
+	</class>
+
+	<class name="gda.gui.eventnotification.PvPanel" identity="name"
+		extends="gda.gui.eventnotification.NotificationPanel">
+		<map-to xml="pvPanel" />
+		<field name="name" type="string">
+			<bind-xml name="name" node="element"/>
+		</field>
+		<field name="description" type="string">
+			<bind-xml name="description" node="element"/>
+		</field>
+	</class>
+	
+	<class name="gda.gui.eventnotification.MetadataPanel" identity="name"
+		extends="gda.gui.eventnotification.NotificationPanel">
+		<map-to xml="metadataPanel" />
+		<field name="name" type="string">
+			<bind-xml name="name" node="element"/>
+		</field>
+		<field name="metadataRow" type="gda.gui.eventnotification.MetadataRow"
+			collection="collection" set-method="setMetadataRows"
+			get-method="getMetadataRows">
+			<bind-xml name="metadataRow" node="element" />
+		</field> 
+	</class>
+	<class name="gda.gui.eventnotification.MetadataRow" identity="name">
+		<map-to xml="metadataRow" />
+		<field name="name" type="string">
+			<bind-xml name="name" node="element"/>
+		</field>
+		<field name="guiLabel" type="string">
+			<bind-xml name="guiLabel" node="element"/>
+		</field>
+	</class>
+<!-- 	<class name="gda.gui.eventnotification.MetadataPanel" identity="name"
+		extends="gda.oe.JPanel">
+		<map-to xml="metadataPanel" />
+		<field name="name" type="string">
+			<bind-xml name="name" node="element"/>
+		</field>
+		<field name="guiLabel" type="string">
+			<bind-xml name="guiLabel" node="element"/>
+		</field>
+		<field name="newMetadataContainer" type="boolean">
+			<bind-xml name="newMetadataContainer" node="element"/>
+		</field>
+	</class> -->
+	
+	<class name="gda.gui.eventnotification.DofPanel" identity="name"
+		extends="gda.gui.eventnotification.NotificationPanel">
+		<map-to xml="dofPanel" />
+		<field name="name" type="string">
+			<bind-xml name="name" node="element"/>
+		</field>
+		<field name="description" type="string">
+			<bind-xml name="description" node="element"/>
+		</field>
+	</class>
+	
+	<class name="gda.gui.eventnotification.NotificationPanel">
+		<field name="placePanelOnNewLine" type="boolean">
+			<bind-xml name="placePanelOnNewLine" node="element"/>
+		</field>
+		<field name="textPositioning" type="string">
+			<bind-xml name="textPositioning" node="element"/>
+		</field>
+	</class>
+</mapping>
+	
