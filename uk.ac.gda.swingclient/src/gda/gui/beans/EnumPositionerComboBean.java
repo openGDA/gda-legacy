@@ -215,7 +215,10 @@ public class EnumPositionerComboBean extends javax.swing.JPanel implements IObse
 					currentPosition = ((NamedEnumPositioner)enumPositioner).getPositionName();
 				}
 				int location = ArrayUtils.indexOf(commandPositions, currentPosition);
-				cmbChoices.setSelectedIndex(location);
+				//MXGDA-1057 do not select the position again if it's already at the correct position
+				if (cmbChoices.getSelectedIndex() != location) {
+					cmbChoices.setSelectedIndex(location);
+				}
 			} catch (DeviceException e) {
 				logger.error("Exception while trying to observe " + enumPositionerName + ": " + e.getMessage());
 			} finally {
