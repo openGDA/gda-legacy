@@ -274,12 +274,11 @@ public class JythonTerminal extends JPanel implements Runnable, IObserver, Termi
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-//		String output = "";
-//		for (byte bit : data) {
-//			output += (char) bit;
-//		}
+		write(output);
+	}
 
-//		appendOutput(String.valueOf(output));
+	@Override
+	public void write(String output) {
 		appendOutput(output);
 	}
 
