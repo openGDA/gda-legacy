@@ -30,7 +30,6 @@ Export-Package: gda.data.scan.datawriter,
  gda.oe.dofs,
  gda.oe.dofs.corba,
  gda.oe.positioners,
- gda.oe.util,
  gda.util,
  gda.util.converters
 Bundle-ClassPath: .,
