@@ -29,7 +29,7 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 
 import ch.qos.logback.classic.Level;
-import ch.qos.logback.classic.spi.LoggingEvent;
+import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.AppenderBase;
 import ch.qos.logback.core.Layout;
 
@@ -38,7 +38,7 @@ import ch.qos.logback.core.Layout;
  * 
  * @param <E>
  */
-public abstract class PanelAppenderBase<E extends LoggingEvent> extends AppenderBase<E> implements PanelAppender {
+public abstract class PanelAppenderBase<E extends ILoggingEvent> extends AppenderBase<E> implements PanelAppender {
 	
 	static SimpleAttributeSet RED = new SimpleAttributeSet();
 
@@ -67,12 +67,8 @@ public abstract class PanelAppenderBase<E extends LoggingEvent> extends Appender
 		StyleConstants.setFontSize(DARK_GRAY, 12);
 	}
 	
-	@Override
-	public Layout<E> getLayout() {
-		return layout;
-	}
+	private Layout<E> layout;
 
-	@Override
 	public void setLayout(Layout<E> layout) {
 		this.layout = layout;
 	}
