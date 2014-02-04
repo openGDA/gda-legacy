@@ -31,6 +31,8 @@ import javax.swing.JViewport;
 import javax.swing.SwingUtilities;
 import javax.swing.text.AttributeSet;
 
+import ch.qos.logback.classic.spi.LoggingEvent;
+
 /**
  * This class picks up all gda logging message from logback. The instances are created by LogBack on processing the
  * configuration files. However the panel is added to the LogPanel object which expects this to act as a singleton. For
@@ -38,7 +40,7 @@ import javax.swing.text.AttributeSet;
  * 
  * @param <E>
  */
-public class LogPanelAppender<E> extends PanelAppenderBase<E> {
+public class LogPanelAppender<E extends LoggingEvent> extends PanelAppenderBase<E> {
 	private static JPanel panel = null;
 
 	private static JTextPane textOutput;

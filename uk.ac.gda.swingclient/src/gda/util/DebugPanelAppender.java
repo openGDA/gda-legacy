@@ -28,12 +28,14 @@ import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
 import javax.swing.text.AttributeSet;
 
+import ch.qos.logback.classic.spi.LoggingEvent;
+
 /**
  * This class display gda logging message on DebugPanel from the gda servers and clients.
  * 
  * @param <E>
  */
-public class DebugPanelAppender<E> extends PanelAppenderBase<E> {
+public class DebugPanelAppender<E extends LoggingEvent> extends PanelAppenderBase<E> {
 	private static JPanel panel;
 	private JScrollPane pane;
 	private JTextPane textOutput;

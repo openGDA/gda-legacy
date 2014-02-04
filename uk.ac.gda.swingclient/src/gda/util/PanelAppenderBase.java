@@ -38,7 +38,7 @@ import ch.qos.logback.core.Layout;
  * 
  * @param <E>
  */
-public abstract class PanelAppenderBase<E> extends AppenderBase<E> implements PanelAppender {
+public abstract class PanelAppenderBase<E extends LoggingEvent> extends AppenderBase<E> implements PanelAppender {
 	
 	static SimpleAttributeSet RED = new SimpleAttributeSet();
 
@@ -113,10 +113,8 @@ public abstract class PanelAppenderBase<E> extends AppenderBase<E> implements Pa
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	protected void append(Object arg0) {
-		LoggingEvent event = (LoggingEvent) arg0;
+	protected void append(E event) {
 		Color color = Color.magenta;
 		Level level = event.getLevel();
 		if (level == Level.ERROR) {
@@ -129,7 +127,7 @@ public abstract class PanelAppenderBase<E> extends AppenderBase<E> implements Pa
 			color = Color.darkGray;
 		}
 
-		appendTextLater(layout.doLayout((E) event), color);
+		appendTextLater(layout.doLayout(event), color);
 	}
 
 	protected void prependText(JTextPane textOutput, String text, Color color) {
