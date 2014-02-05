@@ -57,7 +57,10 @@ public class ClientSideLogService implements Runnable {
 	public void run() {
 		try {
 			logger.info("Listening on port {}", port);
+			
+			@SuppressWarnings("resource") // suppressed because once the socket has been created, we go into an infinite loop
 			ServerSocket serverSocket = new ServerSocket(port);
+			
 			while (true) {
 				logger.info("Waiting to accept a new client.");
 				Socket socket = serverSocket.accept();
