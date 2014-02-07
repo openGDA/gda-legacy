@@ -118,8 +118,10 @@ public class AcquisitionGUI {
 			clientSideLogContext = lc1;
 		}
 		
-		final SimpleSocketServer logServer = new SimpleSocketServer(clientSideLogContext, clientSideLogServicePort);
-		logServer.start();
+		if (clientSideLogServicePort != -1) {
+			final SimpleSocketServer logServer = new SimpleSocketServer(clientSideLogContext, clientSideLogServicePort);
+			logServer.start();
+		}
 	}
 
 	/**

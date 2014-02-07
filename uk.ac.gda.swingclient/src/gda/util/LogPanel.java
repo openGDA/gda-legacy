@@ -110,8 +110,10 @@ public class LogPanel extends GUIMessagePanel {
 							clientSideLogServicePort);
 				}
 				
-				final SimpleSocketServer logServer = new SimpleSocketServer(lc, clientSideLogServicePort);
-				logServer.start();
+				if (clientSideLogServicePort != -1) {
+					final SimpleSocketServer logServer = new SimpleSocketServer(lc, clientSideLogServicePort);
+					logServer.start();
+				}
 
 				// Turn off metal's use of bold fonts
 				UIManager.put("swing.boldMetal", Boolean.FALSE);
