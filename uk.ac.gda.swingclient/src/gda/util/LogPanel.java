@@ -20,9 +20,6 @@
 package gda.util;
 
 import gda.configuration.properties.LocalProperties;
-import gda.factory.Configurable;
-import gda.factory.Findable;
-import gda.gui.ClientSideLogService;
 import gda.gui.GUIMessagePanel;
 import gda.icons.GdaIcons;
 
@@ -46,6 +43,7 @@ import org.slf4j.LoggerFactory;
 
 import ch.qos.logback.classic.LoggerContext;
 import ch.qos.logback.classic.joran.JoranConfigurator;
+import ch.qos.logback.classic.net.SimpleSocketServer;
 import ch.qos.logback.core.joran.spi.JoranException;
 
 /**
@@ -111,8 +109,8 @@ public class LogPanel extends GUIMessagePanel {
 					logger.info("Using local properties port number {}",
 							clientSideLogServicePort);
 				}
-				Thread logServer = uk.ac.gda.util.ThreadManager.getThread(new ClientSideLogService(
-						clientSideLogServicePort, lc), "LogServer");
+				
+				final SimpleSocketServer logServer = new SimpleSocketServer(lc, clientSideLogServicePort);
 				logServer.start();
 
 				// Turn off metal's use of bold fonts

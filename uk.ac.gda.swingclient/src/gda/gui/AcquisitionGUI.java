@@ -52,6 +52,7 @@ import org.slf4j.LoggerFactory;
 
 import ch.qos.logback.classic.LoggerContext;
 import ch.qos.logback.classic.joran.JoranConfigurator;
+import ch.qos.logback.classic.net.SimpleSocketServer;
 import ch.qos.logback.core.joran.spi.JoranException;
 
 /**
@@ -116,8 +117,8 @@ public class AcquisitionGUI {
 			}
 			clientSideLogContext = lc1;
 		}
-		Thread logServer = uk.ac.gda.util.ThreadManager.getThread(new ClientSideLogService(clientSideLogServicePort,
-				clientSideLogContext), "LogServer");
+		
+		final SimpleSocketServer logServer = new SimpleSocketServer(clientSideLogContext, clientSideLogServicePort);
 		logServer.start();
 	}
 
