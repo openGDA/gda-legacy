@@ -34,11 +34,14 @@ import org.jscience.physics.quantities.Quantity;
 import org.jscience.physics.units.Unit;
 import org.nexusformat.NeXusFileInterface;
 import org.nexusformat.NexusException;
+import org.python.core.Py;
+import org.python.core.PyException;
 import org.python.core.PyFloat;
 import org.python.core.PyInteger;
 import org.python.core.PyNone;
 import org.python.core.PyObject;
 import org.python.core.PySlice;
+import org.python.core.PyString;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -302,11 +305,16 @@ public class DOFAdapter extends ScannableMotionBase {
 	}
 
 	@Override
-	public PyObject __getitem__(PyObject index) {
+	public PyObject __getitem__(PyObject index) throws PyException {
 		if (index instanceof PyInteger) {
-			if (((PyInteger) index).getValue() < __len__()) {
+			final PyInteger pyInt = (PyInteger) index;
+			if ((pyInt).getValue() < __len__()) {
 				return getJythonPosition();
-			}
+			} 
+			PyException ex = new PyException();
+			ex.value = new PyString( String.format("index out of range: %d", pyInt.getValue()));
+			ex.type = Py.TypeError;
+			throw ex;
 		} else if (index instanceof PySlice) {
 			// only react if the command was [0] or [:]
 			PySlice slice = (PySlice) index;
@@ -338,7 +346,10 @@ public class DOFAdapter extends ScannableMotionBase {
 				return getJythonPosition();
 			}
 		}
-		return null;
+		PyException ex = new PyException();
+		ex.value = new PyString("__getitem()__ parameter was not PyInteger or PySlice");
+		ex.type = Py.TypeError;
+		throw ex;
 	}
 
 	@Override
@@ -407,7 +418,10 @@ public class DOFAdapter extends ScannableMotionBase {
 			return new PyFloat(oe.getPosition(dofname, unit).to(unit).getAmount());
 		} catch (Exception ex) {
 			logger.error("DOFAdapter: getPosition " + ex.getMessage());
-			return null;
+			PyException pyEx = new PyException();
+			pyEx.value = new PyString("DOFAdatper: getPosition" + ex.getMessage());
+			pyEx.type = Py.TypeError;
+			throw pyEx;
 		}
 	}
 
