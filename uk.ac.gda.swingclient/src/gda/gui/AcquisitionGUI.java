@@ -258,7 +258,7 @@ public class AcquisitionGUI {
 	public static void main(String[] args) {
 
 		LoggingUtils.setLogDirectory();
-		LogbackUtils.configureLoggingForClientProcess();
+		LogbackUtils.configureLoggingForClientProcess("swing");
 
 		if (LocalProperties.get("gda.screen.primary") != null) {
 			// screen index for the primary screen starting from 0.
