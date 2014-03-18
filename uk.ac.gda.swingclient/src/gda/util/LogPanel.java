@@ -20,8 +20,6 @@
 package gda.util;
 
 import gda.configuration.properties.LocalProperties;
-import gda.factory.Configurable;
-import gda.factory.Findable;
 import gda.gui.ClientSideLogService;
 import gda.gui.GUIMessagePanel;
 import gda.icons.GdaIcons;
