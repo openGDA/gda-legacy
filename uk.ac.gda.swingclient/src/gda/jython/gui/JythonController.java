@@ -1,5 +1,5 @@
 /*-
- * Copyright © 2009 Diamond Light Source Ltd., Science and Technology
+ * Copyright © 2014 Diamond Light Source Ltd., Science and Technology
  * Facilities Council Daresbury Laboratory
  *
  * This file is part of GDA.
@@ -89,6 +89,7 @@ public class JythonController extends JPanel implements IObserver {
 	private ArrayList<ShutterPanel> shutterPanels = new ArrayList<ShutterPanel>();
 
 	private ArrayList<StateDisplayPanel> stateDisplayPanels = new ArrayList<StateDisplayPanel>();
+	
 	/**
 	 * configures the class - needed as this can only be run after JythonServerFacade.getInstance will not fail
 	 */
@@ -185,8 +186,6 @@ public class JythonController extends JPanel implements IObserver {
 		}
 	}
 
-
-
 	/**
 	 * From the IObservers interface. Used when a scan has been initiated from the terminal or jython editor. This
 	 * terminal is registered as an observer, so if the graphics option has been selected for this object then the data
@@ -220,65 +219,38 @@ public class JythonController extends JPanel implements IObserver {
 		}
 	}
 
-	/**
-	 * @return shutter list
-	 */
 	public ArrayList<String> getShutterList() {
 		return shutterList;
 	}
 
-	/**
-	 * @param shutterList
-	 */
 	public void setShutterList(ArrayList<String> shutterList) {
 		this.shutterList = shutterList;
 	}
 
-	/**
-	 * @param sn
-	 */
 	public void addShutter(String sn) {
 		this.shutterList.add(sn);
 	}
 
-	/**
-	 * @return shutter list
-	 */
 	public ArrayList<String> getAmplifierList() {
 		return amplifierList;
 	}
 
-	/**
-	 * @param amplifierList
-	 */
 	public void setAmplifierList(ArrayList<String> amplifierList) {
 		this.amplifierList = amplifierList;
 	}
 
-	/**
-	 * @param cam
-	 */
 	public void addAmplifier(String cam) {
 		this.amplifierList.add(cam);
 	}
 
-	/**
-	 * @return value list
-	 */
 	public ArrayList<String> getValueList() {
 		return valueList;
 	}
 
-	/**
-	 * @param valueList
-	 */
 	public void setValueList(ArrayList<String> valueList) {
 		this.valueList = valueList;
 	}
 
-	/**
-	 * @param cam
-	 */
 	public void addValue(String cam) {
 		this.valueList.add(cam);
 	}
@@ -337,7 +309,6 @@ public class JythonController extends JPanel implements IObserver {
 	void btnPanic_actionPerformed() {
 		commandserver.panicStop();
 	}
-
 
 	/*
 	 * Pause the currently running scan @param e ActionEvent
