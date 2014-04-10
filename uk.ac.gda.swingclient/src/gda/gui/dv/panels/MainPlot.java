@@ -22,7 +22,6 @@ package gda.gui.dv.panels;
 import gda.analysis.Plotter;
 import gda.analysis.ScanFileHolder;
 import gda.analysis.io.MACLoader;
-import gda.analysis.io.ScanFileHolderException;
 import gda.analysis.plotmanager.IPlotWindow;
 import gda.analysis.plotmanager.PlotManager;
 import gda.analysis.plotmanager.PlotPackage;
@@ -44,6 +43,8 @@ import javax.swing.JPanel;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import uk.ac.diamond.scisoft.analysis.io.ScanFileHolderException;
 
 /**
  * The idea of this class is to be a nice wrapper for all the plotting methods from the server. It therefore needs to
