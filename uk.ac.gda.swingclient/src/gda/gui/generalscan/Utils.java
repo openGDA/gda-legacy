@@ -18,8 +18,6 @@
 
 package gda.gui.generalscan;
 
-import gda.util.GDALogger;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.StreamTokenizer;
@@ -29,10 +27,16 @@ import java.util.Vector;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * utilities
  */
 public class Utils {
+
+	private static final Logger logger = LoggerFactory.getLogger(Utils.class);
+
 	/**
 	 * Check whether the specified file does not exist and report an error if it does
 	 * 
@@ -90,7 +94,7 @@ public class Utils {
 		try {
 			t.nextToken();
 		} catch (IOException e) {
-			GDALogger.error("Error number entered is not a valid integer ");
+			logger.error("Error number entered is not a valid integer ");
 		}
 
 		if (t.ttype == StreamTokenizer.TT_NUMBER) {
@@ -125,7 +129,7 @@ public class Utils {
 				}
 			}
 		} catch (IOException e) {
-			GDALogger.error("Error parsing number!");
+			logger.error("Error parsing number!");
 		}
 
 		return doubleArray;
