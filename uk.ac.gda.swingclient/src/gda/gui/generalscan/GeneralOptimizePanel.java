@@ -168,7 +168,7 @@ public class GeneralOptimizePanel extends AcquisitionPanel implements IObserver,
 		stopButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ev) {
-				scriptingMediator.haltCurrentScan();
+				scriptingMediator.requestFinishEarly();
 				setButtonStates(false);
 			}
 		});

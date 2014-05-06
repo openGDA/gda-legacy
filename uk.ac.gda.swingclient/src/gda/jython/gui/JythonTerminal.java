@@ -23,6 +23,7 @@ import gda.configuration.properties.LocalProperties;
 import gda.factory.Finder;
 import gda.gui.util.WatchPanel;
 import gda.jython.IScanDataPointObserver;
+import gda.jython.InterfaceProvider;
 import gda.jython.Jython;
 import gda.jython.JythonServerFacade;
 import gda.jython.Terminal;
@@ -649,9 +650,9 @@ public class JythonTerminal extends JPanel implements Runnable, IObserver, Termi
 	 */
 	void btnHaltScriptScan_actionPerformed() {
 		if (this.commandserver.getScanStatus() == Jython.RUNNING || this.commandserver.getScanStatus() == Jython.PAUSED) {
-			this.commandserver.haltCurrentScan();
+			this.commandserver.requestFinishEarly();
 		} else {
-			this.commandserver.haltCurrentScript();
+			InterfaceProvider.getCommandAborter().abortCommands();
 		}
 	}
 

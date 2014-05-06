@@ -499,7 +499,7 @@ public class GeneralScanPanel extends AcquisitionPanel implements IObserver, Run
 		stopButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ev) {
-				scriptingMediator.haltCurrentScan();
+				scriptingMediator.requestFinishEarly();
 				startButton.setEnabled(true);
 				stopButton.setEnabled(false);
 				pww.setVisible(false);
@@ -569,7 +569,7 @@ public class GeneralScanPanel extends AcquisitionPanel implements IObserver, Run
 		quitButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ev) {
-				scriptingMediator.haltCurrentScan();
+				scriptingMediator.abortCommands();
 			}
 		});
 		buttonPanel.add(quitButton);

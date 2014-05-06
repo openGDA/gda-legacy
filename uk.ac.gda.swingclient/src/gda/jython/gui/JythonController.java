@@ -24,6 +24,7 @@ import gda.gui.util.CurrentAmplifierPanel;
 import gda.gui.util.ShutterPanel;
 import gda.gui.util.StateDisplayPanel;
 import gda.gui.util.ValueDisplayPanel;
+import gda.jython.InterfaceProvider;
 import gda.jython.Jython;
 import gda.jython.JythonServerFacade;
 import gda.jython.JythonServerStatus;
@@ -307,7 +308,7 @@ public class JythonController extends JPanel implements IObserver {
 	 * Sends a panic stop to the command server. @param e ActionEvent
 	 */
 	void btnPanic_actionPerformed() {
-		commandserver.panicStop();
+		commandserver.beamlineHalt();
 	}
 
 	/*
@@ -331,9 +332,9 @@ public class JythonController extends JPanel implements IObserver {
 	 */
 	void btnHaltScriptScan_actionPerformed() {
 		if (this.commandserver.getScanStatus() == Jython.RUNNING || this.commandserver.getScanStatus() == Jython.PAUSED) {
-			this.commandserver.haltCurrentScan();
+			this.commandserver.requestFinishEarly();
 		} else {
-			this.commandserver.haltCurrentScript();
+			InterfaceProvider.getCommandAborter().abortCommands();
 		}
 	}
 

@@ -22,6 +22,7 @@ package gda.gui;
 import gda.configuration.properties.LocalProperties;
 import gda.factory.Findable;
 import gda.factory.corba.util.EventService;
+import gda.jython.InterfaceProvider;
 import gda.jython.Jython;
 import gda.jython.JythonServerFacade;
 import gda.util.About;
@@ -131,8 +132,7 @@ public class AcquisitionFrame extends JFrame implements DockableHolder {
 		// tidying up and exiting.
 		@Override
 		public void run() {
-			jsf.haltCurrentScan();
-			jsf.haltCurrentScript();
+			InterfaceProvider.getCommandAborter().abortCommands();
 			PleaseWaitWindow pww = new PleaseWaitWindow("Stopping scans and scripts. Please wait...");
 			pww.setVisible(true);
 			while (scriptingIsActive())

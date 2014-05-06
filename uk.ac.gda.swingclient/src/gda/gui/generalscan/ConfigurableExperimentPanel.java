@@ -21,6 +21,7 @@ package gda.gui.generalscan;
 import gda.factory.Finder;
 import gda.gui.AcquisitionPanel;
 import gda.gui.generalscan.PreScanSetupExecutor.PreScanStatus;
+import gda.jython.InterfaceProvider;
 import gda.jython.Jython;
 import gda.jython.JythonServerFacade;
 import gda.jython.JythonServerStatus;
@@ -699,7 +700,7 @@ public class ConfigurableExperimentPanel extends AcquisitionPanel implements IOb
 		stopButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ev) {
-				scriptingMediator.haltCurrentScan();
+				InterfaceProvider.getCurrentScanController().requestFinishEarly();
 				startButton.setEnabled(true);
 				stopButton.setEnabled(false);
 			}
@@ -767,7 +768,7 @@ public class ConfigurableExperimentPanel extends AcquisitionPanel implements IOb
 		quitButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ev) {
-				scriptingMediator.haltCurrentScan();
+				InterfaceProvider.getCurrentScanController().requestFinishEarly();
 			}
 		});
 		buttonPanel.add(quitButton);
