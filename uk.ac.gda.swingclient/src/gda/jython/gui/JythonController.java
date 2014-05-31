@@ -359,11 +359,13 @@ public class JythonController extends JPanel implements IObserver {
 	 * Stops cleanly current scan and script, if running. @param e ActionEvent
 	 */
 	void btnHaltScriptScan_actionPerformed() {
-		if (this.commandserver.getScanStatus() == Jython.RUNNING || this.commandserver.getScanStatus() == Jython.PAUSED) {
-			this.commandserver.haltCurrentScan();
-		} else {
-			this.commandserver.haltCurrentScript();
-		}
+		this.commandserver.haltCurrentScan();
+		this.commandserver.haltCurrentScript();
+//		if (this.commandserver.getScanStatus() == Jython.RUNNING || this.commandserver.getScanStatus() == Jython.PAUSED) {
+//			this.commandserver.haltCurrentScan();
+//		} else {
+//			this.commandserver.haltCurrentScript();
+//		}
 	}
 
 	private void jbInit() {
