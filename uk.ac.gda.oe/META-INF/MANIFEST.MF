@@ -16,8 +16,7 @@ Require-Bundle: uk.ac.gda.common;bundle-version="1.0.0",
 Eclipse-RegisterBuddy: uk.ac.gda.core
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Export-Package: gda.data.scan.datawriter,
- gda.device.scannable,
+Export-Package: gda.device.scannable,
  gda.factory,
  gda.factory.corba,
  gda.gui.oemove,
