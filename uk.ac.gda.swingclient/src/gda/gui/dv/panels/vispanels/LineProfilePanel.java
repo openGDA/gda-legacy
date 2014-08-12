@@ -54,7 +54,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import uk.ac.diamond.scisoft.analysis.dataset.AbstractDataset;
+import uk.ac.diamond.scisoft.analysis.dataset.Dataset;
 import uk.ac.diamond.scisoft.analysis.dataset.DoubleDataset;
 import uk.ac.diamond.scisoft.analysis.dataset.function.LineSample;
 
@@ -378,7 +378,7 @@ public class LineProfilePanel extends VisPanel implements IMainPlotManipulator {
 
 		// first perform the sampling
 		LineSample ls = new LineSample(ax, ay, bx, by, lineStep);
-		List<AbstractDataset> dsets = ls.value(data);
+		List<? extends Dataset> dsets = ls.value(data);
 		DoubleDataset dls = (DoubleDataset) dsets.get(0);
 
 		linePlot.setBatching(true);

@@ -57,7 +57,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import uk.ac.diamond.scisoft.analysis.coords.SectorCoords;
-import uk.ac.diamond.scisoft.analysis.dataset.AbstractDataset;
+import uk.ac.diamond.scisoft.analysis.dataset.Dataset;
 import uk.ac.diamond.scisoft.analysis.dataset.DatasetUtils;
 import uk.ac.diamond.scisoft.analysis.dataset.DoubleDataset;
 import uk.ac.diamond.scisoft.analysis.dataset.Maths;
@@ -584,21 +584,21 @@ public class SectorIntegratorPanel extends VisPanel implements ActionListener, I
 		// first perform the integration
 		MapToPolar pmap = new MapToPolar(x, y, ar, ap, br, bp);
 		Integrate2D int2d = new Integrate2D();
-		AbstractDataset pdata = pmap.value(data).get(0);
-		List<AbstractDataset> dsets = int2d.value(pdata);
-		AbstractDataset intp = dsets.get(0);
-		AbstractDataset intr = dsets.get(1);
+		Dataset pdata = pmap.value(data).get(0);
+		List<? extends Dataset> dsets = int2d.value(pdata);
+		Dataset intp = dsets.get(0);
+		Dataset intr = dsets.get(1);
 
 		if (clippingCompensation) {
 			// normalise plot for case when sector is clipped to size of image
 			DoubleDataset ndata = new DoubleDataset(data.getShape());
 			ndata.fill(1.);
 			dsets = pmap.value(ndata);
-			AbstractDataset npdata = dsets.get(0);
-			AbstractDataset unpdata = dsets.get(1);
+			Dataset npdata = dsets.get(0);
+			Dataset unpdata = dsets.get(1);
 			dsets = int2d.value(npdata);
-			AbstractDataset nintp = dsets.get(0);
-			AbstractDataset nintr = dsets.get(1);
+			Dataset nintp = dsets.get(0);
+			Dataset nintr = dsets.get(1);
 			dsets = int2d.value(unpdata);
 			// calculate fraction in each element that was not clipped
 			nintp = Maths.divide(nintp, dsets.get(0));
@@ -612,8 +612,8 @@ public class SectorIntegratorPanel extends VisPanel implements ActionListener, I
 		case YREFLECT:
 			// add in y reflected integral
 			MapToPolar pmapy = new MapToPolar(x, y, ar, 360.0 - bp, br, 360.0 - ap);
-			AbstractDataset pdatay = pmapy.value(data).get(0);
-			List<AbstractDataset> dsetsy = int2d.value(pdatay);
+			Dataset pdatay = pmapy.value(data).get(0);
+			List<? extends Dataset> dsetsy = int2d.value(pdatay);
 			intp = Maths.add(intp, dsetsy.get(0));
 			intr = Maths.add(intr, dsetsy.get(1));
 			break;
@@ -622,36 +622,36 @@ public class SectorIntegratorPanel extends VisPanel implements ActionListener, I
 			MapToPolar pmapi = null;
 			if (ap > 180.0) {
 				pmapi = new MapToPolar(x, y, ar, ap - 180.0, br, bp - 180.0);
-				AbstractDataset pdatai = pmapi.value(data).get(0);
-				List<AbstractDataset> dsetsi = int2d.value(pdatai);
+				Dataset pdatai = pmapi.value(data).get(0);
+				List<? extends Dataset> dsetsi = int2d.value(pdatai);
 				intp = Maths.add(intp, dsetsi.get(0));
 				intr = Maths.add(intr, dsetsi.get(1));
 			} else {
 				if (bp < 180.0) {
 					pmapi = new MapToPolar(x, y, ar, ap + 180.0, br, bp + 180.0);
-					AbstractDataset pdatai = pmapi.value(data).get(0);
-					List<AbstractDataset> dsetsi = int2d.value(pdatai);
+					Dataset pdatai = pmapi.value(data).get(0);
+					List<? extends Dataset> dsetsi = int2d.value(pdatai);
 					intp = Maths.add(intp, dsetsi.get(0));
 					intr = Maths.add(intr, dsetsi.get(1));
 				} else {
 					// add in two parts over branch cut
 					pmapi = new MapToPolar(x, y, ar, ap + 180.0, br, 360.0);
-					AbstractDataset pdatai = pmapi.value(data).get(0);
-					List<AbstractDataset> dsetsi1 = int2d.value(pdatai);
-					AbstractDataset intp1 = Maths.add(intp, dsetsi1.get(0));
-					AbstractDataset intr1 = Maths.add(intr, dsetsi1.get(1));
+					Dataset pdatai = pmapi.value(data).get(0);
+					List<? extends Dataset> dsetsi1 = int2d.value(pdatai);
+					Dataset intp1 = Maths.add(intp, dsetsi1.get(0));
+					Dataset intr1 = Maths.add(intr, dsetsi1.get(1));
 					pmapi = new MapToPolar(x, y, ar, 0.0, br, bp - 180.0);
 					pdatai = pmapi.value(data).get(0);
 					dsetsi1 = int2d.value(pdatai);
 					intp1 = Maths.add(intp1, dsetsi1.get(0));
-					AbstractDataset intr2 = dsetsi1.get(1);
+					Dataset intr2 = dsetsi1.get(1);
 					// check for overlaps and gaps before joining angular bits together
 					int r2len = intr2.getSize();
 					int rdiff = intr.getSize() - intr1.getSize();
 					if (rdiff > r2len || r2len < 1) {
 						break;
 					} else if (rdiff < r2len) {
-						AbstractDataset td = intr2.getSlice(new int[] {r2len - rdiff}, new int[] {r2len}, null);
+						Dataset td = intr2.getSlice(new int[] {r2len - rdiff}, new int[] {r2len}, null);
 						intr1 = DatasetUtils.append(intr1, td, 0);
 					} else {
 						intr1 = DatasetUtils.append(intr1, intr2, 0);
@@ -665,8 +665,8 @@ public class SectorIntegratorPanel extends VisPanel implements ActionListener, I
 			break;
 		case FULL:
 			MapToPolar pmapf = new MapToPolar(x, y, ar, 0.0, br, 360.0);
-			AbstractDataset pdataf = pmapf.value(data).get(0);
-			List<AbstractDataset> dsetsf = int2d.value(pdataf);
+			Dataset pdataf = pmapf.value(data).get(0);
+			List<? extends Dataset> dsetsf = int2d.value(pdataf);
 			intp = dsetsf.get(0);
 			intr = dsetsf.get(1);
 			break;

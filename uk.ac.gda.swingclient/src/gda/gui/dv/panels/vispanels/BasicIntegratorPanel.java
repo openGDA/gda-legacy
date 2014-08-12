@@ -57,7 +57,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import uk.ac.diamond.scisoft.analysis.coords.RotatedCoords;
-import uk.ac.diamond.scisoft.analysis.dataset.AbstractDataset;
+import uk.ac.diamond.scisoft.analysis.dataset.Dataset;
 import uk.ac.diamond.scisoft.analysis.dataset.DoubleDataset;
 import uk.ac.diamond.scisoft.analysis.dataset.Maths;
 import uk.ac.diamond.scisoft.analysis.dataset.function.Integrate2D;
@@ -410,20 +410,20 @@ public class BasicIntegratorPanel extends VisPanel implements IMainPlotManipulat
 				|| hBoxes.getHandleside() > MINSIZEFACTOR * data.getShape()[1] || h == 0 || w == 0)
 			return;
 
-		AbstractDataset intx = null;
-		AbstractDataset inty = null;
+		Dataset intx = null;
+		Dataset inty = null;
 
 		// first perform the integration
 		if (angle == 0.0) {
 			Integrate2D int2d = new Integrate2D(ax, ay, ax + w, ay + h);
-			List<AbstractDataset> dsets = int2d.value(data);
+			List<? extends Dataset> dsets = int2d.value(data);
 			intx = dsets.get(0);
 			inty = dsets.get(1);
 		} else {
 			MapToRotatedCartesian rcmap = new MapToRotatedCartesian(ax, ay, w, h, ang);
 			Integrate2D int2d = new Integrate2D();
-			AbstractDataset rcdata = rcmap.value(data).get(0);
-			List<AbstractDataset> dsets = int2d.value(rcdata);
+			Dataset rcdata = rcmap.value(data).get(0);
+			List<? extends Dataset> dsets = int2d.value(rcdata);
 			intx = dsets.get(0);
 			inty = dsets.get(1);
 
@@ -432,11 +432,11 @@ public class BasicIntegratorPanel extends VisPanel implements IMainPlotManipulat
 				DoubleDataset ndata = new DoubleDataset(data.getShape());
 				ndata.fill(1.);
 				dsets = rcmap.value(ndata);
-				AbstractDataset npdata = dsets.get(0);
-				AbstractDataset unpdata = dsets.get(1);
+				Dataset npdata = dsets.get(0);
+				Dataset unpdata = dsets.get(1);
 				dsets = int2d.value(npdata);
-				AbstractDataset nintx = dsets.get(0);
-				AbstractDataset ninty = dsets.get(1);
+				Dataset nintx = dsets.get(0);
+				Dataset ninty = dsets.get(1);
 				dsets = int2d.value(unpdata);
 				// calculate fraction in each element that was not clipped
 				nintx = Maths.divide(nintx, dsets.get(0));
