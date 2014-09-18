@@ -24,11 +24,11 @@ import gda.device.DeviceException;
 import gda.factory.Finder;
 import gda.gui.dv.DataVectorPlot;
 
+import org.eclipse.dawnsci.analysis.api.dataset.IDataset;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import uk.ac.diamond.scisoft.analysis.SDAPlotter;
-import uk.ac.diamond.scisoft.analysis.dataset.IDataset;
 
 /**
  * Class which allows plotting straight to the Data Vector Window

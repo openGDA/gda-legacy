@@ -24,7 +24,7 @@ import gda.gui.dv.DoubleBufferedImageData;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
-import uk.ac.diamond.scisoft.analysis.dataset.DoubleDataset;
+import org.eclipse.dawnsci.analysis.dataset.impl.DoubleDataset;
 
 /**
  * This interface should pass through most of the base events, but in terms of the reference frame of the image.

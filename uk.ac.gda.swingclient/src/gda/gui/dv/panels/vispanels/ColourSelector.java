@@ -39,13 +39,12 @@ import java.awt.image.WritableRaster;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
+import org.eclipse.dawnsci.analysis.dataset.impl.DoubleDataset;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.statistics.HistogramDataset;
-
-import uk.ac.diamond.scisoft.analysis.dataset.DoubleDataset;
 
 /**
  * A basic panel which fits in the side panel and provides colour information for the image manipulator.

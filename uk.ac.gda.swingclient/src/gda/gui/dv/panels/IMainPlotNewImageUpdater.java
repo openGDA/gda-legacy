@@ -19,7 +19,7 @@
 
 package gda.gui.dv.panels;
 
-import uk.ac.diamond.scisoft.analysis.dataset.DoubleDataset;
+import org.eclipse.dawnsci.analysis.dataset.impl.DoubleDataset;
 
 /**
  * Basic model for a panel which wishes to be updated but doesn't do anything else.

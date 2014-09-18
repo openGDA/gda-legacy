@@ -19,7 +19,8 @@
 
 package gda.gui.dv;
 
-import uk.ac.diamond.scisoft.analysis.dataset.DoubleDataset;
+import org.eclipse.dawnsci.analysis.dataset.impl.DoubleDataset;
+
 import gda.analysis.plotmanager.IPlotWindow;
 import gda.configuration.properties.LocalProperties;
 import gda.gui.dv.panels.DataSetPlot;

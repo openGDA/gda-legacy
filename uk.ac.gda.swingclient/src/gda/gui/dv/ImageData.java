@@ -19,8 +19,8 @@
 
 package gda.gui.dv;
 
-import uk.ac.diamond.scisoft.analysis.coords.RotatedCoords;
-import uk.ac.diamond.scisoft.analysis.coords.SectorCoords;
+import org.eclipse.dawnsci.analysis.dataset.coords.RotatedCoords;
+import org.eclipse.dawnsci.analysis.dataset.coords.SectorCoords;
 
 /**
  * Class which is like a dataset but contains image data as integers

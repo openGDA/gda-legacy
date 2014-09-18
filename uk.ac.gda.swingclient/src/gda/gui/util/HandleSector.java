@@ -18,7 +18,7 @@
 
 package gda.gui.util;
 
-import uk.ac.diamond.scisoft.analysis.coords.SectorCoords;
+import org.eclipse.dawnsci.analysis.dataset.coords.SectorCoords;
 
 /**
  * Class for handle sector:

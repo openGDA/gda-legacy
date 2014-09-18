@@ -41,10 +41,9 @@ import java.util.Vector;
 
 import javax.swing.JPanel;
 
+import org.eclipse.dawnsci.analysis.api.io.ScanFileHolderException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import uk.ac.diamond.scisoft.analysis.io.ScanFileHolderException;
 
 /**
  * The idea of this class is to be a nice wrapper for all the plotting methods from the server. It therefore needs to

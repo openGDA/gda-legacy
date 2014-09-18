@@ -34,13 +34,12 @@ import gda.factory.corba.util.NetService;
 import gda.observable.IObserver;
 import gda.util.LoggingConstants;
 
+import org.eclipse.dawnsci.analysis.dataset.impl.DoubleDataset;
 import org.omg.CORBA.Any;
 import org.omg.CORBA.COMM_FAILURE;
 import org.omg.CORBA.TRANSIENT;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import uk.ac.diamond.scisoft.analysis.dataset.DoubleDataset;
 
 /**
  * PlotmanagerAdapter Class

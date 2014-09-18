@@ -56,12 +56,13 @@ import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import uk.ac.diamond.scisoft.analysis.coords.RotatedCoords;
-import uk.ac.diamond.scisoft.analysis.dataset.Dataset;
-import uk.ac.diamond.scisoft.analysis.dataset.DoubleDataset;
-import uk.ac.diamond.scisoft.analysis.dataset.Maths;
+import org.eclipse.dawnsci.analysis.dataset.coords.RotatedCoords;
+import org.eclipse.dawnsci.analysis.dataset.impl.Dataset;
+import org.eclipse.dawnsci.analysis.dataset.impl.DoubleDataset;
+import org.eclipse.dawnsci.analysis.dataset.impl.Maths;
+import org.eclipse.dawnsci.analysis.dataset.impl.function.MapToRotatedCartesian;
+
 import uk.ac.diamond.scisoft.analysis.dataset.function.Integrate2D;
-import uk.ac.diamond.scisoft.analysis.dataset.function.MapToRotatedCartesian;
 
 /**
  * This panel is designed to provide the most simple integration methods for the Image visualisation toolkit

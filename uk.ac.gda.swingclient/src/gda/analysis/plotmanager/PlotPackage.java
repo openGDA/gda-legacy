@@ -29,10 +29,9 @@ import java.io.Serializable;
 
 import javax.swing.SwingUtilities;
 
+import org.eclipse.dawnsci.analysis.dataset.impl.DoubleDataset;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import uk.ac.diamond.scisoft.analysis.dataset.DoubleDataset;
 
 /**
  * PlotPackage Class

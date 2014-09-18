@@ -19,7 +19,8 @@
 
 package gda.gui.dv.panels;
 
-import uk.ac.diamond.scisoft.analysis.dataset.DoubleDataset;
+import org.eclipse.dawnsci.analysis.dataset.impl.DoubleDataset;
+
 import gda.gui.dv.ImageData;
 
 /**

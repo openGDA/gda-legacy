@@ -36,10 +36,9 @@ import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 import javax.swing.LayoutStyle;
 
+import org.eclipse.dawnsci.analysis.dataset.impl.DoubleDataset;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import uk.ac.diamond.scisoft.analysis.dataset.DoubleDataset;
 
 /**
  * A basic panel which fits in the side panel and provides colour information for the image manipulator.

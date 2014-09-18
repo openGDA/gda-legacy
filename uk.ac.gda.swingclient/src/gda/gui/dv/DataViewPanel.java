@@ -45,11 +45,11 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 
+import org.eclipse.dawnsci.analysis.api.io.ScanFileHolderException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import uk.ac.diamond.scisoft.analysis.io.SRSLoader;
-import uk.ac.diamond.scisoft.analysis.io.ScanFileHolderException;
 
 /**
  * This panel is designed to give the users and beamline scientists a full view of all the data collected on the
