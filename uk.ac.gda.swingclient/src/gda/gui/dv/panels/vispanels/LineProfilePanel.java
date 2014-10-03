@@ -56,8 +56,7 @@ import javax.swing.event.ChangeListener;
 
 import org.eclipse.dawnsci.analysis.dataset.impl.Dataset;
 import org.eclipse.dawnsci.analysis.dataset.impl.DoubleDataset;
-
-import uk.ac.diamond.scisoft.analysis.dataset.function.LineSample;
+import org.eclipse.dawnsci.analysis.dataset.roi.LineSample;
 
 /**
  * Basic class that provides a line profile through the data
