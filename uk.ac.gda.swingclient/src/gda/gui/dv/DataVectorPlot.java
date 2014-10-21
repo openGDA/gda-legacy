@@ -19,7 +19,6 @@
 
 package gda.gui.dv;
 
-import gda.analysis.DataSet;
 import gda.factory.FactoryException;
 import gda.gui.AcquisitionPanel;
 import gda.gui.dv.panels.MainPlot;
@@ -36,6 +35,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import javax.swing.JSplitPane;
 import javax.swing.SwingUtilities;
 
+import org.eclipse.dawnsci.analysis.dataset.impl.DoubleDataset;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -139,11 +139,7 @@ public class DataVectorPlot extends AcquisitionPanel {
 		configured = true;
 	}
 
-	/**
-	 * @param xData
-	 * @param yData
-	 */
-	public void plotXY(DataSet xData, DataSet... yData) {
+	public void plotXY(DoubleDataset xData, DoubleDataset... yData) {
 
 		GraphUpdate doGUIUpdate = new GraphUpdate();
 
@@ -152,34 +148,20 @@ public class DataVectorPlot extends AcquisitionPanel {
 		SwingUtilities.invokeLater(doGUIUpdate);
 	}
 
-	/**
-	 * @param xData
-	 * @param yData
-	 */
-	public void plotOverXY(DataSet xData, DataSet... yData) {
+
+	public void plotOverXY(DoubleDataset xData, DoubleDataset... yData) {
 
 		GraphUpdate doGUIUpdate = new GraphUpdate();
 
 		doGUIUpdate.init(mainPlot, false, xData, yData);
 
 		SwingUtilities.invokeLater(doGUIUpdate);
-
 	}
 
-	/**
-	 * Getter
-	 * 
-	 * @return value
-	 */
 	public String getMainPlotPosition() {
 		return mainPlotPosition;
 	}
 
-	/**
-	 * Setter
-	 * 
-	 * @param mainPlotPosition
-	 */
 	public void setMainPlotPosition(String mainPlotPosition) {
 		this.mainPlotPosition = mainPlotPosition;
 	}

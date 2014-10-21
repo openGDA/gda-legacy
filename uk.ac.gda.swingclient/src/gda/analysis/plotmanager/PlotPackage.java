@@ -29,6 +29,7 @@ import java.io.Serializable;
 
 import javax.swing.SwingUtilities;
 
+import org.eclipse.dawnsci.analysis.dataset.impl.Dataset;
 import org.eclipse.dawnsci.analysis.dataset.impl.DoubleDataset;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -110,7 +111,7 @@ public class PlotPackage implements Serializable, Cloneable {
 	 * @param xAxis
 	 * @param dataSets
 	 */
-	public void setXYPlot(DoubleDataset xAxis, DoubleDataset... dataSets) {
+	public void setXYPlot(Dataset xAxis, Dataset... dataSets) {
 		// first set up the tag correctly
 		plotType = XY_PLOT;
 
@@ -129,7 +130,7 @@ public class PlotPackage implements Serializable, Cloneable {
 	 * @param xAxis
 	 * @param dataSets
 	 */
-	public void setXYOverPlot(DoubleDataset xAxis, DoubleDataset... dataSets) {
+	public void setXYOverPlot(Dataset xAxis, Dataset... dataSets) {
 		// first set up the tag correctly
 		plotType = XY_OVER_PLOT;
 
@@ -149,7 +150,7 @@ public class PlotPackage implements Serializable, Cloneable {
 	 * @param dataSets
 	 * @param yTags
 	 */
-	public void setXYUpdatablePlot(DoubleDataset xAxis, DoubleDataset[] dataSets, int[] yTags) {
+	public void setXYUpdatablePlot(Dataset xAxis, Dataset[] dataSets, int[] yTags) {
 
 		// first set up the tag correctly
 		plotType = XY_TAGGED_PLOT;
@@ -175,7 +176,7 @@ public class PlotPackage implements Serializable, Cloneable {
 	 * @param dataSets
 	 * @param yTags
 	 */
-	public void setXYUpdatableOverPlot(DoubleDataset xAxis, DoubleDataset[] dataSets, int[] yTags) {
+	public void setXYUpdatableOverPlot(Dataset xAxis, Dataset[] dataSets, int[] yTags) {
 
 		// first set up the tag correctly
 		plotType = XY_TAGGED_OVER_PLOT;
@@ -220,7 +221,7 @@ public class PlotPackage implements Serializable, Cloneable {
 	/**
 	 * @param dataSets
 	 */
-	public void setImagePlot(DoubleDataset... dataSets) {
+	public void setImagePlot(Dataset... dataSets) {
 		// first set up the tag correctly
 		plotType = IMAGE_PLOT;
 
@@ -237,7 +238,7 @@ public class PlotPackage implements Serializable, Cloneable {
 	 * @param dataSets
 	 */
 	
-	public void setPlot3D(boolean useWindow, DoubleDataset... dataSets) {
+	public void setPlot3D(boolean useWindow, Dataset... dataSets) {
 		
 		if (useWindow)
 			plotType = XY_PLOT3D_WINDOW;
@@ -255,7 +256,7 @@ public class PlotPackage implements Serializable, Cloneable {
 	 * @param dataSets
 	 */
 	
-	public void setPlotImages(DoubleDataset...dataSets)
+	public void setPlotImages(Dataset...dataSets)
 	{
 		plotType = XY_IMAGE_PLOTS;
 		data = new DoubleDataset[dataSets.length];
@@ -269,7 +270,7 @@ public class PlotPackage implements Serializable, Cloneable {
 	 * Add another 1D Plot to the 3D plots
 	 * @param dataSets
 	 */
-	public void addPlot3D(DoubleDataset... dataSets) {
+	public void addPlot3D(Dataset... dataSets) {
 		
 		plotType = XY_PLOT3D_ADD_1D;
 		

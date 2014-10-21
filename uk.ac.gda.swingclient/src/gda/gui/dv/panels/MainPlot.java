@@ -19,7 +19,6 @@
 
 package gda.gui.dv.panels;
 
-import gda.analysis.Plotter;
 import gda.analysis.ScanFileHolder;
 import gda.analysis.io.MACLoader;
 import gda.analysis.plotmanager.IPlotWindow;
@@ -227,7 +226,7 @@ public class MainPlot extends JPanel implements IObserver, IObservable, IPlotWin
 
 		JythonServerFacade.getInstance().print("Data plotting, please wait ...");
 		logger.warn("Data plotting, please wait...");
-		Plotter.clientPlot("MAC", sfh.getAxis(0), sfh.getAxis(1));
+		PlotManager.getInstance().plot("MAC", sfh.getAxis(0), sfh.getAxis(1));
 		// JythonServerFacade.getInstance().print(
 		// "Display sub-sampled data only. Real data is stored in"
 		// + inputFileName);

@@ -34,7 +34,7 @@ import gda.factory.corba.util.NetService;
 import gda.observable.IObserver;
 import gda.util.LoggingConstants;
 
-import org.eclipse.dawnsci.analysis.dataset.impl.DoubleDataset;
+import org.eclipse.dawnsci.analysis.dataset.impl.Dataset;
 import org.omg.CORBA.Any;
 import org.omg.CORBA.COMM_FAILURE;
 import org.omg.CORBA.TRANSIENT;
@@ -78,7 +78,7 @@ public class PlotmanagerAdapter extends DeviceAdapter implements IPlotManager, F
 	}
 
 	@Override
-	public void plot(String panelName, DoubleDataset xAxis, DoubleDataset... dataSets) {
+	public void plot(String panelName, Dataset xAxis, Dataset... dataSets) {
 		for (int i = 0; i < NetService.RETRY; i++) {
 			try {
 
@@ -110,7 +110,7 @@ public class PlotmanagerAdapter extends DeviceAdapter implements IPlotManager, F
 	}
 
 	@Override
-	public void plotImage(String panelName, DoubleDataset... dataSets) {
+	public void plotImage(String panelName, Dataset... dataSets) {
 		for (int i = 0; i < NetService.RETRY; i++) {
 			try {
 
@@ -136,7 +136,7 @@ public class PlotmanagerAdapter extends DeviceAdapter implements IPlotManager, F
 	// throw new IOException("Communication failure: retry failed");
 
 	@Override
-	public void plotOver(String panelName, DoubleDataset xAxis, DoubleDataset... dataSets) {
+	public void plotOver(String panelName, Dataset xAxis, Dataset... dataSets) {
 		for (int i = 0; i < NetService.RETRY; i++) {
 			try {
 
@@ -233,22 +233,22 @@ public class PlotmanagerAdapter extends DeviceAdapter implements IPlotManager, F
 	}
 
 	@Override
-	public void plot3D(String panelName, DoubleDataset... dataSets) {
+	public void plot3D(String panelName, Dataset... dataSets) {
 		// Nothing to implement				
 	}
 
 	@Override
-	public void plot3D(String panelName, boolean useWindow, DoubleDataset... dataSets) {
+	public void plot3D(String panelName, boolean useWindow, Dataset... dataSets) {
 		// Nothing to implement		
 	}
 
 	@Override
-	public void addPlot3D(String panelName, DoubleDataset... dataSets) {
+	public void addPlot3D(String panelName, Dataset... dataSets) {
 		// Nothing to implement				
 	}
 
 	@Override
-	public void plotImages(String panelName, DoubleDataset... dataSets) {
+	public void plotImages(String panelName, Dataset... dataSets) {
 		// Nothing to implement
 		
 	}

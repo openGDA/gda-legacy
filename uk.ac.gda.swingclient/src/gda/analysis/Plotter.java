@@ -19,12 +19,15 @@
 
 package gda.analysis;
 
+// mfk can be deleted? in favour of RCPPlotter?
 import gda.analysis.plotmanager.PlotManager;
 import gda.device.DeviceException;
 import gda.factory.Finder;
 import gda.gui.dv.DataVectorPlot;
 
 import org.eclipse.dawnsci.analysis.api.dataset.IDataset;
+import org.eclipse.dawnsci.analysis.dataset.impl.Dataset;
+import org.eclipse.dawnsci.analysis.dataset.impl.DoubleDataset;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,18 +50,25 @@ public class Plotter {
 			+ "--------------------------\n"
 			+ "Wrapper to all the plotting functionality for post processing in the GDA RCP enviroment\n"
 			+ "--------------------------\n"
-			+ "Functions avalialbe\n"
+			+ "Functions available\n"
 			+ "\trcpPlot(xAxis,yAxis):\n"
 			+ "\t\tPlots the given yAxis dataset against the given xAxis dataset\n"
 			+ "\trcpPlot(xAxis,[yAxis1,yAxis2]):\n"
 			+ "\t\tPlots all of the given yAxis datasets against the xAxis";
 
 
-	private static DataSet[] convert(IDataset... set) {
-		DataSet[] array = new DataSet[set.length];
-		for (int i = 0; i < set.length; i++)
-			array[i] = DataSet.convertToDataSet(set[i]);
-		return array;
+	/**
+	 * Plots the x axis against the y axis
+	 * 
+	 * @param panelName
+	 *            The name of the panel which the data is to be sent to
+	 * @param xAxis
+	 *            The Dataset containing the x Axis data
+	 * @param yAxis
+	 *            The Dataset containing the y Axis data
+	 */
+	public static void plot(String panelName, Dataset xAxis, Dataset yAxis) {
+		PlotManager.getInstance().plot(panelName, xAxis, yAxis);
 	}
 
 	/**
@@ -71,22 +81,8 @@ public class Plotter {
 	 * @param yAxis
 	 *            The Dataset containing the y Axis data
 	 */
-	public static void plot(String panelName, IDataset xAxis, IDataset yAxis) {
-		PlotManager.getInstance().plot(panelName, DataSet.convertToDataSet(xAxis), DataSet.convertToDataSet(yAxis));
-	}
-
-	/**
-	 * Plots the x axis against the y axis
-	 * 
-	 * @param panelName
-	 *            The name of the panel which the data is to be sent to
-	 * @param xAxis
-	 *            The Dataset containing the x Axis data
-	 * @param yAxis
-	 *            The Dataset containing the y Axis data
-	 */
-	public static void plotOver(String panelName, IDataset xAxis, IDataset yAxis) {
-		PlotManager.getInstance().plotOver(panelName, DataSet.convertToDataSet(xAxis), DataSet.convertToDataSet(yAxis));
+	public static void plotOver(String panelName, Dataset xAxis, Dataset yAxis) {
+		PlotManager.getInstance().plotOver(panelName, xAxis, yAxis);
 	}
 
 	/**
@@ -99,8 +95,8 @@ public class Plotter {
 	 * @param yAxis
 	 *            The Dataset containing the y Axis data
 	 */
-	public static void plot(String panelName, IDataset xAxis, IDataset... yAxis) {
-		PlotManager.getInstance().plot(panelName, DataSet.convertToDataSet(xAxis), convert(yAxis));
+	public static void plot(String panelName, Dataset xAxis, Dataset... yAxis) {
+		PlotManager.getInstance().plot(panelName, xAxis, yAxis);
 	}
 
 	/**
@@ -113,9 +109,9 @@ public class Plotter {
 	 * @param yAxis
 	 *            The Dataset containing the y Axis data
 	 */
-	public static void plotOver(String panelName, IDataset xAxis,
-			IDataset... yAxis) {
-		PlotManager.getInstance().plotOver(panelName, DataSet.convertToDataSet(xAxis), convert(yAxis));
+	public static void plotOver(String panelName, Dataset xAxis,
+			Dataset... yAxis) {
+		PlotManager.getInstance().plotOver(panelName, xAxis, yAxis);
 	}
 
 	/**
@@ -126,8 +122,8 @@ public class Plotter {
 	 * @param data
 	 *            the dataset containing all the data.
 	 */
-	public static void plotImage(String panelName, IDataset data) {
-		PlotManager.getInstance().plotImage(panelName, DataSet.convertToDataSet(data));
+	public static void plotImage(String panelName, Dataset data) {
+		PlotManager.getInstance().plotImage(panelName, data);
 	}
 
 	/**
@@ -139,8 +135,8 @@ public class Plotter {
 	 *            the datasets containing all the data.
 	 */
 
-	public static void plotImages(String panelName, IDataset... data) {
-		PlotManager.getInstance().plotImages(panelName, convert(data));
+	public static void plotImages(String panelName, Dataset... data) {
+		PlotManager.getInstance().plotImages(panelName, data);
 	}
 
 	/**
@@ -152,8 +148,8 @@ public class Plotter {
 	 *            the dataset containing all the data.
 	 */
 
-	public static void plot3D(String panelName, IDataset data) {
-		PlotManager.getInstance().plot3D(panelName, DataSet.convertToDataSet(data));
+	public static void plot3D(String panelName, Dataset data) {
+		PlotManager.getInstance().plot3D(panelName, data);
 	}
 
 	/**
@@ -167,8 +163,8 @@ public class Plotter {
 	 *            use a window on the dataset if too large otherwise subsample
 	 */
 
-	public static void plot3D(String panelName, IDataset data, boolean useWindow) {
-		PlotManager.getInstance().plot3D(panelName, useWindow, DataSet.convertToDataSet(data));
+	public static void plot3D(String panelName, Dataset data, boolean useWindow) {
+		PlotManager.getInstance().plot3D(panelName, useWindow, data);
 	}
 
 	/**
@@ -177,10 +173,10 @@ public class Plotter {
 	 * @param panelName
 	 * @param data
 	 */
-	public static void addPlot3D(String panelName, IDataset... data)
+	public static void addPlot3D(String panelName, Dataset... data)
 	// Plotting routines for the Client
 	{
-		PlotManager.getInstance().addPlot3D(panelName, convert(data));
+		PlotManager.getInstance().addPlot3D(panelName, data);
 	}
 
 	/**
@@ -194,12 +190,12 @@ public class Plotter {
 	 * @param yAxis
 	 *            The Dataset containing the y Axis data
 	 */
-	public static void clientPlot(String panelName, IDataset xAxis,
-			IDataset... yAxis) {
+	public static void clientPlot(String panelName, DoubleDataset xAxis,
+			DoubleDataset... yAxis) {
 		DataVectorPlot dvp = (DataVectorPlot) (Finder.getInstance()
 				.find(panelName));
 		if (dvp != null) {
-			dvp.plotXY(DataSet.convertToDataSet(xAxis), convert(yAxis));
+			dvp.plotXY(xAxis, yAxis);
 		} else {
 			logger.error("Finder cannot find " + panelName);
 		}
@@ -216,12 +212,12 @@ public class Plotter {
 	 * @param yAxis
 	 *            The Dataset containing the y Axis data
 	 */
-	public static void clientPlotOver(String panelName, IDataset xAxis,
-			IDataset... yAxis) {
+	public static void clientPlotOver(String panelName, DoubleDataset xAxis,
+			DoubleDataset... yAxis) {
 		DataVectorPlot dvp = (DataVectorPlot) (Finder.getInstance()
 				.find(panelName));
 		if (dvp != null) {
-			dvp.plotOverXY(DataSet.convertToDataSet(xAxis), convert(yAxis));
+			dvp.plotOverXY(xAxis, yAxis);
 		} else {
 			logger.error("Finder cannot find " + panelName);
 		}

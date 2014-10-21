@@ -32,6 +32,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Vector;
 
+import org.eclipse.dawnsci.analysis.dataset.impl.Dataset;
 import org.eclipse.dawnsci.analysis.dataset.impl.DoubleDataset;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -120,7 +121,7 @@ public class PlotManager extends DeviceBase implements IPlotManager {
 	}
 	
 	@Override
-	public void plot(String panelName, DoubleDataset xAxis, DoubleDataset... datasets) {
+	public void plot(String panelName, Dataset xAxis, Dataset... datasets) {
 
 		logger.debug("Entering the  plot(String panelName, DataSet xAxis, DataSet... dataSets) Method");
 		logger.debug("The panelname to plot is '" + panelName + "'");
@@ -142,13 +143,8 @@ public class PlotManager extends DeviceBase implements IPlotManager {
 		logger.debug("Leaving the plot method");
 	}
 
-	/**
-	 * {@inheritDoc}
-	 *
-	 * @see gda.analysis.plotmanager.IPlotManager#plotOver(String, DoubleDataset, DoubleDataset...)
-	 */
 	@Override
-	public void plotOver(String panelName, DoubleDataset xAxis, DoubleDataset... dataSets) {
+	public void plotOver(String panelName, Dataset xAxis, Dataset... dataSets) {
 		// generate the appropriate PlotPackage to pass across
 		logger.debug("Entering the plotover method");
 		PlotPackage pp = new PlotPackage();
@@ -183,7 +179,7 @@ public class PlotManager extends DeviceBase implements IPlotManager {
 	}
 
 	@Override
-	public void plotImage(String panelName, DoubleDataset... dataSets) {
+	public void plotImage(String panelName, Dataset... dataSets) {
 
 		logger.debug("Entering the  plotImage(String panelName, DataSet... dataSets) Method for panel '" + panelName
 				+ "'");
@@ -223,7 +219,7 @@ public class PlotManager extends DeviceBase implements IPlotManager {
 	 */
 
 	@Override
-	public void plot3D(String panelName, DoubleDataset... dataSets) {
+	public void plot3D(String panelName, Dataset... dataSets) {
 		plot3D(panelName, false, dataSets);
 	}
 
@@ -231,7 +227,7 @@ public class PlotManager extends DeviceBase implements IPlotManager {
 	 * @see gda.analysis.plotmanager.IPlotManager#plot3D(String, boolean, DoubleDataset...)
 	 */
 	@Override
-	public void plot3D(String panelName, boolean useWindow, DoubleDataset... dataSets) {
+	public void plot3D(String panelName, boolean useWindow, Dataset... dataSets) {
 		PlotPackage pp = null;
 		try {
 			clearHashmap();
@@ -260,7 +256,7 @@ public class PlotManager extends DeviceBase implements IPlotManager {
 	}
 
 	@Override
-	public void plotImages(String panelName, DoubleDataset... dataSets)
+	public void plotImages(String panelName, Dataset... dataSets)
 	{
 		PlotPackage pp = null;
 		try {
@@ -290,7 +286,7 @@ public class PlotManager extends DeviceBase implements IPlotManager {
 	}
 	
 	@Override
-	public void addPlot3D(String panelName, DoubleDataset... dataSets) {
+	public void addPlot3D(String panelName, Dataset... dataSets) {
 		PlotPackage pp = null;
 		try {
 			clearHashmap();
