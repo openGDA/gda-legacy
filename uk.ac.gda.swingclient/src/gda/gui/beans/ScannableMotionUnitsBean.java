@@ -124,7 +124,7 @@ public class ScannableMotionUnitsBean extends BeanBase {
 			{
 				Double[] limits = (Double[]) theScannable.getAttribute(ScannableMotion.FIRSTINPUTLIMITS);
 				if (limits != null) {
-					toolTip += " (" + limits[0] != null ? limits[0] : ""  + ", " + limits[1] != null ? limits[1] : "" + ")";
+					toolTip += " (" + (( limits[0] != null) ? limits[0] : "")  + ", " + ((limits[1] != null) ? limits[1] : "") + ")";
 				}
 			}
 			tooltipString = toolTip;
