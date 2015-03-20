@@ -19,7 +19,9 @@
 
 package gda.device.scannable;
 
-import gda.data.nexus.NeXusUtils;
+import gda.data.nexus.NexusException;
+import gda.data.nexus.NexusFileInterface;
+import gda.data.nexus.NexusUtils;
 import gda.device.DeviceException;
 import gda.device.scannable.ScannableUtils.ScannableValidationException;
 import gda.jython.accesscontrol.AccessDeniedException;
@@ -32,8 +34,6 @@ import java.util.regex.Pattern;
 
 import org.jscience.physics.quantities.Quantity;
 import org.jscience.physics.units.Unit;
-import org.nexusformat.NeXusFileInterface;
-import org.nexusformat.NexusException;
 import org.python.core.Py;
 import org.python.core.PyException;
 import org.python.core.PyFloat;
@@ -549,8 +549,8 @@ public class DOFAdapter extends ScannableMotionBase {
 	}
 
 	@Override
-	protected void writeNeXusInformationLimits(NeXusFileInterface file) throws NexusException {
-		NeXusUtils.writeNexusString(file, "soft_limit_min", getSoftLimitLower());
-		NeXusUtils.writeNexusString(file, "soft_limit_max", getSoftLimitUpper());
+	protected void writeNeXusInformationLimits(NexusFileInterface file) throws NexusException {
+		NexusUtils.writeNexusString(file, "soft_limit_min", getSoftLimitLower());
+		NexusUtils.writeNexusString(file, "soft_limit_max", getSoftLimitUpper());
 	}
 }
