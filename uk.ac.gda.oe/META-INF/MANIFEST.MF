@@ -17,7 +17,7 @@ Require-Bundle: uk.ac.gda.common;bundle-version="1.0.0",
  org.eclipse.dawnsci.hdf5;bundle-version="1.2.0"
 Eclipse-RegisterBuddy: uk.ac.gda.core
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: gda.device.scannable,
  gda.factory,
  gda.factory.corba,

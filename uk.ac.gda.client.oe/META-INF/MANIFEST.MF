@@ -15,6 +15,6 @@ Require-Bundle: org.eclipse.ui,
  uk.ac.gda.common.client;bundle-version="1.0.0",
  uk.ac.gda.swingclient;bundle-version="1.0.0"
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: uk.ac.gda.oe
 Bundle-Activator: uk.ac.gda.oe.Activator

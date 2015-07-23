@@ -5,7 +5,7 @@ Bundle-SymbolicName: uk.ac.gda.swingclient;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: uk.ac.gda.swingclient.Activator
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: gda.analysis,
  gda.analysis.plotmanager,
  gda.analysis.plotmanager.corba.impl,
