@@ -20,8 +20,8 @@
 package gda.gui.util;
 
 import gda.device.CurrentAmplifier;
-import gda.device.DeviceException;
 import gda.device.CurrentAmplifier.Status;
+import gda.device.DeviceException;
 import gda.factory.Configurable;
 import gda.factory.FactoryException;
 import gda.factory.Findable;
@@ -33,7 +33,6 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 
 import javax.swing.BorderFactory;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -42,8 +41,6 @@ import javax.swing.border.TitledBorder;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.jidesoft.icons.IconSet;
 
 /**
  * Generates a JPanel to monitor a PV or Scannable.

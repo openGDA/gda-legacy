@@ -19,18 +19,10 @@
 package gda.device.scannable;
 
 import gda.analysis.Plotter;
-import gda.device.DeviceException;
-import gda.jython.IAllScanDataPointsObserver;
-import gda.jython.IScanDataPointProvider;
-import gda.jython.InterfaceProvider;
-import gda.scan.ScanDataPoint;
 
-import org.apache.commons.lang.ArrayUtils;
-import org.eclipse.dawnsci.analysis.dataset.impl.DoubleDataset;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import uk.ac.diamond.scisoft.analysis.SDAPlotter;
 
 /**
  * Plots a 2D graph of the current scan into an RCP plot window as the scan progresses.
