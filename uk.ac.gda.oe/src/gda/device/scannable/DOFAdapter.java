@@ -19,7 +19,6 @@
 
 package gda.device.scannable;
 
-import gda.data.nexus.NexusUtils;
 import gda.device.DeviceException;
 import gda.device.scannable.ScannableUtils.ScannableValidationException;
 import gda.jython.accesscontrol.AccessDeniedException;
@@ -33,6 +32,7 @@ import java.util.regex.Pattern;
 import org.eclipse.dawnsci.analysis.api.tree.GroupNode;
 import org.eclipse.dawnsci.hdf5.nexus.NexusException;
 import org.eclipse.dawnsci.hdf5.nexus.NexusFile;
+import org.eclipse.dawnsci.nexus.NexusUtils;
 import org.jscience.physics.quantities.Quantity;
 import org.jscience.physics.units.Unit;
 import org.python.core.Py;
@@ -67,7 +67,7 @@ import org.slf4j.LoggerFactory;
  * </p>
  */
 public class DOFAdapter extends ScannableMotionBase {
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(DOFAdapter.class);
 
 	/**
@@ -86,14 +86,14 @@ public class DOFAdapter extends ScannableMotionBase {
 	 * @return the new Array
 	 */
 	private Double[] toDouble(double[] array) {
-		
+
 		Double[] result = new Double[array.length];
 		for(int i = 0; i < array.length; i++) {
 			result[i] = array[i];
 		}
 		return result;
 	}
-	
+
 	/**
 	 * @param oe
 	 * @param dofname
@@ -103,15 +103,15 @@ public class DOFAdapter extends ScannableMotionBase {
 		this.oe = oe;
 		this.dofname = dofname;
 		setName(dofname);
-		
-		// on construction, we also need to tag through the parameters which are relevent to the 
+
+		// on construction, we also need to tag through the parameters which are relevent to the
 		// beamline configuration manager
 		try {
 			this.setLowerGdaLimits(toDouble(oe.getLowerGdaLimits(dofname)));
 		} catch (Exception e) {
 			// don't worry about this, if the value hasent been set in the CASTOR, then it isnt a loss here
 		}
-		
+
 		try {
 			double[] oeTolerance = oe.getTolerance(dofname);
 			Double[] tolerence = new Double[oeTolerance.length];
@@ -122,13 +122,13 @@ public class DOFAdapter extends ScannableMotionBase {
 		} catch (Exception e) {
 			// don't worry about this, if the value hasent been set in the CASTOR, then it isnt a loss here
 		}
-		
+
 		try {
 			this.setUpperGdaLimits(toDouble(oe.getUpperGdaLimits(dofname)));
 		} catch (Exception e) {
 			// don't worry about this, if the value hasent been set in the CASTOR, then it isnt a loss here
 		}
-		
+
 		// As a last step, lets try to pull out the documentation.
 		try {
 			__doc__ = this.oe.getDocString(dofname);
@@ -136,14 +136,14 @@ public class DOFAdapter extends ScannableMotionBase {
 			// This isnt a major loss if it dosn't find it, log the error however
 			logger.warn("Cannot find documentation for "+ dofname + " due to exception" + exceptionUtils.getFullStackMsg(e));
 		}
-		
+
 		ScannableUtils.validate(this);
 	}
 
 	/**
 	 * {@inheritDoc} Will check checkPositionValid() method which has been overridden from ScannableMotionBase to also
 	 * check DOF limits. Will throw an exception if move is illegal.
-	 * 
+	 *
 	 * @see gda.device.scannable.ScannableBase#asynchronousMoveTo(java.lang.Object)
 	 */
 	@Override
@@ -151,7 +151,7 @@ public class DOFAdapter extends ScannableMotionBase {
 		Quantity newPosition = null;
 		String s = position.toString();
 
-		//FIXME Somebody should look at this!		
+		//FIXME Somebody should look at this!
 		// * Do some converting (cross fingers!)
 
 		// somewhere between the tempScript2 file (which contains the
@@ -216,7 +216,7 @@ public class DOFAdapter extends ScannableMotionBase {
 	/**
 	 * Returns the dof's current position. This should be in the form of a double or an array of doubles to help users
 	 * in the scripting environment. {@inheritDoc}
-	 * 
+	 *
 	 * @see gda.device.scannable.ScannableBase#getPosition()
 	 */
 	@Override
@@ -240,7 +240,7 @@ public class DOFAdapter extends ScannableMotionBase {
 			throw new DeviceException("Error in isBusy for " + getName(),e);
 		}
 	}
-	
+
 	@Override
 	public int getProtectionLevel() throws DeviceException{
 		try {
@@ -249,7 +249,7 @@ public class DOFAdapter extends ScannableMotionBase {
 			throw new DeviceException(e.getMessage());
 		}
 	}
-	
+
 	@Override
 	public void setProtectionLevel(int newLevel) throws DeviceException{
 		//do nothing
@@ -257,7 +257,7 @@ public class DOFAdapter extends ScannableMotionBase {
 
 	/**
 	 * Returns the OE this DOF is part of.
-	 * 
+	 *
 	 * @return OE
 	 */
 	public OE getOE() {
@@ -266,7 +266,7 @@ public class DOFAdapter extends ScannableMotionBase {
 
 	/**
 	 * Returns the name of the DOF.
-	 * 
+	 *
 	 * @return String
 	 */
 	public String getDofname() {
@@ -275,7 +275,7 @@ public class DOFAdapter extends ScannableMotionBase {
 
 	/**
 	 * Updates the reporting units currently in use.
-	 * 
+	 *
 	 * @param unit
 	 */
 	public void setReportingUnits(Unit<? extends Quantity> unit) {
@@ -311,7 +311,7 @@ public class DOFAdapter extends ScannableMotionBase {
 			final PyInteger pyInt = (PyInteger) index;
 			if ((pyInt).getValue() < __len__()) {
 				return getJythonPosition();
-			} 
+			}
 			PyException ex = new PyException();
 			ex.value = new PyString( String.format("index out of range: %d", pyInt.getValue()));
 			ex.type = Py.TypeError;
@@ -467,7 +467,7 @@ public class DOFAdapter extends ScannableMotionBase {
 
 	/**
 	 * {@inheritDoc} Overrides ScanabbleMotionBase, to also check DOF limits its(including EPICs soft limits).
-	 * 
+	 *
 	 * @see gda.device.Scannable#checkPositionValid(java.lang.Object)
 	 */
 	// TODO: finalise super.checkPositionValid() when possible
@@ -479,7 +479,7 @@ public class DOFAdapter extends ScannableMotionBase {
 			Quantity newPosition = Quantity.valueOf(position.toString());
 			Quantity upper = this.oe.getSoftLimitUpper(this.dofname);
 			Quantity lower = this.oe.getSoftLimitLower(this.dofname);
-			
+
 
 			if (lower.getAmount() > upper.getAmount()) {
 				Quantity temp = upper;
@@ -492,14 +492,14 @@ public class DOFAdapter extends ScannableMotionBase {
 				if(newPosition.isGreaterThan(upper) || newPosition.isLessThan(lower))
 					return String.format("target position (%s) is outside of DOF/EPICs limits (%s, %s )", newPosition
 							.toText(), lower.toText(), upper.toText());
-					
+
 			}
 
 			else if (!(newPosition.getAmount() >= lower.getAmount() && newPosition.getAmount() <= upper.getAmount())) {
 				return String.format("target position (%s) is outside of DOF/EPICs limits (%s, %s )", newPosition
 						.toText(), lower.toText(), upper.toText());
 			}
-			
+
 			try {
 				return super.checkPositionValid(position);
 			} catch (DeviceException e) {
@@ -514,7 +514,7 @@ public class DOFAdapter extends ScannableMotionBase {
 
 	/**
 	 * Implements the setPosition method from the OE interface for the DOF wrapped by this object.
-	 * 
+	 *
 	 * @param position
 	 */
 	public void setPosition(double position) {
