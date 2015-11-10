@@ -107,7 +107,7 @@ public class PeriodicTable extends IObservableJPanel implements IObserver {
 			gbc.gridx = ptLayout.getGridX(element);
 			add(elementRenderer, gbc);
 
-			elementRenderer.addIObserver(this);
+			elementRenderer.addIObserver(this); //FIXME: potential race condition
 		}
 
 	}

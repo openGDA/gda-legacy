@@ -51,13 +51,13 @@ public class SidePlot extends JTabbedPane implements IObserver, ChangeListener {
 	 */
 	public SidePlot(MainPlot observedPlot) {
 		// register with the mainplot.
-		observedPlot.addIObserver(this);
+		observedPlot.addIObserver(this); //FIXME: potential race condition
 
 		// collect the main plot
 		owner = observedPlot;
 
 		// register for change events
-		addChangeListener(this);
+		addChangeListener(this); //FIXME: potential race condition
 	}
 
 	/**

@@ -75,7 +75,7 @@ public class OeImpl extends CorbaOEPOA implements IObserver {
 		name = ((OEBase) oe).getName();
 
 		dispatcher = EventService.getInstance().getEventDispatcher();
-		oe.addIObserver(this);
+		oe.addIObserver(this); //FIXME: potential race condition
 	}
 
 	/**

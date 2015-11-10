@@ -103,7 +103,7 @@ public class MainPlot extends JPanel implements IObserver, IObservable, IPlotWin
 
 		setName(panelName);
 
-		PlotManager.getIPlotManager().addIObserver(this);
+		PlotManager.getIPlotManager().addIObserver(this); //FIXME: potential race condition
 
 		observers = new Vector<IObserver>();
 

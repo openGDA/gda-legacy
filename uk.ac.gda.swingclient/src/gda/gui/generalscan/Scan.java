@@ -18,11 +18,11 @@
 
 package gda.gui.generalscan;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import gda.observable.IObservableJPanel;
 import gda.observable.IObserver;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Base class for various types of Scan.
@@ -60,7 +60,7 @@ public abstract class Scan extends IObservableJPanel implements IObserver, Comma
 	 */
 	public Scan() {
 		model = createModel();
-		model.addIObserver(this);
+		model.addIObserver(this); //FIXME: potential race condition
 		init();
 	}
 

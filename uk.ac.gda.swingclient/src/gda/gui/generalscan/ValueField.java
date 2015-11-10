@@ -83,9 +83,9 @@ public class ValueField extends JTextField implements ActionListener, DocumentLi
 		// listens for changes to its contents and observes its valueModel.
 
 		addActionListener(this);
-		valueModel.addIObserver(this);
+		valueModel.addIObserver(this); //FIXME: potential race condition
 		addMouseListener(ValueFieldMouseInputAdapter.getInstance());
-		getDocument().addDocumentListener(this);
+		getDocument().addDocumentListener(this); //FIXME: potential race condition
 
 		// The default number of decimal places.
 		nf.setMinimumFractionDigits(3);

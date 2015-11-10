@@ -148,7 +148,7 @@ public class BeamLostPopup implements IObserver {
 		this.parent = parent;
 		beamModeMonitor = (Monitor) Finder.getInstance().find(beamModeMonitorName);
 		if (beamModeMonitor != null)
-			beamModeMonitor.addIObserver(this);
+			beamModeMonitor.addIObserver(this); //FIXME: potential race condition
 	}
 	
 	@Override

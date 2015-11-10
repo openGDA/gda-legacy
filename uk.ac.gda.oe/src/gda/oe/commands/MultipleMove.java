@@ -77,7 +77,7 @@ public class MultipleMove extends DOFCommand implements Runnable {
 		super(dof, null);
 		this.toBeMoved = toBeMoved;
 		for (int i = 0; i < toBeMoved.length; i++)
-			toBeMoved[i].addIObserver(this);
+			toBeMoved[i].addIObserver(this); //FIXME: potential race condition
 		this.moves = moves;
 	}
 

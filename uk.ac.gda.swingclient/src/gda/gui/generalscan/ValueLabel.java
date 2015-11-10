@@ -43,7 +43,7 @@ public class ValueLabel extends JTextField implements ValueDisplayer {
 		this.valueName = valueName;
 
 		/* Observe the model */
-		valueModel.addIObserver(this);
+		valueModel.addIObserver(this); //FIXME: potential race condition
 
 		// Setting enabled rather than editable to false makes the
 		// field look better. Setting the disabledTextColor to the

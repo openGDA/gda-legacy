@@ -71,7 +71,7 @@ public class DefaultDOFStatusIndicator extends JLabel implements DOFStatusIndica
 
 		this.dofName = dofName;
 		if (oe != null)
-			oe.addIObserver(this);
+			oe.addIObserver(this); //FIXME: potential race condition
 
 		displayStatusIcon(status);
 
