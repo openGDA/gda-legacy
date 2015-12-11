@@ -30,8 +30,8 @@ import gda.util.exceptionUtils;
 import java.util.regex.Pattern;
 
 import org.eclipse.dawnsci.analysis.api.tree.GroupNode;
-import org.eclipse.dawnsci.hdf5.nexus.NexusException;
-import org.eclipse.dawnsci.hdf5.nexus.NexusFile;
+import org.eclipse.dawnsci.nexus.NexusException;
+import org.eclipse.dawnsci.nexus.NexusFile;
 import org.eclipse.dawnsci.nexus.NexusUtils;
 import org.jscience.physics.quantities.Quantity;
 import org.jscience.physics.units.Unit;
