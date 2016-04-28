@@ -86,8 +86,8 @@ public class DataSetPlot extends SimplePlot {
 	}
 
 	@Override
-	protected JPopupMenu createPopupMenu(boolean properties, boolean save, boolean print, boolean zoom) {
-		JPopupMenu jpm = super.createPopupMenu(properties, save, print, zoom);
+	protected JPopupMenu createPopupMenu(boolean properties, boolean copy, boolean save, boolean print, boolean zoom) {
+		JPopupMenu jpm = super.createPopupMenu(properties, copy, save, print, zoom);
 
 		jpm.add(new JSeparator());
 
@@ -122,6 +122,12 @@ public class DataSetPlot extends SimplePlot {
 
 		return jpm;
 	}
+
+	@Override
+	protected JPopupMenu createPopupMenu(boolean properties, boolean save, boolean print, boolean zoom) {
+		return createPopupMenu(properties, false, save, print, zoom);
+	}
+
 	public boolean isFreezePlot() {
 		return freezePlot ;
 	}
