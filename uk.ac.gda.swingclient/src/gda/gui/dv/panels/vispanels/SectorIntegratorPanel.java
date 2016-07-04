@@ -19,15 +19,6 @@
 
 package gda.gui.dv.panels.vispanels;
 
-import gda.gui.dv.DoubleBufferedImageData;
-import gda.gui.dv.panels.IMainPlotManipulator;
-import gda.gui.dv.panels.MainPlot;
-import gda.gui.dv.panels.VisPanel;
-import gda.gui.util.HandleSector;
-import gda.gui.util.HandleSectors;
-import gda.jython.JythonServerFacade;
-import gda.plots.SimplePlot;
-
 import java.awt.Cursor;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
@@ -58,11 +49,20 @@ import javax.swing.event.ChangeListener;
 
 import org.eclipse.dawnsci.analysis.dataset.coords.SectorCoords;
 import org.eclipse.dawnsci.analysis.dataset.impl.Dataset;
+import org.eclipse.dawnsci.analysis.dataset.impl.DatasetFactory;
 import org.eclipse.dawnsci.analysis.dataset.impl.DatasetUtils;
 import org.eclipse.dawnsci.analysis.dataset.impl.DoubleDataset;
 import org.eclipse.dawnsci.analysis.dataset.impl.Maths;
 import org.eclipse.dawnsci.analysis.dataset.impl.function.Centroid;
 
+import gda.gui.dv.DoubleBufferedImageData;
+import gda.gui.dv.panels.IMainPlotManipulator;
+import gda.gui.dv.panels.MainPlot;
+import gda.gui.dv.panels.VisPanel;
+import gda.gui.util.HandleSector;
+import gda.gui.util.HandleSectors;
+import gda.jython.JythonServerFacade;
+import gda.plots.SimplePlot;
 import uk.ac.diamond.scisoft.analysis.dataset.function.Integrate2D;
 import uk.ac.diamond.scisoft.analysis.dataset.function.MapToPolar;
 
@@ -227,12 +227,12 @@ public class SectorIntegratorPanel extends VisPanel implements ActionListener, I
 	SymmetryStatus symmetry = SymmetryStatus.NONE;
 	private JRadioButton radioNone = null;
 
-	boolean clippingCompensation = false; // allow compensation for clipped sector 
-	
+	boolean clippingCompensation = false; // allow compensation for clipped sector
+
 	/**
 	 * Constructor for the class, this needs to take the MainPlot which is associated as an argument This function
 	 * mainly lays out the GUI
-	 * 
+	 *
 	 * @param main
 	 *            the MainPlot that this manipulator is linked to
 	 */
@@ -282,10 +282,10 @@ public class SectorIntegratorPanel extends VisPanel implements ActionListener, I
 		centroidButton.setToolTipText("Set centre to image's centroid");
 		centroidButton.setActionCommand("CentreCen");
 		centroidButton.addActionListener(this);
-		
+
 		FlowLayout pl2f = new FlowLayout();
 		pl2f.setAlignment(FlowLayout.LEFT);
-		
+
 		JPanel pl12 = new JPanel();
 		pl12.setLayout(pl2f);
 		pl12.add(new JLabel("Centre x: ", SwingConstants.RIGHT));
@@ -404,7 +404,7 @@ public class SectorIntegratorPanel extends VisPanel implements ActionListener, I
 		ssp = new JSpinner(smsp);
 		ssp.addChangeListener(spinnerChangeListener);
 		pl43.add(ssp);
-		
+
 		JPanel pl44 = new JPanel();
 		pl44.setLayout(pl2f);
 		pl44.add(new JLabel("End azi: ", SwingConstants.RIGHT));
@@ -437,9 +437,9 @@ public class SectorIntegratorPanel extends VisPanel implements ActionListener, I
 		this.add(pl2, new GridBagConstraints(0, 3, 1, 2, 0.0, 0.0, GridBagConstraints.WEST, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
 		this.add(pl3, new GridBagConstraints(0, 5, 1, 2, 0.0, 0.0, GridBagConstraints.WEST, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
 		this.add(radPlot, new GridBagConstraints(1, 0, 1, 3, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
-		this.add(phiPlot, new GridBagConstraints(1, 3, 1, 3, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));	
-		this.add(pl4, new GridBagConstraints(1, 6, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));	
-		
+		this.add(phiPlot, new GridBagConstraints(1, 3, 1, 3, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+		this.add(pl4, new GridBagConstraints(1, 6, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+
 		hSectors = new HandleSectors();
 	}
 
@@ -453,7 +453,7 @@ public class SectorIntegratorPanel extends VisPanel implements ActionListener, I
 		ep = 120.0;
 	}
 
-	/** 
+	/**
 	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 	 */
 	@Override
@@ -521,8 +521,8 @@ public class SectorIntegratorPanel extends VisPanel implements ActionListener, I
 
 	/**
 	 * Implemented method which allows the main panel to see the overlay contained in this object for plotting purposes
-	 * @param currentOverlay 
-	 * 
+	 * @param currentOverlay
+	 *
 	 * @param image
 	 *            Actual image to be worked on
 	 * @return The overlay
@@ -569,7 +569,7 @@ public class SectorIntegratorPanel extends VisPanel implements ActionListener, I
 
 	/**
 	 * Internal function which updates the plots on the panel, to give the user feedback on the integrations
-	 * 
+	 *
 	 * @param x
 	 * @param y
 	 * @param ar
@@ -581,7 +581,7 @@ public class SectorIntegratorPanel extends VisPanel implements ActionListener, I
 		// sanity check that image is bigger than handle sides
 		if (data == null || hSectors.getHandleside() > MINSIZEFACTOR*data.getShape()[0] || hSectors.getHandleside() > MINSIZEFACTOR*data.getShape()[1])
 			return;
-		
+
 		// first perform the integration
 		MapToPolar pmap = new MapToPolar(x, y, ar, ap, br, bp);
 		Integrate2D int2d = new Integrate2D();
@@ -592,7 +592,7 @@ public class SectorIntegratorPanel extends VisPanel implements ActionListener, I
 
 		if (clippingCompensation) {
 			// normalise plot for case when sector is clipped to size of image
-			DoubleDataset ndata = new DoubleDataset(data.getShape());
+			DoubleDataset ndata = DatasetFactory.zeros(DoubleDataset.class, data.getShape());
 			ndata.fill(1.);
 			dsets = pmap.value(ndata);
 			Dataset npdata = dsets.get(0);
@@ -799,7 +799,7 @@ public class SectorIntegratorPanel extends VisPanel implements ActionListener, I
 
 	/**
 	 * Overloaded function, but not used in this case
-	 * 
+	 *
 	 * @param e
 	 *            Mouse event
 	 */
@@ -810,7 +810,7 @@ public class SectorIntegratorPanel extends VisPanel implements ActionListener, I
 
 	/**
 	 * Overloaded function, but not used in this case
-	 * 
+	 *
 	 * @param e
 	 *            Mouse event
 	 */
@@ -821,7 +821,7 @@ public class SectorIntegratorPanel extends VisPanel implements ActionListener, I
 
 	/**
 	 * Overloaded function, but not used in this case
-	 * 
+	 *
 	 * @param e
 	 *            Mouse event
 	 */
@@ -832,7 +832,7 @@ public class SectorIntegratorPanel extends VisPanel implements ActionListener, I
 
 	/**
 	 * Function which deals with drawing to the Screen
-	 * 
+	 *
 	 * @param e
 	 *            Mouse event
 	 */
@@ -888,7 +888,7 @@ public class SectorIntegratorPanel extends VisPanel implements ActionListener, I
 
 	/**
 	 * Function which deals with drawing to the Screen
-	 * 
+	 *
 	 * @param e
 	 *            Mouse event
 	 */
@@ -961,7 +961,7 @@ public class SectorIntegratorPanel extends VisPanel implements ActionListener, I
 
 	/**
 	 * Function which deals with drawing to the Screen
-	 * 
+	 *
 	 * @param e
 	 *            Mouse event
 	 */
@@ -1039,7 +1039,7 @@ public class SectorIntegratorPanel extends VisPanel implements ActionListener, I
 
 	/**
 	 * Interpret the mouse dragging event
-	 * 
+	 *
 	 * @param e
 	 * @return update if needed
 	 */
@@ -1204,7 +1204,7 @@ public class SectorIntegratorPanel extends VisPanel implements ActionListener, I
 
 	/**
 	 * Overloaded function, but not used in this case
-	 * 
+	 *
 	 * @param e
 	 *            Mouse event
 	 */

@@ -19,15 +19,6 @@
 
 package gda.gui.dv.panels.vispanels;
 
-import gda.gui.dv.DoubleBufferedImageData;
-import gda.gui.dv.panels.IMainPlotManipulator;
-import gda.gui.dv.panels.MainPlot;
-import gda.gui.dv.panels.VisPanel;
-import gda.gui.util.HandleBox;
-import gda.gui.util.HandleBoxes;
-import gda.jython.JythonServerFacade;
-import gda.plots.SimplePlot;
-
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.FlowLayout;
@@ -58,10 +49,19 @@ import javax.swing.event.ChangeListener;
 
 import org.eclipse.dawnsci.analysis.dataset.coords.RotatedCoords;
 import org.eclipse.dawnsci.analysis.dataset.impl.Dataset;
+import org.eclipse.dawnsci.analysis.dataset.impl.DatasetFactory;
 import org.eclipse.dawnsci.analysis.dataset.impl.DoubleDataset;
 import org.eclipse.dawnsci.analysis.dataset.impl.Maths;
 import org.eclipse.dawnsci.analysis.dataset.impl.function.MapToRotatedCartesian;
 
+import gda.gui.dv.DoubleBufferedImageData;
+import gda.gui.dv.panels.IMainPlotManipulator;
+import gda.gui.dv.panels.MainPlot;
+import gda.gui.dv.panels.VisPanel;
+import gda.gui.util.HandleBox;
+import gda.gui.util.HandleBoxes;
+import gda.jython.JythonServerFacade;
+import gda.plots.SimplePlot;
 import uk.ac.diamond.scisoft.analysis.dataset.function.Integrate2D;
 
 /**
@@ -180,7 +180,7 @@ public class BasicIntegratorPanel extends VisPanel implements IMainPlotManipulat
 	/**
 	 * Constructor for the class, this needs to take the MainPlot which is associated as an argument This function
 	 * mainly lays out the GUI
-	 * 
+	 *
 	 * @param main
 	 *            the MainPlot that this manipulator is linked to
 	 */
@@ -350,8 +350,8 @@ public class BasicIntegratorPanel extends VisPanel implements IMainPlotManipulat
 
 	/**
 	 * Implemented method which allows the main panel to see the overlay contained in this object for plotting purposes
-	 * @param currentOverlay 
-	 * 
+	 * @param currentOverlay
+	 *
 	 * @param image
 	 *            Actual image to be worked on
 	 * @return The overlay
@@ -398,7 +398,7 @@ public class BasicIntegratorPanel extends VisPanel implements IMainPlotManipulat
 
 	/**
 	 * Internal function which updates the plots on the panel, to give the user feedback on the integrations
-	 * 
+	 *
 	 * @param ax
 	 * @param ay
 	 * @param h
@@ -430,7 +430,7 @@ public class BasicIntegratorPanel extends VisPanel implements IMainPlotManipulat
 
 			if (clippingCompensation) {
 				// normalise plot for case when region is clipped to size of image
-				DoubleDataset ndata = new DoubleDataset(data.getShape());
+				DoubleDataset ndata = DatasetFactory.zeros(DoubleDataset.class, data.getShape());
 				ndata.fill(1.);
 				dsets = rcmap.value(ndata);
 				Dataset npdata = dsets.get(0);
@@ -559,7 +559,7 @@ public class BasicIntegratorPanel extends VisPanel implements IMainPlotManipulat
 
 	/**
 	 * Overloaded function, but not used in this case
-	 * 
+	 *
 	 * @param e
 	 *            Mouse event
 	 */
@@ -570,7 +570,7 @@ public class BasicIntegratorPanel extends VisPanel implements IMainPlotManipulat
 
 	/**
 	 * Overloaded function, but not used in this case
-	 * 
+	 *
 	 * @param e
 	 *            Mouse event
 	 */
@@ -581,7 +581,7 @@ public class BasicIntegratorPanel extends VisPanel implements IMainPlotManipulat
 
 	/**
 	 * Overloaded function, but not used in this case
-	 * 
+	 *
 	 * @param e
 	 *            Mouse event
 	 */
@@ -597,7 +597,7 @@ public class BasicIntegratorPanel extends VisPanel implements IMainPlotManipulat
 
 	/**
 	 * Function which deals with drawing to the Screen
-	 * 
+	 *
 	 * @param e
 	 *            Mouse event
 	 */
@@ -669,7 +669,7 @@ public class BasicIntegratorPanel extends VisPanel implements IMainPlotManipulat
 
 	/**
 	 * Function which deals with drawing to the Screen
-	 * 
+	 *
 	 * @param e
 	 *            Mouse event
 	 */
@@ -736,7 +736,7 @@ public class BasicIntegratorPanel extends VisPanel implements IMainPlotManipulat
 
 	/**
 	 * Function which deals with drawing to the Screen
-	 * 
+	 *
 	 * @param e
 	 *            Mouse event
 	 */
@@ -790,7 +790,7 @@ public class BasicIntegratorPanel extends VisPanel implements IMainPlotManipulat
 
 	/**
 	 * Interpret the mouse dragging event
-	 * 
+	 *
 	 * @param e
 	 * @return update if needed
 	 */
@@ -954,7 +954,7 @@ public class BasicIntegratorPanel extends VisPanel implements IMainPlotManipulat
 
 	/**
 	 * Overloaded function, but not used in this case
-	 * 
+	 *
 	 * @param e
 	 *            Mouse event
 	 */
