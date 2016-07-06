@@ -20,7 +20,7 @@ package gda.gui.dv.panels;
 
 import java.util.List;
 
-import org.eclipse.dawnsci.analysis.dataset.impl.DoubleDataset;
+import org.eclipse.january.dataset.DoubleDataset;
 
 /**
  * Implement this interface if you wish to be informed when a plot is updated on the main plot. *

@@ -19,6 +19,8 @@
 
 package gda.gui.dv;
 
+import org.eclipse.january.dataset.DoubleDataset;
+
 import gda.analysis.plotmanager.IPlotWindow;
 import gda.configuration.properties.LocalProperties;
 import gda.gui.dv.panels.DataSetPlot;
@@ -26,8 +28,6 @@ import gda.plots.Marker;
 import gda.plots.SimplePlot;
 import gda.plots.SimpleXYSeries;
 import gda.plots.Type;
-
-import org.eclipse.dawnsci.analysis.dataset.impl.DoubleDataset;
 
 /**
  * GraphUpdate Class

@@ -23,7 +23,7 @@ import gda.gui.dv.ImageData;
 
 import java.util.LinkedList;
 
-import org.eclipse.dawnsci.analysis.dataset.impl.DoubleDataset;
+import org.eclipse.january.dataset.DoubleDataset;
 
 import de.jreality.scene.SceneGraphComponent;
 

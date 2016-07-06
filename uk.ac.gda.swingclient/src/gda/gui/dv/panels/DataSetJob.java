@@ -19,13 +19,13 @@
 
 package gda.gui.dv.panels;
 
-import org.eclipse.dawnsci.analysis.dataset.impl.DoubleDataset;
-
 import gda.gui.dv.ImageData;
 import de.jreality.scene.Appearance;
 import de.jreality.shader.Texture2D;
 import de.jreality.shader.TextureUtility;
 import static de.jreality.shader.CommonAttributes.POLYGON_SHADER;
+
+import org.eclipse.january.dataset.DoubleDataset;
 
 /**
  * 

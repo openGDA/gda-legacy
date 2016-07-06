@@ -34,7 +34,7 @@ import gda.factory.corba.util.NetService;
 import gda.observable.IObserver;
 import gda.util.LoggingConstants;
 
-import org.eclipse.dawnsci.analysis.dataset.impl.Dataset;
+import org.eclipse.january.dataset.Dataset;
 import org.omg.CORBA.Any;
 import org.omg.CORBA.COMM_FAILURE;
 import org.omg.CORBA.TRANSIENT;
