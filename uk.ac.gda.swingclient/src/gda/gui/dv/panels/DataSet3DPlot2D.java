@@ -23,7 +23,7 @@ import gda.gui.dv.ImageData;
 
 import java.util.LinkedList;
 
-import org.eclipse.dawnsci.analysis.dataset.impl.DoubleDataset;
+import org.eclipse.january.dataset.DoubleDataset;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

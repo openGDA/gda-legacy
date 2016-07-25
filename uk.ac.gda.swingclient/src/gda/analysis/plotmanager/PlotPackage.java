@@ -19,20 +19,20 @@
 
 package gda.analysis.plotmanager;
 
+import java.io.Serializable;
+
+import javax.swing.SwingUtilities;
+
+import org.eclipse.january.dataset.Dataset;
+import org.eclipse.january.dataset.DoubleDataset;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import gda.gui.dv.GraphUpdate;
 import gda.gui.dv.PointUpdate;
 import gda.gui.dv.panels.DataSetImage;
 import gda.gui.dv.panels.DataSetImages;
 import gda.gui.dv.panels.DataSetPlot3D;
-
-import java.io.Serializable;
-
-import javax.swing.SwingUtilities;
-
-import org.eclipse.dawnsci.analysis.dataset.impl.Dataset;
-import org.eclipse.dawnsci.analysis.dataset.impl.DoubleDataset;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * PlotPackage Class
@@ -40,7 +40,7 @@ import org.slf4j.LoggerFactory;
 public class PlotPackage implements Serializable, Cloneable {
 
 	private static final Logger logger = LoggerFactory.getLogger(PlotPackage.class);
-	
+
 	private int plotType = 0;
 
 	private final static int XY_PLOT = 0;
@@ -54,13 +54,13 @@ public class PlotPackage implements Serializable, Cloneable {
 	private final static int XY_TAGGED_PLOT = 4;
 
 	private final static int XY_TAGGED_OVER_PLOT = 5;
-	
+
 	private final static int XY_PLOT3D = 6;
-	
+
 	private final static int XY_PLOT3D_WINDOW = 7;
-	
+
 	private final static int XY_PLOT3D_ADD_1D = 8;
-	
+
 	private final static int XY_IMAGE_PLOTS = 9;
 
 	// for passing full datasets around
@@ -118,10 +118,10 @@ public class PlotPackage implements Serializable, Cloneable {
 		// now set up the data array
 		data = new DoubleDataset[dataSets.length + 1];
 
-		data[0] = new DoubleDataset(xAxis);
+		data[0] = xAxis.copy(DoubleDataset.class);
 
 		for (int i = 0; i < dataSets.length; i++) {
-			data[i + 1] = new DoubleDataset(dataSets[i]);
+			data[i + 1] = dataSets[i].copy(DoubleDataset.class);
 		}
 
 	}
@@ -137,12 +137,11 @@ public class PlotPackage implements Serializable, Cloneable {
 		// now set up the data array
 		data = new DoubleDataset[dataSets.length + 1];
 
-		data[0] = new DoubleDataset(xAxis);
+		data[0] = xAxis.copy(DoubleDataset.class);
 
 		for (int i = 0; i < dataSets.length; i++) {
-			data[i + 1] = new DoubleDataset(dataSets[i]);
+			data[i + 1] = dataSets[i].copy(DoubleDataset.class);
 		}
-
 	}
 
 	/**
@@ -158,10 +157,10 @@ public class PlotPackage implements Serializable, Cloneable {
 		// now set up the data array
 		data = new DoubleDataset[dataSets.length + 1];
 
-		data[0] = new DoubleDataset(xAxis);
+		data[0] = xAxis.copy(DoubleDataset.class);
 
 		for (int i = 0; i < dataSets.length; i++) {
-			data[i + 1] = new DoubleDataset(dataSets[i]);
+			data[i + 1] = dataSets[i].copy(DoubleDataset.class);
 		}
 
 		tags = new int[yTags.length];
@@ -184,10 +183,10 @@ public class PlotPackage implements Serializable, Cloneable {
 		// now set up the data array
 		data = new DoubleDataset[dataSets.length + 1];
 
-		data[0] = new DoubleDataset(xAxis);
+		data[0] = xAxis.copy(DoubleDataset.class);
 
 		for (int i = 0; i < dataSets.length; i++) {
-			data[i + 1] = new DoubleDataset(dataSets[i]);
+			data[i + 1] = dataSets[i].copy(DoubleDataset.class);
 		}
 
 		tags = new int[yTags.length];
@@ -229,57 +228,56 @@ public class PlotPackage implements Serializable, Cloneable {
 		data = new DoubleDataset[dataSets.length];
 
 		for (int i = 0; i < dataSets.length; i++) {
-			data[i] = new DoubleDataset(dataSets[i]);
+			data[i] = dataSets[i].copy(DoubleDataset.class);
 		}
 	}
-	
+
 	/**
 	 * @param useWindow
 	 * @param dataSets
 	 */
-	
+
 	public void setPlot3D(boolean useWindow, Dataset... dataSets) {
-		
+
 		if (useWindow)
 			plotType = XY_PLOT3D_WINDOW;
 		else
 			plotType = XY_PLOT3D;
-		
+
 		data = new DoubleDataset[dataSets.length];
 		for (int i = 0; i < dataSets.length; i++) {
-			data[i] = new DoubleDataset(dataSets[i]);
+			data[i] = dataSets[i].copy(DoubleDataset.class);
 		}
 	}
-	
+
 	/**
 	 * Plot a series of images
 	 * @param dataSets
 	 */
-	
+
 	public void setPlotImages(Dataset...dataSets)
 	{
 		plotType = XY_IMAGE_PLOTS;
 		data = new DoubleDataset[dataSets.length];
-		for (int i = 0; i < dataSets.length; i++)
-		{
-			data[i]= new DoubleDataset(dataSets[i]);
+		for (int i = 0; i < dataSets.length; i++) {
+			data[i] = dataSets[i].copy(DoubleDataset.class);
 		}
 	}
-	
+
 	/**
 	 * Add another 1D Plot to the 3D plots
 	 * @param dataSets
 	 */
 	public void addPlot3D(Dataset... dataSets) {
-		
+
 		plotType = XY_PLOT3D_ADD_1D;
-		
+
 		data = new DoubleDataset[dataSets.length];
 		for (int i = 0; i < dataSets.length; i++) {
-			data[i] = new DoubleDataset(dataSets[i]);
+			data[i] = dataSets[i].copy(DoubleDataset.class);
 		}
 	}
-	
+
 	// SECTION OF CODE WHICH IS FOR THE CLIENT SIDE, IT CONTAINS FUNCTIONS WHICH
 	// USE THE PACKAGE TO PLOT ONTO THE APPROPRIATE PANELS.
 
@@ -288,7 +286,7 @@ public class PlotPackage implements Serializable, Cloneable {
 		GraphUpdate doGUIUpdate = new GraphUpdate();
 
 		DoubleDataset ydata[] = new DoubleDataset[data.length - 1];
-		
+
 		for (int i = 0; i < ydata.length; i++) {
 			ydata[i] = data[i + 1];
 		}
@@ -296,7 +294,7 @@ public class PlotPackage implements Serializable, Cloneable {
 		// This sets up the plot so that other panels can know the raw data held in the plot.
 		dvp.getGraphDisplay().setXAxis(data[0]);
 		dvp.getGraphDisplay().setYAxis(ydata);
-		
+
 		doGUIUpdate.init(dvp, true, data[0], ydata);
 
 		SwingUtilities.invokeLater(doGUIUpdate);
@@ -314,14 +312,14 @@ public class PlotPackage implements Serializable, Cloneable {
 		for (int i = 0; i < ydata.length; i++) {
 			ydata[i] = data[i + 1];
 		}
-		
+
 		// This sets up the plot so that other panels can know the raw data held in the plot.
 		dvp.getGraphDisplay().addYAxis(ydata);
 
 		doGUIUpdate.init(dvp, false, data[0], ydata);
 
 		SwingUtilities.invokeLater(doGUIUpdate);
-		
+
 		logger.debug("Leaving the plotXYOverPlot");
 
 	}
@@ -337,7 +335,7 @@ public class PlotPackage implements Serializable, Cloneable {
 		}
 
 		doGUIUpdate.init(dvp, true, data[0], tags, ydata);
-		
+
 		// This sets up the plot so that other panels can know the raw data held in the plot.
 		dvp.getGraphDisplay().setXAxis(data[0]);
 		dvp.getGraphDisplay().setYAxis(ydata);
@@ -355,9 +353,9 @@ public class PlotPackage implements Serializable, Cloneable {
 		for (int i = 0; i < ydata.length; i++) {
 			ydata[i] = data[i + 1];
 		}
-		
+
 		doGUIUpdate.init(dvp, false, data[0], tags, ydata);
-		
+
 		// This sets up the plot so that other panels can know the raw data held in the pl
 		dvp.getGraphDisplay().addYAxis(ydata);
 
@@ -385,7 +383,7 @@ public class PlotPackage implements Serializable, Cloneable {
 
 		// this whole section should be able to be converted into a single call
 		// if pix is made into a dataset.
-		dataSetImage.pix = new DoubleDataset(data[0]);
+		dataSetImage.pix = data[0].copy(DoubleDataset.class);
 
 		// now flush the information to the drawing buffer appropriately
 		dataSetImage.applyColorCast();
@@ -395,18 +393,18 @@ public class PlotPackage implements Serializable, Cloneable {
 
 	private void plot3D(IPlotWindow dvp, boolean subsample) {
 		DataSetPlot3D dataSetPlot3D = dvp.setPlot3DDisplay();
-		dataSetPlot3D.setPlot(new DoubleDataset(data[0]),subsample);		
+		dataSetPlot3D.setPlot(data[0].copy(DoubleDataset.class), subsample);
 	}
-	
+
 	private void plotImages(IPlotWindow dvp)
 	{
 		DataSetImages dataSetImages = dvp.setImagesDisplay();
 		dataSetImages.plotImages(data);
 	}
-	
+
 	private void additionalPlot3D(IPlotWindow dvp)
 	{
-		DataSetPlot3D dataSetPlot3D = dvp.setPlot3DDisplay();		
+		DataSetPlot3D dataSetPlot3D = dvp.setPlot3DDisplay();
 		dataSetPlot3D.addPlot(data);
 	}
 	/**
@@ -433,7 +431,7 @@ public class PlotPackage implements Serializable, Cloneable {
 			break;
 			case XY_TAGGED_OVER_PLOT:
 				plotXYTaggedOverPlot(dvp);
-			break;	
+			break;
 			case XY_PLOT3D:
 				plot3D(dvp,true);
 			break;
@@ -444,7 +442,7 @@ public class PlotPackage implements Serializable, Cloneable {
 				additionalPlot3D(dvp);
 			break;
 			case XY_IMAGE_PLOTS:
-		        plotImages(dvp);		
+		        plotImages(dvp);
 			break;
 			default:
 				logger.warn("Tried to Plot unknown type");

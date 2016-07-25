@@ -37,7 +37,7 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import org.eclipse.dawnsci.analysis.dataset.impl.DoubleDataset;
+import org.eclipse.january.dataset.DoubleDataset;
 
 import de.jreality.geometry.QuadMeshFactory;
 import de.jreality.math.MatrixBuilder;

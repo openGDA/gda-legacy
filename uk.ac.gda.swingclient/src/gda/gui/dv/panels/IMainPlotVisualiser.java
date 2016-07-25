@@ -19,7 +19,7 @@
 
 package gda.gui.dv.panels;
 
-import org.eclipse.dawnsci.analysis.dataset.impl.DoubleDataset;
+import org.eclipse.january.dataset.DoubleDataset;
 
 import gda.gui.dv.ImageData;
 

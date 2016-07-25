@@ -19,10 +19,6 @@
 
 package gda.gui.dv.panels.vispanels;
 
-import gda.gui.dv.ImageData;
-import gda.gui.dv.panels.MainPlot;
-import gda.plots.SimpleDataCoordinate;
-
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -39,12 +35,17 @@ import java.awt.image.WritableRaster;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
-import org.eclipse.dawnsci.analysis.dataset.impl.DoubleDataset;
+import org.eclipse.january.dataset.DatasetFactory;
+import org.eclipse.january.dataset.DoubleDataset;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.statistics.HistogramDataset;
+
+import gda.gui.dv.ImageData;
+import gda.gui.dv.panels.MainPlot;
+import gda.plots.SimpleDataCoordinate;
 
 /**
  * A basic panel which fits in the side panel and provides colour information for the image manipulator.
@@ -71,7 +72,7 @@ public class ColourSelector extends ColourSelectorBase {
 
 	/**
 	 * Basic constructor which initialises the GUI
-	 * 
+	 *
 	 * @param main
 	 *            The MainPlot to be associated with this panel
 	 */
@@ -106,11 +107,11 @@ public class ColourSelector extends ColourSelectorBase {
 
 	}
 
-	
+
 
 	/**
 	 * The function that performs the histogram Drawing
-	 * 
+	 *
 	 * @param raw
 	 *            the raw data
 	 * @return the new data in the appropriate form
@@ -249,12 +250,12 @@ public class ColourSelector extends ColourSelectorBase {
 
 	}
 
-	
+
 	private class DrawChart extends ChartPanel {
 
 		/**
 		 * Constructor, this just passes the data through
-		 * 
+		 *
 		 * @param arg0
 		 */
 		public DrawChart(JFreeChart arg0) {
@@ -263,7 +264,7 @@ public class ColourSelector extends ColourSelectorBase {
 
 		/**
 		 * Main paint command which allows the colour bar to be drawn on the histogram
-		 * 
+		 *
 		 * @param arg0
 		 */
 		@Override
@@ -275,7 +276,7 @@ public class ColourSelector extends ColourSelectorBase {
 			// ok, so the first thing to do is to construct a dataset which is
 			// the correct size which can have the cast applied to it
 			int[] dims = { 15, (int) this.getScreenDataArea().getWidth() };
-			DoubleDataset banner = new DoubleDataset(dims);
+			DoubleDataset banner = DatasetFactory.zeros(DoubleDataset.class, dims);
 
 			double min = histogram.getXYPlot().getDomainAxis().getLowerBound();
 			double max = histogram.getXYPlot().getDomainAxis().getUpperBound();
