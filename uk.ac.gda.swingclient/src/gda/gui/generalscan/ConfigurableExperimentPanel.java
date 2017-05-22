@@ -30,7 +30,6 @@ import gda.observable.IObserver;
 import gda.observable.ObservableComponent;
 import gda.scan.ScanDataPoint;
 import gda.util.PleaseWaitWindow;
-import gda.util.Sleep;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -504,9 +503,8 @@ public class ConfigurableExperimentPanel extends AcquisitionPanel implements IOb
 				for (int i = 0; i < detectorNames.size(); i++)
 					jcb.get(i).setSelected(false);
 
-				scriptingMediator
-						.runCommand("defaultscannables=finder.find(\"command_server\").getDefaultScannableNames()");
-				Sleep.sleep(200);
+				scriptingMediator.runsource("defaultscannables=finder.find(\"command_server\").getDefaultScannableNames()",
+						"ConfigurableExperimentPanel");
 				Vector<String> results = (Vector<String>) scriptingMediator.getFromJythonNamespace("defaultscannables");
 				for (int i = 0; i < results.size(); i++) {
 					String tok = results.get(i);

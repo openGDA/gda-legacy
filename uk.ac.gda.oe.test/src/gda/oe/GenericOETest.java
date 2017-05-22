@@ -31,7 +31,6 @@ import gda.oe.Moveable;
 import gda.oe.MoveableException;
 import gda.oe.dofs.DOF;
 import gda.util.ObjectServer;
-import gda.util.Sleep;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -327,8 +326,9 @@ public class GenericOETest extends TestCase {
 	/**
 	 * @param oe
 	 * @param dof
+	 * @throws InterruptedException
 	 */
-	public void testOEinterface(GenericOE oe, DOF dof) {
+	public void testOEinterface(GenericOE oe, DOF dof) throws InterruptedException {
 		logger.debug("\ntestOEinterface(), DOF = " + dof.getName());
 		assertNotNull(oe);
 		assertNotNull(dof);
@@ -361,7 +361,7 @@ public class GenericOETest extends TestCase {
 		testMoveBy(oe, dof, value);
 	}
 
-	private final void testMoveBy(GenericOE oe, DOF dof, Quantity increment) {
+	private final void testMoveBy(GenericOE oe, DOF dof, Quantity increment) throws InterruptedException {
 		logger.debug("   testMoveBy(), DOF = " + dof.getName());
 		logger.debug("      Moving " + oe.getName() + " " + dof.getName() + " by " + increment.doubleValue());
 		try {
@@ -374,7 +374,7 @@ public class GenericOETest extends TestCase {
 			while (dof.isMoving() && timeSlept < timeout) {
 				pos = oe.getPosition(dof.getName());
 				logger.debug("      Moving..." + pos.doubleValue());
-				Sleep.sleep(sleepTime);
+				Thread.sleep(sleepTime);
 				timeSlept += sleepTime;
 			}
 			if (dof.isMoving()) {
@@ -392,7 +392,7 @@ public class GenericOETest extends TestCase {
 		}
 	}
 
-	private final void testMoveTo(GenericOE oe, DOF dof, Quantity target) {
+	private final void testMoveTo(GenericOE oe, DOF dof, Quantity target) throws InterruptedException {
 		logger.debug("   testMoveTo(), DOF = " + dof.getName());
 		logger.debug("      Moving " + oe.getName() + " " + dof.getName() + " to " + target.doubleValue());
 		try {
@@ -406,7 +406,7 @@ public class GenericOETest extends TestCase {
 			while (oe.isMoving(dof.getName()) && timeSlept < timeout) {
 				pos = oe.getPosition(dof.getName());
 				logger.debug("      Moving..." + pos.doubleValue());
-				Sleep.sleep(sleepTime);
+				Thread.sleep(sleepTime);
 				timeSlept += sleepTime;
 			}
 			if (oe.isMoving(dof.getName())) {

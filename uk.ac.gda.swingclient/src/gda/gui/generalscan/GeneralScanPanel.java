@@ -27,7 +27,6 @@ import gda.jython.JythonServerStatus;
 import gda.observable.IObserver;
 import gda.scan.ScanDataPoint;
 import gda.util.PleaseWaitWindow;
-import gda.util.Sleep;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -362,13 +361,11 @@ public class GeneralScanPanel extends AcquisitionPanel implements IObserver, Run
 			@Override
 			public void actionPerformed(ActionEvent ev) {
 				scriptingMediator
-						.runCommand("defaultscannables=finder.find(\"command_server\").getDefaultScannableNames()");
+						.runsource("defaultscannables=finder.find(\"command_server\").getDefaultScannableNames()",
+								"GeneralScanPanel");
 				for (int i = 0; i < detectorNames.size(); i++)
 					jcb.get(i).setSelected(false);
 
-				// gross dirty hack cos we dont know when the runCommad has
-				// completed
-				Sleep.sleep(500);
 				Vector<String> results = (Vector<String>) scriptingMediator.getFromJythonNamespace("defaultscannables");
 				for (int i = 0; i < results.size(); i++) {
 					String tok = results.get(i);

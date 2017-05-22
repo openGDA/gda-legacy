@@ -49,8 +49,9 @@ public class StringInFile {
 	 * Main Method.s
 	 * 
 	 * @param args
+	 * @throws InterruptedException
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		int timeout = 0;
 		boolean found = false;
 		boolean showWaitWindow = true;
@@ -86,8 +87,9 @@ public class StringInFile {
 	 * @param file
 	 * @param timeout
 	 * @return boolean
+	 * @throws InterruptedException
 	 */
-	public static boolean searchFile(String string, String file, int timeout) {
+	public static boolean searchFile(String string, String file, int timeout) throws InterruptedException {
 		boolean found = false;
 		String line;
 
@@ -109,7 +111,7 @@ public class StringInFile {
 				}
 				in.close();
 				if (!found)
-					Sleep.sleep(1000);
+					Thread.sleep(1000);
 			}
 		} catch (FileNotFoundException e) {
 			logger.warn("File " + file + " not found by StringInFile.");

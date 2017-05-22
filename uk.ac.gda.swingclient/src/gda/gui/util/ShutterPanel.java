@@ -131,7 +131,6 @@ public class ShutterPanel extends JPanel implements IObserver, Runnable,Configur
 						}
 						// to refresh the PSS we may need to reset
 						shutter.moveTo("Reset");
-						gda.util.Sleep.sleep(100);
 						// don't reset twice
 						if (!action.equals("Reset")) {
 							shutter.moveTo(action);
@@ -230,7 +229,13 @@ public class ShutterPanel extends JPanel implements IObserver, Runnable,Configur
 	public void run() {
 		while (true) {
 			// update every so long, in case an EPICS update is lost
-			gda.util.Sleep.sleep(12345);
+			try {
+				Thread.sleep(12345);
+			} catch (InterruptedException e) {
+				logger.error("Shutter panel interrupted waiting to update", e);
+				Thread.currentThread().interrupt();
+				break;
+			}
 			update(null, null);
 		}
 	}

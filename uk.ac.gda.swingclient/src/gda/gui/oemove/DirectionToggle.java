@@ -24,7 +24,6 @@ import gda.gui.oemove.control.DOFMode;
 import gda.oe.MoveableException;
 import gda.oe.OE;
 import gda.oe.dofs.DOF;
-import gda.util.Sleep;
 
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -236,7 +235,7 @@ public class DirectionToggle extends JPanel {
 						// error.
 						int relativeRetry = LocalProperties.getInt("gda.gui.oemove.relativeRetry", 0);
 						if (relativeRetry != 0) {
-							Sleep.sleep(relativeRetry);
+							Thread.sleep(relativeRetry);
 							oe.moveBy(dofSelected, inputQuantity);
 						} else
 							throw mex;
