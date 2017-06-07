@@ -399,7 +399,7 @@ public class JythonTerminal extends JPanel implements Runnable, IObserver, Termi
 		} else if (dataPoint instanceof String) {
 			String message = (String) dataPoint;
 
-			if (message.compareTo(Jython.RAWINPUTREQUESTED) == 0) {
+			if (message.compareTo(Jython.RAW_INPUT_REQUESTED) == 0) {
 				// change prompt and next input will go through a different
 				// method call
 				txtPrompt.setText(RAWINPUTPROMPT);
@@ -407,7 +407,7 @@ public class JythonTerminal extends JPanel implements Runnable, IObserver, Termi
 				// clear the command-line
 				txtInput.setText("");
 				txtInput.setCaret(txtInput.getCaret());
-			} else if (message.compareTo(Jython.RAWINPUTRECEIVED) == 0) {
+			} else if (message.compareTo(Jython.RAW_INPUT_RECEIVED) == 0) {
 				// change prompt back to usual
 				txtPrompt.setText(NORMALPROMPT);
 				txtInput.setBackground(Color.WHITE);
