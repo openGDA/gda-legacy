@@ -45,13 +45,13 @@ import gda.gui.imaging.RTPCameraClient;
 import gda.images.camera.ImageListener;
 import gda.images.camera.RTPStreamReceiver;
 import gda.images.camera.VideoReceiver;
-import gda.util.persistence.LocalParameters;
+import uk.ac.diamond.daq.persistence.jythonshelf.LocalParameters;
 
 /**
  *
  */
 public class CmuCameraDisplayPanel extends AcquisitionPanel implements ImageListener<Image> {
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(CmuCameraDisplayPanel.class);
 	
 	private RTPCameraClient samplePanel ;

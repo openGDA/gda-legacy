@@ -20,15 +20,6 @@ package gda.gui.microfocus.camera;
 
 import java.io.IOException;
 
-import gda.factory.Configurable;
-import gda.factory.FactoryException;
-import gda.factory.Findable;
-import gda.gui.Tidyable;
-import gda.observable.IObservable;
-import gda.observable.IObserver;
-import gda.observable.ObservableComponent;
-import gda.util.persistence.LocalParameters;
-
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.FileConfiguration;
 import org.nfunk.jep.JEP;
@@ -36,6 +27,15 @@ import org.nfunk.jep.Node;
 import org.nfunk.jep.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import gda.factory.Configurable;
+import gda.factory.FactoryException;
+import gda.factory.Findable;
+import gda.gui.Tidyable;
+import gda.observable.IObservable;
+import gda.observable.IObserver;
+import gda.observable.ObservableComponent;
+import uk.ac.diamond.daq.persistence.jythonshelf.LocalParameters;
 
 
 
