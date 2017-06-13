@@ -19,6 +19,14 @@
 
 package gda.gui.beans;
 
+import java.text.DecimalFormat;
+
+import javax.swing.JOptionPane;
+
+import org.apache.commons.lang.math.NumberUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import gda.device.DeviceException;
 import gda.device.Scannable;
 import gda.device.ScannableMotion;
@@ -28,22 +36,13 @@ import gda.device.scannable.ScannableStatus;
 import gda.device.scannable.ScannableUtils;
 import gda.factory.Finder;
 
-import java.text.DecimalFormat;
-
-import javax.swing.JOptionPane;
-
-import org.apache.commons.lang.math.NumberUtils;
-import org.python.modules.math;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
  * This bean displays and allows users to operate a Scannable which uses units and represents a single number.
  * <p>
  * Once setup, configure should be called to find and connect to the Scannable
  */
 public class ScannableMotionUnitsBean extends BeanBase {
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(ScannableMotionUnitsBean.class);
 
 	private Scannable theScannable;
@@ -73,7 +72,7 @@ public class ScannableMotionUnitsBean extends BeanBase {
 	public void setScannableName(String oeName) {
 		this.scannableName = oeName;
 	}
-	
+
 	public void setScannable(Scannable scannableItem) {
 		this.theScannable = scannableItem;
 	}
@@ -118,7 +117,7 @@ public class ScannableMotionUnitsBean extends BeanBase {
 		try {
 			// get the units
 			unitsString = theScannable.getAttribute(ScannableMotionUnits.USERUNITS).toString();
-			
+
 			// generate the tooltip
 			String toolTip = theScannable.getName();
 			{
@@ -131,7 +130,7 @@ public class ScannableMotionUnitsBean extends BeanBase {
 
 			// display the current value
 			Double currentPosition = ScannableUtils.getCurrentPositionArray(theScannable)[0];
-			if (isZeroSmallNumbers() && ( math.fabs(currentPosition) < 0.0001) ) {
+			if (isZeroSmallNumbers() && ( Math.abs(currentPosition) < 0.0001) ) {
 				DecimalFormat myFormat = new DecimalFormat();
 				myFormat.applyPattern("#####.####");
 				String newText = myFormat.format(currentPosition);
@@ -148,7 +147,7 @@ public class ScannableMotionUnitsBean extends BeanBase {
 	@Override
 	protected void txtValueActionPerformed() {
 		try {
-			theScannable.moveTo(NumberUtils.createDouble(getTxtNoCommas())); 
+			theScannable.moveTo(NumberUtils.createDouble(getTxtNoCommas()));
 		} catch (Exception e) {
 			logger.error("Exception while trying to move " + scannableName + ": " + e.getMessage());
 			JOptionPane.showMessageDialog(getTopLevelAncestor(), scannableName + ": " + e.getMessage(),
