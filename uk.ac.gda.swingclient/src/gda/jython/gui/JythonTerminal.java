@@ -19,18 +19,6 @@
 
 package gda.jython.gui;
 
-import gda.configuration.properties.LocalProperties;
-import gda.factory.Finder;
-import gda.gui.util.WatchPanel;
-import gda.jython.IScanDataPointObserver;
-import gda.jython.InterfaceProvider;
-import gda.jython.Jython;
-import gda.jython.JythonServerFacade;
-import gda.jython.Terminal;
-import gda.observable.IObserver;
-import gda.scan.IScanDataPoint;
-import gda.util.PropertyUtils;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -47,7 +35,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.FilenameFilter;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.Vector;
 
 import javax.swing.AbstractAction;
@@ -65,11 +52,23 @@ import javax.swing.text.BadLocationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import gda.configuration.properties.LocalProperties;
+import gda.factory.Finder;
+import gda.gui.util.WatchPanel;
+import gda.jython.IScanDataPointObserver;
+import gda.jython.InterfaceProvider;
+import gda.jython.Jython;
+import gda.jython.JythonServerFacade;
+import gda.jython.Terminal;
+import gda.observable.IObserver;
+import gda.scan.IScanDataPoint;
+import gda.util.PropertyUtils;
+
 /**
  * A visual component to hold a GDAJythonInterpreter. It is designed to be similar to a command terminal.
  */
 public class JythonTerminal extends JPanel implements Runnable, IObserver, Terminal, IScanDataPointObserver {
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(JythonTerminal.class);
 
 	private static final String NORMALPROMPT = ">>>";
@@ -166,7 +165,7 @@ public class JythonTerminal extends JPanel implements Runnable, IObserver, Termi
 
 	/**
 	 * configures the class - needed as this can only be run after JythonServerFacade.getInstance will not fail
-	 */	
+	 */
 	public void configure() {
 		if (!configured) {
 			commandserver = JythonServerFacade.getInstance();
@@ -235,11 +234,11 @@ public class JythonTerminal extends JPanel implements Runnable, IObserver, Termi
 			appendOutput(commandserver.getStartupOutput());
 		}
 	}
-	
+
 	/**
 	 * Remove this terminal from the command server
-	 * observer list. 
-	 * 
+	 * observer list.
+	 *
 	 * This method should be called to ensure new terminals
 	 * can be registered with the command server.
 	 */
@@ -268,17 +267,6 @@ public class JythonTerminal extends JPanel implements Runnable, IObserver, Termi
 	}
 
 	@Override
-	public void write(byte[] data) {
-		String output="encoding error!!!";
-		try {
-			output = new String(data, "UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		write(output);
-	}
-
-	@Override
 	public void write(String output) {
 		appendOutput(output);
 	}
@@ -286,7 +274,7 @@ public class JythonTerminal extends JPanel implements Runnable, IObserver, Termi
 	/**
 	 * This is intended to be called by hitting return while user is in the txtInput JTextField. This run method should
 	 * not be called directly. It is only public to fulfil the Runnable interface requirements. {@inheritDoc}
-	 * 
+	 *
 	 * @see java.lang.Runnable#run()
 	 */
 	@Override
@@ -383,7 +371,7 @@ public class JythonTerminal extends JPanel implements Runnable, IObserver, Termi
 	 * From the IObservers interface. Used when a scan has been initiated from the terminal or jython editor. This
 	 * terminal is registered as an observer, so if the graphics option has been selected for this object then the data
 	 * will be shown on a graph.
-	 * 
+	 *
 	 * @param dataSource
 	 *            Object
 	 * @param dataPoint
@@ -444,10 +432,10 @@ public class JythonTerminal extends JPanel implements Runnable, IObserver, Termi
 				txtInput.setText(cmdHistory.get(cmdHistory_index));
 			}
 		}
-		
+
 		// Ctrl-U clears the text box
 		else if (e.getModifiersEx() == InputEvent.CTRL_DOWN_MASK && e.getKeyCode() == KeyEvent.VK_U) {
-			txtInput.setText("");	
+			txtInput.setText("");
 		}
 	}
 
@@ -671,7 +659,7 @@ public class JythonTerminal extends JPanel implements Runnable, IObserver, Termi
 
 	/**
 	 * Used by write and other methods to append output to the JTextArea terminal output.
-	 * 
+	 *
 	 * @param newOutput
 	 */
 	private void appendOutput(String newOutput) {
@@ -687,7 +675,7 @@ public class JythonTerminal extends JPanel implements Runnable, IObserver, Termi
 
 		/**
 		 * Constructor
-		 * 
+		 *
 		 * @param newOutput
 		 */
 		SimpleOutputUpdater(String newOutput) {
@@ -697,7 +685,7 @@ public class JythonTerminal extends JPanel implements Runnable, IObserver, Termi
 		/**
 		 * Overwrites the text in the JTextArea with the supplied string starting at the location defined by
 		 * caretPosition.
-		 * 
+		 *
 		 * @param theString
 		 */
 		private void addToOutput(String theString) {
