@@ -1436,13 +1436,12 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 		MoveableStatus ds;
 
 		if (message == null) {
-			int msv = newStatus.value();
+			final MotorStatus msv = newStatus;
 			int thisLimit = -1;
 			ds = MoveableStatusFactory.createMoveableStatus(newStatus, id);
 
-			if (msv == MotorStatus._UPPERLIMIT
-					|| msv == MotorStatus._LOWERLIMIT) {
-				if (msv == MotorStatus._UPPERLIMIT) {
+			if (msv == MotorStatus.UPPER_LIMIT || msv == MotorStatus.LOWER_LIMIT) {
+				if (msv == MotorStatus.UPPER_LIMIT) {
 					thisLimit = UPPERLIMIT;
 				} else {
 					thisLimit = LOWERLIMIT;

@@ -85,9 +85,9 @@ public class MoveableStatusFactory {
 			msv = MoveableStatus.ERROR;
 		else if (motorStatus == MotorStatus.BUSY)
 			msv = MoveableStatus.BUSY;
-		else if (motorStatus == MotorStatus.UPPERLIMIT)
+		else if (motorStatus == MotorStatus.UPPER_LIMIT)
 			msv = MoveableStatus.UPPERLIMIT;
-		else if (motorStatus == MotorStatus.LOWERLIMIT)
+		else if (motorStatus == MotorStatus.LOWER_LIMIT)
 			msv = MoveableStatus.LOWERLIMIT;
 		else
 			msv = MoveableStatus.READY;

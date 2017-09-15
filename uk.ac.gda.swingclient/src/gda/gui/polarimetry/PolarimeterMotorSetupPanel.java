@@ -18,15 +18,6 @@
 
 package gda.gui.polarimetry;
 
-import gda.device.Motor;
-import gda.device.MotorException;
-import gda.device.MotorStatus;
-import gda.factory.Finder;
-import gda.gui.AcquisitionPanel;
-import gda.observable.IObserver;
-import gda.oe.MoveableException;
-import gda.oe.OE;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
@@ -48,6 +39,15 @@ import javax.swing.border.TitledBorder;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import gda.device.Motor;
+import gda.device.MotorException;
+import gda.device.MotorStatus;
+import gda.factory.Finder;
+import gda.gui.AcquisitionPanel;
+import gda.observable.IObserver;
+import gda.oe.MoveableException;
+import gda.oe.OE;
 
 /**
  * A panel for setting up a Polarimeter motor.
@@ -251,7 +251,7 @@ public class PolarimeterMotorSetupPanel extends AcquisitionPanel implements IObs
 		}
 
 		/**
-	       * 
+	       *
 	       */
 		private void updateHomeStatii() {
 			try {
@@ -379,7 +379,7 @@ public class PolarimeterMotorSetupPanel extends AcquisitionPanel implements IObs
 				do {
 					Thread.sleep(500);
 					ms = motor.getStatus();
-				} while (ms.value() == MotorStatus._BUSY);
+				} while (ms == MotorStatus.BUSY);
 
 			} catch (MotorException e2) {
 				logger.debug("Exception in homeAndZeroMotor - {}", e2.getMessage());
@@ -439,7 +439,7 @@ public class PolarimeterMotorSetupPanel extends AcquisitionPanel implements IObs
 	private JRadioButton[] rearPinholeButtons;
 
 	/**
-	    * 
+	    *
 	    */
 	public PolarimeterMotorSetupPanel() {
 		setLayout(new GridLayout());
