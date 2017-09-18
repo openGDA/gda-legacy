@@ -19,27 +19,6 @@
 
 package gda.oe.positioners;
 
-import gda.configuration.properties.LocalProperties;
-import gda.device.DeviceException;
-import gda.device.Motor;
-import gda.device.MotorException;
-import gda.device.MotorStatus;
-import gda.device.MotorProperties.MotorProperty;
-import gda.device.MotorProperties.MotorEvent;
-import gda.device.motor.MotorBase;
-import gda.factory.Configurable;
-import gda.factory.FactoryException;
-import gda.factory.Findable;
-import gda.factory.Finder;
-import gda.observable.IObserver;
-import gda.oe.AbstractMoveable;
-import gda.oe.Moveable;
-import gda.oe.MoveableCommandExecutor;
-import gda.oe.MoveableException;
-import gda.oe.MoveableStatus;
-import gda.oe.commands.DOFCommand;
-import gda.util.exceptionUtils;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -54,6 +33,27 @@ import org.jscience.physics.quantities.Quantity;
 import org.jscience.physics.units.Unit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import gda.configuration.properties.LocalProperties;
+import gda.device.DeviceException;
+import gda.device.Motor;
+import gda.device.MotorException;
+import gda.device.MotorProperties.MotorEvent;
+import gda.device.MotorProperties.MotorProperty;
+import gda.device.MotorStatus;
+import gda.device.motor.MotorBase;
+import gda.factory.Configurable;
+import gda.factory.FactoryException;
+import gda.factory.Findable;
+import gda.factory.Finder;
+import gda.observable.IObserver;
+import gda.oe.AbstractMoveable;
+import gda.oe.Moveable;
+import gda.oe.MoveableCommandExecutor;
+import gda.oe.MoveableException;
+import gda.oe.MoveableStatus;
+import gda.oe.commands.DOFCommand;
+import gda.util.exceptionUtils;
 
 /**
  * This is the 'leaf' class of the DOF/Positioner Composite pattern
@@ -121,12 +121,12 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 	// public final boolean ON = true;
 	// public final boolean OFF = false;
 	/**
-	 * 
+	 *
 	 */
 	public final int NONE = 0;
 
 	/**
-	 * 
+	 *
 	 */
 	public final int START = 1;
 
@@ -170,7 +170,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 
 	/**
 	 * move motor to the position specified in GDA drive unit
-	 * 
+	 *
 	 * @param position
 	 * @throws MotorException
 	 */
@@ -178,28 +178,28 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 
 	/**
 	 * updates current motor position from machine unit to GDA drive Unit.
-	 * 
+	 *
 	 * @param motorPosition
 	 */
 	protected abstract void _updatePosition(double motorPosition);
 
 	/**
 	 * updates current motor low limit from machine unit to GDA drive Unit.
-	 * 
+	 *
 	 * @param motorLowLimit
 	 */
 	protected abstract void _updateLimitLow(double motorLowLimit);
 
 	/**
 	 * updates current motor high limit from machine unit to GDA drive Unit.
-	 * 
+	 *
 	 * @param motorHighLimit
 	 */
 	protected abstract void _updateLimitHigh(double motorHighLimit);
 
 	/**
 	 * sets current position value to the input value without moving motor.
-	 * 
+	 *
 	 * @param position
 	 * @throws MotorException
 	 */
@@ -207,7 +207,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 
 	/**
 	 * coverts the target value from reporting unit to drive unit
-	 * 
+	 *
 	 * @param target
 	 * @return true if OK else false
 	 */
@@ -216,7 +216,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 	/**
 	 * converts the increment value from reporting unit to drive unit, set the
 	 * target.
-	 * 
+	 *
 	 * @param increment
 	 * @return true if OK else false
 	 */
@@ -224,7 +224,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 
 	/**
 	 * sets the soft limits of motor in machine specified units.
-	 * 
+	 *
 	 * @param lowLimit
 	 * @param highLimit
 	 * @throws MotorException
@@ -234,7 +234,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 
 	/**
 	 * converts the value of soft limit high from reporting unit to drive unit.
-	 * 
+	 *
 	 * @param highLimit
 	 * @return true if limit is OK else false
 	 */
@@ -242,7 +242,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 
 	/**
 	 * converts the value of soft limit low from reporting unit to drive unit.
-	 * 
+	 *
 	 * @param lowLimit
 	 * @return true if limit is OK else false
 	 */
@@ -250,7 +250,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 
 	/**
 	 * sets the homePosition distance/offset
-	 * 
+	 *
 	 * @param offset
 	 *            to be set
 	 * @return true if offset is OK else false
@@ -259,7 +259,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 
 	/**
 	 * sets the user->motor position offset
-	 * 
+	 *
 	 * @param offset
 	 *            to be set
 	 * @return true if offset is OK else false
@@ -268,14 +268,14 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 
 	/**
 	 * gets the lower soft limit quantity in motor drive unit.
-	 * 
+	 *
 	 * @return the lower soft limit quantity in motor drive unit.
 	 */
 	protected abstract Quantity getLowerSoftLimit();
 
 	/**
 	 * gets the upper soft limit quantity in motor drive unit.
-	 * 
+	 *
 	 * @return the upper soft limit quantity in motor drive unit.
 	 */
 	protected abstract Quantity getUpperSoftLimit();
@@ -289,10 +289,10 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 		dofStatus = MoveableStatusFactory
 				.createMoveableStatus(MotorStatus.UNKNOWN);
 	}
-	
+
 	/**
 	 * Sets the motor used by this positioner.
-	 * 
+	 *
 	 * @param motor the motor
 	 */
 	public void setMotor(Motor motor) {
@@ -301,7 +301,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 
 	/**
 	 * Returns whether this is a polling or non-polling positioner.
-	 * 
+	 *
 	 * @return true if this is a polling positioner
 	 */
 	public boolean getPoll() {
@@ -310,7 +310,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 
 	/**
 	 * Set whether to poll or receive updates from a motor.
-	 * 
+	 *
 	 * @param poll
 	 *            set this true for polling else false for non-polling
 	 */
@@ -321,15 +321,15 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 	@Override
 	public void configure() throws FactoryException {
 		if (!configured) {
-			
+
 			if (motor == null) {
 				Findable findable = Finder.getInstance().find(motorName);
-				
+
 				if (findable == null) {
 					logger.error("Motor " + motorName + " not found");
 					throw new FactoryException("Motor " + motorName + " not found");
 				}
-				
+
 				if (!(findable instanceof Motor)) {
 					throw new FactoryException(
 							"Positioner.configure - object named " + motorName
@@ -337,7 +337,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 				}
 				motor = (Motor) findable;
 			}
-			
+
 			limitDirection[UPPERLIMIT] = 0;
 			limitDirection[LOWERLIMIT] = 0;
 			if (!poll) {
@@ -433,7 +433,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 
 	/**
 	 * Sets the motor name (used by Castor to interpret XML file)
-	 * 
+	 *
 	 * @param motor_Name
 	 *            the name of the motor
 	 */
@@ -443,7 +443,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 
 	/**
 	 * Gets the motor name (used by Castor to interpret XML file)
-	 * 
+	 *
 	 * @return the name of the motor
 	 */
 	public String getMotorName() {
@@ -452,7 +452,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 
 	/**
 	 * Sets the polling time interval (used by Castor to interpret XML file)
-	 * 
+	 *
 	 * @param poll_Time
 	 *            the polling time interval in mS
 	 */
@@ -462,7 +462,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 
 	/**
 	 * Gets the polling time interval (used by Castor to interpret XML file)
-	 * 
+	 *
 	 * @return the polling time interval
 	 */
 	public long getPollTime() {
@@ -471,7 +471,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 
 	/**
 	 * Gets the lower soft limit (used by Castor to interpret XML file)
-	 * 
+	 *
 	 * @return the lower soft limit
 	 */
 	public double getSoftLimitLow() {
@@ -481,7 +481,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 	/**
 	 * sets soft limit high in GDA drive unit. Actual setting is done by
 	 * subclass.
-	 * 
+	 *
 	 * @param highLimit
 	 *            the higher soft limit
 	 * @throws MoveableException
@@ -502,7 +502,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 
 	/**
 	 * Sets the higher soft limit (used by Castor to interpret XML file)
-	 * 
+	 *
 	 * @param highLimit
 	 * @throws MoveableException
 	 */
@@ -513,7 +513,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 
 	/**
 	 * Sets the lower soft limit (used by Castor to interpret XML file)
-	 * 
+	 *
 	 * @param limitLow
 	 *            the lower soft limit
 	 * @throws MoveableException
@@ -534,7 +534,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 
 	/**
 	 * Sets the lower soft limit (used by Castor to interpret XML file)
-	 * 
+	 *
 	 * @param lowLimit
 	 * @throws MoveableException
 	 */
@@ -545,7 +545,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 
 	/**
 	 * Gets the higher soft limit (used by Castor to interpret XML file)
-	 * 
+	 *
 	 * @return the higher soft limit
 	 */
 	public double getSoftLimitHigh() {
@@ -558,7 +558,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 	 * this is only for historical reasons. It is simply a conversion factor.
 	 * For example if you have a LinearPositioner (moves in mm) and a
 	 * NewportMotor (also moves in mm) then you can just set this factor to 1.0.
-	 * 
+	 *
 	 * @param steps_Per_Unit
 	 *            the conversion factor
 	 */
@@ -569,7 +569,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 	/**
 	 * Gets the user to motor units conversion factor (used by Castor to
 	 * interpret XML file)
-	 * 
+	 *
 	 * @return the conversion factor
 	 */
 	public double getStepsPerUnit() {
@@ -581,7 +581,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 	 * interpret XML file). NB The rule about get methods for booleans being
 	 * called "is..." has led to the stupid name for this method.The field
 	 * positionCorrection determines whether or not positionCorrection is done.
-	 * 
+	 *
 	 * @return the value of the position correction flag
 	 */
 	public boolean isPositionCorrection() {
@@ -591,7 +591,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 	/**
 	 * Sets the iteration dead band (used by Castor to interpret XML file). This
 	 * is the amount of error in position allowed if positionCorrection is on.
-	 * 
+	 *
 	 * @param iteration_DeadBand
 	 *            the iterationDeadBand
 	 */
@@ -602,7 +602,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 	/**
 	 * Sets the iterationMaxValue (used by Castor to interpret XML file). This
 	 * is the maximum number of iterations allowed if positionCorrection is on.
-	 * 
+	 *
 	 * @param iteration_MaxValue
 	 *            the iterationMaxValue
 	 */
@@ -614,7 +614,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 	 * Sets the position correction flag (used by Castor to interpret XML file)
 	 * The position correction flag determines whether or not positionCorrection
 	 * is done.
-	 * 
+	 *
 	 * @param position_Correction
 	 *            the position correction flag
 	 */
@@ -625,7 +625,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 	/**
 	 * Gets the iterationMaxValue (used by Castor to interpret XML file). This
 	 * is the maximum number of iterations if position correction is on.
-	 * 
+	 *
 	 * @return the iterationMaxValue
 	 */
 	public int getIterationMaxValue() {
@@ -635,7 +635,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 	/**
 	 * Gets the iteration dead band (used by Castor to interpret XML file) This
 	 * is the maximum error in position allowed if position correction is on.
-	 * 
+	 *
 	 * @return the iteration dead band
 	 */
 	public double getIterationDeadBand() {
@@ -646,7 +646,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 	 * Sets the position offset value. This is a constant used by the moveable
 	 * when calculating position e.g. it could be a value to add to the motor
 	 * position ('dial value') to calculate the 'user' position.
-	 * 
+	 *
 	 * @param position_Offset
 	 *            The position offset.
 	 */
@@ -658,7 +658,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 	 * Gets the position offset value. This is a constant used by the moveable
 	 * when calculating position e.g. it could be a value to add to the motor
 	 * position ('dial value') to calculate the 'user' position.
-	 * 
+	 *
 	 * @return double
 	 */
 	public double getPositionOffsetValue() {
@@ -667,7 +667,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 
 	/**
 	 * Sets the numerical value of the offset
-	 * 
+	 *
 	 * @param home_Offset
 	 */
 	public void setHomeOffsetValue(double home_Offset) {
@@ -676,7 +676,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 
 	/**
 	 * Sets the numerical value of the high soft limit.
-	 * 
+	 *
 	 * @param highLimit
 	 */
 	public void setSoftLimitHighValue(double highLimit) {
@@ -692,7 +692,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 
 	/**
 	 * Sets the numerical value of the low soft limit.
-	 * 
+	 *
 	 * @param lowLimit
 	 */
 	public void setSoftLimitLowValue(double lowLimit) {
@@ -703,7 +703,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 	 * Gets the home offset (used by Castor to interpret XML file) This is the
 	 * value that the motor's position will be set to after a homing move. NB If
 	 * homing is not allowed this value can still be used for other purposes.
-	 * 
+	 *
 	 * @return the home offset
 	 */
 	public double getHomeOffsetValue() {
@@ -713,7 +713,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 	/**
 	 * Calculates the direction for moving to the specified newPosition - only
 	 * used internally
-	 * 
+	 *
 	 * @param newPosition
 	 *            the proposed new position
 	 * @return the direction of movement to that position
@@ -731,7 +731,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 	 * a Positioner cannot be changed but this method must exist anyway to
 	 * fulfill the Moveable interface. So the best thing for it to do is to
 	 * return the position.
-	 * 
+	 *
 	 * @param units
 	 *            the Unit to use to return the position.
 	 * @return a Quantity representing the current position
@@ -745,7 +745,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 	 * Checks a proposed move to a position - checks that the Positioner status
 	 * allows a move, that the move is within the soft limits and that the
 	 * Positioner can be locked for the specified mover.
-	 * 
+	 *
 	 * @param mover
 	 *            the object which is going to do the moving
 	 * @return MoveableStatus.SUCCESS if the move is possible and the Positioner
@@ -770,7 +770,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 	 * specified mover is allowed. NB this method is not currently used in the
 	 * project but must exist to fulfill the Moveable interface and so may as
 	 * well do the right thing.
-	 * 
+	 *
 	 * @param increment
 	 *            the required move
 	 * @param mover
@@ -794,7 +794,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 	/**
 	 * Checks whether a move to the specified position and controlled by the
 	 * specified mover is allowed.
-	 * 
+	 *
 	 * @param position
 	 *            the required position
 	 * @param mover
@@ -821,7 +821,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 	/**
 	 * Checks whether setting the position to the specified value and controlled
 	 * by the specified mover is allowed.
-	 * 
+	 *
 	 * @param position
 	 *            the required position
 	 * @param setter
@@ -848,7 +848,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 	/**
 	 * Checks whether homing and then setting the position to the specified
 	 * value and controlled by the specified mover is allowed.
-	 * 
+	 *
 	 * @param position
 	 *            the required position
 	 * @param mover
@@ -873,7 +873,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 	/**
 	 * Actually carries out a previously checked and locked set position
 	 * operation.
-	 * 
+	 *
 	 * @param setter
 	 *            the object controlling the operation
 	 * @throws MoveableException
@@ -910,7 +910,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 
 	/**
 	 * Actually carries out a previously checked and locked move.
-	 * 
+	 *
 	 * @param mover
 	 *            the object controlling the move
 	 * @param _id
@@ -966,7 +966,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 
 	/**
 	 * Actually carries out a previously checked and locked homing operation.
-	 * 
+	 *
 	 * @param mover
 	 *            the object controlling the operation
 	 * @throws MoveableException
@@ -1003,7 +1003,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 
 	/**
 	 * Gets the status.
-	 * 
+	 *
 	 * @return the status
 	 */
 	@Override
@@ -1013,7 +1013,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 
 	/**
 	 * Gets the target position of the positioner
-	 * 
+	 *
 	 * @return the position at which the positioner is set to stop moving
 	 */
 
@@ -1023,7 +1023,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 
 	/**
 	 * Returns whether or not the Positioner is moving.
-	 * 
+	 *
 	 * @return true if the Positioner is moving, false if not
 	 * @throws MoveableException
 	 */
@@ -1057,7 +1057,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 	/**
 	 * Sets the soft limits of the Positioner and calls the subclass to set
 	 * motor limits
-	 * 
+	 *
 	 * @param softLimitOne
 	 *            one of the limits
 	 * @param softLimitTwo
@@ -1118,7 +1118,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 
 	/**
 	 * Checks if the underlying motor is capable of homing
-	 * 
+	 *
 	 * @return boolean
 	 */
 	@Override
@@ -1135,7 +1135,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 
 	/**
 	 * This method should only be used where the softLimitsSaveable flag is true
-	 * 
+	 *
 	 * @throws FileNotFoundException
 	 * @throws IOException
 	 */
@@ -1202,7 +1202,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 	/**
 	 * Checks whether a move to a new position is in the opposite direction to
 	 * the previous one (to allow moving away from limits).
-	 * 
+	 *
 	 * @param newPosition
 	 *            the new position
 	 * @return true if the move is in the opposite direction to the previous
@@ -1220,7 +1220,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 
 	/**
 	 * initiates a move by calling the subclass method
-	 * 
+	 *
 	 * @param position
 	 *            the position to move to
 	 * @throws MotorException
@@ -1261,7 +1261,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 	/**
 	 * Makes the adjustment move if the motor hasn't reached the required
 	 * position
-	 * 
+	 *
 	 * @throws MotorException
 	 */
 	public void correctPosition() throws MotorException {
@@ -1286,7 +1286,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 
 	/**
 	 * initiates a home move by calling the motor home method
-	 * 
+	 *
 	 * @throws MotorException
 	 */
 	private void homeMotor() throws MotorException {
@@ -1360,7 +1360,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 	/**
 	 * Sets a new value of dofStatus AND notifies IObservers of new status. NB
 	 * Incorrectly named and confusingly used and vice versa.
-	 * 
+	 *
 	 * @param dof_Status
 	 *            the new dofStatus
 	 */
@@ -1374,7 +1374,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 	/**
 	 * Sets the current position of the Positioner by calling the subclass
 	 * method
-	 * 
+	 *
 	 * @param position
 	 *            the new position
 	 * @throws MotorException
@@ -1412,7 +1412,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 	 * (confusingly) does more than it say on the tin since it calls (the
 	 * confusingly named) notify method which as well as actually setting the
 	 * dofStatus field does a notifyIObservers.
-	 * 
+	 *
 	 * @param newStatus
 	 *            the new MotorStatus
 	 */
@@ -1425,7 +1425,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 	 * (confusingly) does more than it say on the tin since it calls (the
 	 * confusingly named) notify method which as well as actually setting the
 	 * dofStatus field does a notifyIObservers.
-	 * 
+	 *
 	 * @param newStatus
 	 *            the new MotorStatus
 	 * @param message
@@ -1476,7 +1476,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 	 * (confusingly) does more than it say on the tin since it calls (the
 	 * confusingly named) notify method which as well as actually setting the
 	 * dofStatus field does a notifyIObservers.
-	 * 
+	 *
 	 * @param newStatus
 	 *            the new MoveableStatus value
 	 */
@@ -1487,7 +1487,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 	/**
 	 * Checks whether the current status of the Positiner allows a move to the
 	 * specified new position
-	 * 
+	 *
 	 * @param newPosition
 	 *            the new position
 	 * @return MoveableStatus.SUCCESS if the move is allowed or a MoveableStatus
@@ -1581,7 +1581,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 	/**
 	 * checks whether motor is still moving to determine whether polling loop
 	 * should continue or notifyObservers should be called
-	 * 
+	 *
 	 * @return true if moving else false
 	 */
 	private boolean stillMoving() {
@@ -1599,7 +1599,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 
 	/**
 	 * Tries to stop moving.
-	 * 
+	 *
 	 * @throws MoveableException
 	 */
 	@Override
@@ -1632,7 +1632,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 
 	/**
 	 * Checks whether a position is within the soft limits.
-	 * 
+	 *
 	 * @param newPosition
 	 *            the new position
 	 * @return true if within bounds; false otherwise
@@ -1644,7 +1644,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 	/**
 	 * Sets the speed level. The value specified here is just passed on so it is
 	 * the Motor which interprets the meaning of these speeds.
-	 * 
+	 *
 	 * @param speed
 	 *            the new speed level.
 	 * @throws MoveableException
@@ -1854,7 +1854,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 
 	/**
 	 * Returns whether or not speed level is settable.
-	 * 
+	 *
 	 * @return true
 	 */
 	@Override
@@ -1865,7 +1865,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 	/**
 	 * Update motor position, status, and limits should they are changed in
 	 * EPICS server.
-	 * 
+	 *
 	 * @param theObserved
 	 * @param changeCode
 	 */
@@ -1947,7 +1947,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 	/**
 	 * Sets the reporting units. Reporting units of Positioners cannot be
 	 * changed but this method must exist to fulfill the Moveable interface.
-	 * 
+	 *
 	 * @param units
 	 *            the new reporting units
 	 */
@@ -1958,7 +1958,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 
 	/**
 	 * Returns whether or not the current position is valid.
-	 * 
+	 *
 	 * @return true (Positioner position is always valid).
 	 */
 	@Override
@@ -1970,7 +1970,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 	 * Creates a MoveableCommandExecutor to carry out an absolute move to the
 	 * specified position. Positioners can only be moved by DOFs but this method
 	 * must exist for the Moveable interface so it returns null.
-	 * 
+	 *
 	 * @param position
 	 *            the position to move to
 	 * @return a moveable command executor
@@ -1986,7 +1986,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 	 * Creates a MoveableCommandExecutor to carry out a relative move by the
 	 * specified increment. Positioners can only be moved by DOFs but this
 	 * method must exist for the Moveable interface so it returns null.
-	 * 
+	 *
 	 * @param increment
 	 *            the increment to move by
 	 * @return a DOF command
@@ -2006,7 +2006,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 	 * MoveableCommandExecutor to set the current position to the specified
 	 * value. Positioners can only have their positions set DOFs but this method
 	 * must exist for the Moveable interface so it returns null.
-	 * 
+	 *
 	 * @param position
 	 *            the position to move to
 	 * @return a DOF command
@@ -2022,7 +2022,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 	 * Creates a MoveableCommandExecutor to carry out a homing move. specified
 	 * position. Positioners cannot be homed but this method must exist for the
 	 * Moveable interface so it returns null.
-	 * 
+	 *
 	 * @param position
 	 *            the position to move to
 	 * @return a DOF command
@@ -2050,7 +2050,7 @@ public abstract class Positioner extends AbstractMoveable implements Runnable,
 
 	/**
 	 * initialise motor properties from hardware or EPICS. Limited to 10 tries.
-	 * 
+	 *
 	 * @throws MotorException
 	 */
 	public void propertyInitialisation() throws MotorException {
