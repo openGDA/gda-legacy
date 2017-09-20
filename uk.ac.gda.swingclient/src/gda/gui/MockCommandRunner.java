@@ -21,6 +21,7 @@ package gda.gui;
 import java.io.File;
 
 import gda.jython.ICommandRunner;
+import gda.jython.commandinfo.CommandThreadEvent;
 
 public class MockCommandRunner implements ICommandRunner {
 
@@ -43,9 +44,9 @@ public class MockCommandRunner implements ICommandRunner {
 	}
 
 	@Override
-	public void runScript(File script, String sourceName) {
+	public CommandThreadEvent runScript(File script, String sourceName) {
 		// TODO Auto-generated method stub
-
+		return null;
 	}
 
 	@Override
