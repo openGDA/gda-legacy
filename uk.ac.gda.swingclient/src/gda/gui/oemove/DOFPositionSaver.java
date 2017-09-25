@@ -19,12 +19,12 @@
 
 package gda.gui.oemove;
 
+import java.io.PrintStream;
+import java.util.List;
+
 import gda.factory.Finder;
 import gda.oe.MoveableException;
 import gda.oe.OE;
-
-import java.io.PrintStream;
-import java.util.ArrayList;
 
 /**
  * To change the template for this generated type comment go to Window - Preferences - Java - Code Generation - Code and
@@ -42,12 +42,12 @@ public class DOFPositionSaver {
 
 	/**
 	 * Saves the names and positions of all DOFs to a PrintStream
-	 * 
+	 *
 	 * @param out
 	 *            PrintStream to write to
 	 */
 	public static void save(PrintStream out) {
-		ArrayList<String> oeNames = null;
+		List<String> oeNames = null;
 
 		Finder finder = Finder.getInstance();
 		oeNames = finder.listAllNames("OE");

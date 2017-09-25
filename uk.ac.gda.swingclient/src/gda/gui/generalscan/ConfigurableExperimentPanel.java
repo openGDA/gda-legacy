@@ -18,25 +18,13 @@
 
 package gda.gui.generalscan;
 
-import gda.factory.Finder;
-import gda.gui.AcquisitionPanel;
-import gda.gui.generalscan.PreScanSetupExecutor.PreScanStatus;
-import gda.jython.InterfaceProvider;
-import gda.jython.Jython;
-import gda.jython.JythonServerFacade;
-import gda.jython.JythonServerStatus;
-import gda.observable.IObservable;
-import gda.observable.IObserver;
-import gda.observable.ObservableComponent;
-import gda.scan.ScanDataPoint;
-import gda.util.PleaseWaitWindow;
-
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
@@ -54,13 +42,26 @@ import javax.swing.JTextField;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import gda.factory.Finder;
+import gda.gui.AcquisitionPanel;
+import gda.gui.generalscan.PreScanSetupExecutor.PreScanStatus;
+import gda.jython.InterfaceProvider;
+import gda.jython.Jython;
+import gda.jython.JythonServerFacade;
+import gda.jython.JythonServerStatus;
+import gda.observable.IObservable;
+import gda.observable.IObserver;
+import gda.observable.ObservableComponent;
+import gda.scan.ScanDataPoint;
+import gda.util.PleaseWaitWindow;
+
 /**
  * Create a Panel for setting up simple scans of any combinations of DOF and/or detector
  */
 public class ConfigurableExperimentPanel extends AcquisitionPanel implements IObservable, IObserver, Runnable {
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(ConfigurableExperimentPanel.class);
-	
+
 	protected GeneralDataHandler generalDataHandler;
 
 	private String disAllow[][] = {};
@@ -106,14 +107,14 @@ public class ConfigurableExperimentPanel extends AcquisitionPanel implements IOb
 	private SRSHeaderPanel headerPanel = new SRSHeaderPanel();
 
 	// protected ArrayList<String> scannableNames;
-	protected ArrayList<String> detectorNames;
+	protected List<String> detectorNames;
 
 	// a list of all OEs available
-	protected ArrayList<String> oeNames;
+	protected List<String> oeNames;
 
 	// OE names & corresponding DOF names listed in XML file as default
 	// scans
-	protected ArrayList<String> allOeNames = new ArrayList<String>();
+	protected List<String> allOeNames = new ArrayList<String>();
 
 	protected ArrayList<String> dofNames = new ArrayList<String>();
 
@@ -181,7 +182,7 @@ public class ConfigurableExperimentPanel extends AcquisitionPanel implements IOb
 
 	/**
 	 * Find out if add scan dimension function is enabled
-	 * 
+	 *
 	 * @return boolean true if addDimension function is enabled
 	 */
 	public boolean getAddDimensionEnabled() {
@@ -190,7 +191,7 @@ public class ConfigurableExperimentPanel extends AcquisitionPanel implements IOb
 
 	/**
 	 * Enable or disable the add scan dimension function
-	 * 
+	 *
 	 * @param b
 	 *            boolean true if add scan dimension function to be enabled else false
 	 */
@@ -200,7 +201,7 @@ public class ConfigurableExperimentPanel extends AcquisitionPanel implements IOb
 
 	/**
 	 * Find out if add scan region function is enabled
-	 * 
+	 *
 	 * @return boolean true if add Region function is enabled
 	 */
 	public boolean getAddRegionEnabled() {
@@ -209,7 +210,7 @@ public class ConfigurableExperimentPanel extends AcquisitionPanel implements IOb
 
 	/**
 	 * Set whether or no add scan region function is enabled
-	 * 
+	 *
 	 * @param b
 	 *            boolean true if add Region function is to be enabled
 	 */
@@ -219,7 +220,7 @@ public class ConfigurableExperimentPanel extends AcquisitionPanel implements IOb
 
 	/**
 	 * Get a list of DOF names available
-	 * 
+	 *
 	 * @return ArrayList<String> containing dof names
 	 */
 	public ArrayList<String> getDofNames() {
@@ -228,7 +229,7 @@ public class ConfigurableExperimentPanel extends AcquisitionPanel implements IOb
 
 	/**
 	 * Set the list of DOF names
-	 * 
+	 *
 	 * @param names
 	 *            ArrayList<String> containing all DOF names
 	 */
@@ -240,7 +241,7 @@ public class ConfigurableExperimentPanel extends AcquisitionPanel implements IOb
 
 	/**
 	 * Add a DOF name to the list of DOF names
-	 * 
+	 *
 	 * @param name
 	 *            String name of DOF to be added to list
 	 */
@@ -250,20 +251,20 @@ public class ConfigurableExperimentPanel extends AcquisitionPanel implements IOb
 
 	/**
 	 * Get OE names for this scan
-	 * 
+	 *
 	 * @return an ArrayList<String> of OE names
 	 */
-	public ArrayList<String> getOeNames() {
+	public List<String> getOeNames() {
 		return allOeNames;
 	}
 
 	/**
 	 * Set OE names for this scan
-	 * 
+	 *
 	 * @param names
 	 *            an ArrayList<String> of OE names
 	 */
-	public void setOeNames(ArrayList<String> names) {
+	public void setOeNames(List<String> names) {
 		allOeNames = new ArrayList<String>();
 		for (String name : names)
 			allOeNames.add(name);
@@ -271,7 +272,7 @@ public class ConfigurableExperimentPanel extends AcquisitionPanel implements IOb
 
 	/**
 	 * Add OE name to list available for this scan
-	 * 
+	 *
 	 * @param name
 	 *            String name of OE to be added
 	 */
@@ -324,7 +325,7 @@ public class ConfigurableExperimentPanel extends AcquisitionPanel implements IOb
 		createPanels();
 		initScanNames();
 
-		ArrayList<String> scannableNames;
+		List<String> scannableNames;
 		// if not XML configured make the default option all available OEs
 		if (allOeNames.size() == 0)
 			scannableNames = oeNames;
@@ -360,7 +361,7 @@ public class ConfigurableExperimentPanel extends AcquisitionPanel implements IOb
 
 	/**
 	 * Get array of disallowed Strings. Used in checkScan to check scan validity.
-	 * 
+	 *
 	 * @return String[][] array of disallowed
 	 */
 	public String[][] getDisAllowed() {
@@ -459,7 +460,7 @@ public class ConfigurableExperimentPanel extends AcquisitionPanel implements IOb
 
 	/**
 	 * Construct the Scan control Panel
-	 * 
+	 *
 	 * @return JPanel, the control panel
 	 */
 	protected JPanel constructControlPanel() {
@@ -581,7 +582,7 @@ public class ConfigurableExperimentPanel extends AcquisitionPanel implements IOb
 	/**
 	 * Subclasses may override this to create a panel to be used by e.g. their PreScanSetupExecutors or
 	 * ScanCommandEditors.
-	 * 
+	 *
 	 * @return the created panel
 	 */
 	protected JPanel createLeftHandBit() {
@@ -590,13 +591,13 @@ public class ConfigurableExperimentPanel extends AcquisitionPanel implements IOb
 
 	/**
 	 * Add a scan dimension
-	 * 
+	 *
 	 * @param dimensionName
 	 *            the name of the dimension to add
 	 * @param scannableNames
 	 *            the list of optional scannables for this dimension
 	 */
-	protected void doAddDimension(String dimensionName, ArrayList<String> scannableNames) {
+	protected void doAddDimension(String dimensionName, List<String> scannableNames) {
 		GeneralScan thisScan = null;
 		thisScan = new GeneralScan(dimensionName, addRegionEnabled);
 		thisScan.setScannableNames(scannableNames);
@@ -666,7 +667,7 @@ public class ConfigurableExperimentPanel extends AcquisitionPanel implements IOb
 
 	/**
 	 * Constructs a JPanel containing the check, start and stop buttons.
-	 * 
+	 *
 	 * @return the new JPanel
 	 */
 	protected JPanel constructButtonPanel() {
@@ -993,7 +994,7 @@ public class ConfigurableExperimentPanel extends AcquisitionPanel implements IOb
 
 	/**
 	 * Create a data file header
-	 * 
+	 *
 	 * @return the header
 	 */
 	public ArrayList<String> createHeader() {
@@ -1014,7 +1015,7 @@ public class ConfigurableExperimentPanel extends AcquisitionPanel implements IOb
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	@Override
 	public void deleteIObservers() {

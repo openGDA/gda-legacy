@@ -19,12 +19,6 @@
 
 package gda.gui.oemove;
 
-import gda.configuration.properties.LocalProperties;
-import gda.factory.Finder;
-import gda.gui.AcquisitionPanel;
-import gda.gui.util.SimpleFileFilter;
-import gda.oe.OE;
-
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
@@ -36,6 +30,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.StringTokenizer;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
@@ -49,13 +44,19 @@ import javax.swing.JMenuItem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import gda.configuration.properties.LocalProperties;
+import gda.factory.Finder;
+import gda.gui.AcquisitionPanel;
+import gda.gui.util.SimpleFileFilter;
+import gda.oe.OE;
+
 /**
  * OEEditorPanel Class
  */
 public class OEEditorPanel extends AcquisitionPanel {
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(OEEditorPanel.class);
-	
+
 	private JMenuBar menuBar;
 	private JMenu fileMenu;
 	private JMenu oeMenu;
@@ -65,14 +66,14 @@ public class OEEditorPanel extends AcquisitionPanel {
 	private DesktopPanel desktopPanel;
 	private JFileChooser jf;
 
-	private ArrayList<String> oeNames;
+	private List<String> oeNames;
 	private OERepresentation currentRepresentation;
 	private DOFImageView dofView;
 	private RepresentationFactory factory = new RepresentationFactory();
 	private String currentDOFName;
 
 	/**
-	 * 
+	 *
 	 */
 	public OEEditorPanel() {
 	}

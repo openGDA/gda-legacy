@@ -18,12 +18,6 @@
 
 package gda.gui.generalscan;
 
-import gda.factory.Finder;
-import gda.oe.MoveableException;
-import gda.oe.OE;
-import gda.util.QuantityFactory;
-import gda.util.StandardJTable;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -33,6 +27,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Hashtable;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -51,13 +46,19 @@ import org.jscience.physics.units.Unit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import gda.factory.Finder;
+import gda.oe.MoveableException;
+import gda.oe.OE;
+import gda.util.QuantityFactory;
+import gda.util.StandardJTable;
+
 /**
  * General Scan to display and allow editing of scan regions
  */
 public class GeneralScan extends Scan {
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(GeneralScan.class);
-	
+
 	protected StandardJTable jTable;
 
 	protected JPanel innerPanel = new JPanel();
@@ -123,7 +124,7 @@ public class GeneralScan extends Scan {
 
 	/**
 	 * construct a general scan panel
-	 * 
+	 *
 	 * @param name
 	 *            String name of the scan dimension panel eg. "Monochromator Scan" or "Scan Dimension 1"
 	 */
@@ -133,7 +134,7 @@ public class GeneralScan extends Scan {
 
 	/**
 	 * construct a general scan panel
-	 * 
+	 *
 	 * @param name
 	 *            String name of the scan dimension panel eg. "Monochromator Scan" or "Scan Dimension 1"
 	 * @param addRegionEnabled
@@ -227,12 +228,12 @@ public class GeneralScan extends Scan {
 
 	/**
 	 * Set the names of scannables available for users to scan
-	 * 
+	 *
 	 * @param oeNames
 	 *            an ArrayList of String oe names available for user scanning and make these available for selection via
 	 *            the defaultControlPanel
 	 */
-	public void setScannableNames(ArrayList<String> oeNames) {
+	public void setScannableNames(List<String> oeNames) {
 		Collections.sort(oeNames, oENamesComparator);
 		for (String s : oeNames)
 			oeNameCombo.addItem(s);
@@ -242,7 +243,7 @@ public class GeneralScan extends Scan {
 
 	/**
 	 * Set the names of scannables available for users to scan. Expects a single oe and a single dof
-	 * 
+	 *
 	 * @param oeNames
 	 *            an ArrayList of String oe names available for user scanning and make these available for selection via
 	 *            the defaultControlPanel
@@ -283,7 +284,7 @@ public class GeneralScan extends Scan {
 
 	/**
 	 * Create a GeneralScanModel
-	 * 
+	 *
 	 * @return the scan model
 	 */
 	@Override
@@ -306,7 +307,7 @@ public class GeneralScan extends Scan {
 
 	/**
 	 * Get the name of the DOF selected to be scanned
-	 * 
+	 *
 	 * @return the dof name
 	 */
 	public String getDofName() {
@@ -315,7 +316,7 @@ public class GeneralScan extends Scan {
 
 	/**
 	 * Get the name of the OE selected to be scanned
-	 * 
+	 *
 	 * @return the dof name
 	 */
 	public String getOEName() {
@@ -332,7 +333,7 @@ public class GeneralScan extends Scan {
 
 	/**
 	 * Get the scan units
-	 * 
+	 *
 	 * @return the scan units as a Unit
 	 */
 	public Unit<? extends Quantity> getScanUnits() {
@@ -341,7 +342,7 @@ public class GeneralScan extends Scan {
 
 	/**
 	 * Get the total scan time
-	 * 
+	 *
 	 * @return the total time
 	 */
 	public double getTotalTime() {
@@ -350,7 +351,7 @@ public class GeneralScan extends Scan {
 
 	/**
 	 * Get the total scan time
-	 * 
+	 *
 	 * @return the total time
 	 */
 	public double getTimePerPoint() {
@@ -359,7 +360,7 @@ public class GeneralScan extends Scan {
 
 	/**
 	 * set the oENamesComparator by which OE names will be checked against eachother
-	 * 
+	 *
 	 * @param comparator
 	 */
 	public void setOENamesComparator(Comparator<String> comparator) {
@@ -368,7 +369,7 @@ public class GeneralScan extends Scan {
 
 	/**
 	 * Get the comparator function which checks oe names against each other
-	 * 
+	 *
 	 * @return the comparator
 	 */
 	public Comparator<String> getOENamesComparator() {
@@ -377,7 +378,7 @@ public class GeneralScan extends Scan {
 
 	/**
 	 * Get the comparator function which checks dof names against each other
-	 * 
+	 *
 	 * @return the comparator
 	 */
 	public Comparator<String> getDofNamesComparator() {
@@ -386,7 +387,7 @@ public class GeneralScan extends Scan {
 
 	/**
 	 * set the dofNamesComparator by which DOF names will be checked against eachother
-	 * 
+	 *
 	 * @param dofNamesComparator
 	 *            the comparator
 	 */
@@ -396,7 +397,7 @@ public class GeneralScan extends Scan {
 
 	/**
 	 * Increase row height of JTable
-	 * 
+	 *
 	 * @param byPixels
 	 *            num pixrels to increase row height by
 	 */
@@ -537,7 +538,7 @@ public class GeneralScan extends Scan {
 
 	/**
 	 * remove named scannable from list available for selection
-	 * 
+	 *
 	 * @param scannableName
 	 *            name of oe or detector to be removed
 	 */
@@ -549,7 +550,7 @@ public class GeneralScan extends Scan {
 
 	/**
 	 * add named scannable to list available for selection
-	 * 
+	 *
 	 * @param scannableName
 	 *            name of oe or detector to be added
 	 */
@@ -559,7 +560,7 @@ public class GeneralScan extends Scan {
 
 	/**
 	 * remove named dof from list available for selection
-	 * 
+	 *
 	 * @param scannableName
 	 *            name of dof to be removed
 	 */
@@ -571,7 +572,7 @@ public class GeneralScan extends Scan {
 
 	/**
 	 * add named dof to list available for selection
-	 * 
+	 *
 	 * @param scannableName
 	 *            name of dof to be added
 	 */
@@ -581,7 +582,7 @@ public class GeneralScan extends Scan {
 
 	/**
 	 * determine if this scan is a timescan (detector scan)
-	 * 
+	 *
 	 * @return boolean true for timeScan and false for OE scan
 	 */
 	public boolean thisIsATimeScan() {
@@ -590,7 +591,7 @@ public class GeneralScan extends Scan {
 
 	/**
 	 * get name of scan in Jython String as returned by Server
-	 * 
+	 *
 	 * @return name of scan in Jython String
 	 */
 	public String getScanName() {

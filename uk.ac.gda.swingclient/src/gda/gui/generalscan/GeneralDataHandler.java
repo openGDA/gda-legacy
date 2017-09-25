@@ -18,21 +18,13 @@
 
 package gda.gui.generalscan;
 
-import gda.device.DataLogger;
-import gda.device.Detector;
-import gda.device.DeviceException;
-import gda.factory.Finder;
-import gda.jython.Jython;
-import gda.jython.JythonServerStatus;
-import gda.plots.SimplePlot;
-import gda.scan.ScanDataPoint;
-
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -47,14 +39,23 @@ import org.jscience.physics.units.Unit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import gda.device.DataLogger;
+import gda.device.Detector;
+import gda.device.DeviceException;
+import gda.factory.Finder;
+import gda.jython.Jython;
+import gda.jython.JythonServerStatus;
+import gda.plots.SimplePlot;
+import gda.scan.ScanDataPoint;
+
 /**
  * Deals with plotting of data and timing during general scans. NB Assumes that all Detector objects implement
  * CounterTimer.
  */
 public class GeneralDataHandler extends JPanel implements WhatToPlotDialogUser, NormalizeDialogUser {
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(GeneralDataHandler.class);
-	
+
 	private static final int NO_NORMALIZATION = -1;
 
 	protected int whichToNormalizeTo = NO_NORMALIZATION;
@@ -213,7 +214,7 @@ public class GeneralDataHandler extends JPanel implements WhatToPlotDialogUser, 
 
 	/**
 	 * Initializes for a scan or set of scans.
-	 * 
+	 *
 	 * @param numberOfPoints
 	 *            the number of points in the scan
 	 * @param numberOfRepeats
@@ -236,7 +237,7 @@ public class GeneralDataHandler extends JPanel implements WhatToPlotDialogUser, 
 	/**
 	 * Implements the WhatToPlotDialogUser interface, the WhatToPlotDialog will call this when a button setting changes.
 	 * Overrides the GeneralDataHandler method in order to set axis labels correctly.
-	 * 
+	 *
 	 * @param isSelected
 	 *            new array of button settings.
 	 */
@@ -261,7 +262,7 @@ public class GeneralDataHandler extends JPanel implements WhatToPlotDialogUser, 
 
 	/**
 	 * Adds new data to the lines.
-	 * 
+	 *
 	 * @param xVal
 	 *            the x xvalue
 	 * @param yVals
@@ -353,7 +354,7 @@ public class GeneralDataHandler extends JPanel implements WhatToPlotDialogUser, 
 
 	/**
 	 * NB This method is called directly by GeneralScanPanel and not via an IObserver/IObservable mechanism.
-	 * 
+	 *
 	 * @param newData
 	 */
 	public void update(Object newData) {
@@ -419,7 +420,7 @@ public class GeneralDataHandler extends JPanel implements WhatToPlotDialogUser, 
 
 	/**
 	 * Called when a JythonServerStatus arrives, used BFI to determine when a scan in a set of repeats has ended.
-	 * 
+	 *
 	 * @param newStatus
 	 *            the new status
 	 */
@@ -478,7 +479,7 @@ public class GeneralDataHandler extends JPanel implements WhatToPlotDialogUser, 
 
 		try {
 			// get the list of active detectors
-			ArrayList<String> detectorNames = Finder.getInstance().listAllNames("Detector");
+			List<String> detectorNames = Finder.getInstance().listAllNames("Detector");
 			for (String name : detectorNames) {
 				Detector d = (Detector) Finder.getInstance().find(name);
 				if (d instanceof DataLogger) {
@@ -509,7 +510,7 @@ public class GeneralDataHandler extends JPanel implements WhatToPlotDialogUser, 
 
 	/**
 	 * Get the SimplePlot
-	 * 
+	 *
 	 * @return the SimplePlot
 	 */
 	public SimplePlot getSimplePlot() {
@@ -525,7 +526,7 @@ public class GeneralDataHandler extends JPanel implements WhatToPlotDialogUser, 
 
 	/**
 	 * Sets the ArrayList of line names
-	 * 
+	 *
 	 * @param lineNames
 	 *            the new ArrayList
 	 */
@@ -535,7 +536,7 @@ public class GeneralDataHandler extends JPanel implements WhatToPlotDialogUser, 
 
 	/**
 	 * Gets and individual line name from the list.
-	 * 
+	 *
 	 * @param which
 	 *            index of required line name
 	 * @return the name
@@ -573,7 +574,7 @@ public class GeneralDataHandler extends JPanel implements WhatToPlotDialogUser, 
 	/**
 	 * Returns the hasNormalize flag, needed to go with remoteNormalize but not really a satisfactory solution. NB I
 	 * (PCS) refuse to allow this method to be called 'isHasNormalize' whatever the conventions.
-	 * 
+	 *
 	 * @return hasNormalize flag
 	 */
 	public boolean hasNormalize() {

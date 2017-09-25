@@ -18,22 +18,13 @@
 
 package gda.gui.generalscan;
 
-import gda.factory.Finder;
-import gda.gui.AcquisitionPanel;
-import gda.gui.generalscan.PreScanSetupExecutor.PreScanStatus;
-import gda.jython.Jython;
-import gda.jython.JythonServerFacade;
-import gda.jython.JythonServerStatus;
-import gda.observable.IObserver;
-import gda.scan.ScanDataPoint;
-import gda.util.PleaseWaitWindow;
-
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
@@ -51,13 +42,23 @@ import javax.swing.JTextField;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import gda.factory.Finder;
+import gda.gui.AcquisitionPanel;
+import gda.gui.generalscan.PreScanSetupExecutor.PreScanStatus;
+import gda.jython.Jython;
+import gda.jython.JythonServerFacade;
+import gda.jython.JythonServerStatus;
+import gda.observable.IObserver;
+import gda.scan.ScanDataPoint;
+import gda.util.PleaseWaitWindow;
+
 /**
  * Panel for setting up simple scans of any DOF
  */
 public class GeneralScanPanel extends AcquisitionPanel implements IObserver, Runnable {
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(GeneralScanPanel.class);
-	
+
 	protected GeneralDataHandler generalDataHandler;
 
 	private String disAllow[][] = {};
@@ -103,7 +104,7 @@ public class GeneralScanPanel extends AcquisitionPanel implements IObserver, Run
 	private SRSHeaderPanel headerPanel = new SRSHeaderPanel();
 
 	// private JPanel headerPanel;
-	protected ArrayList<String> oeNames = new ArrayList<String>();
+	protected List<String> oeNames = new ArrayList<String>();
 
 	// private boolean moveToPeakRequired = false;
 	// private String peakCommand = null;
@@ -111,7 +112,7 @@ public class GeneralScanPanel extends AcquisitionPanel implements IObserver, Run
 
 	protected int totalPoints;
 
-	protected ArrayList<String> detectorNames;
+	protected List<String> detectorNames;
 
 	protected PreScanSetupExecutor preScanSetupExecutor = null;
 
@@ -441,7 +442,7 @@ public class GeneralScanPanel extends AcquisitionPanel implements IObserver, Run
 	/**
 	 * Subclasses may override this to create a panel to be used by e.g. their PreScanSetupExecutors or
 	 * ScanCommandEditors.
-	 * 
+	 *
 	 * @return the created panel
 	 */
 	private JPanel createLeftHandBit() {
@@ -464,7 +465,7 @@ public class GeneralScanPanel extends AcquisitionPanel implements IObserver, Run
 
 	/**
 	 * Constructs a JPanel containing the check, start and stop buttons.
-	 * 
+	 *
 	 * @return the new JPanel
 	 */
 	protected JPanel constructButtonPanel() {
@@ -677,7 +678,7 @@ public class GeneralScanPanel extends AcquisitionPanel implements IObserver, Run
 
 	/**
 	 * Implements the IObserver interface. Called by IObservables when they change.
-	 * 
+	 *
 	 * @param theObserved
 	 *            the IObservable which has changed
 	 * @param theArgument
