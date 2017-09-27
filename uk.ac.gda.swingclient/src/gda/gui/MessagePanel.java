@@ -29,7 +29,7 @@ import javax.swing.JPanel;
  * A class to provide a uniform interface for all panels that will be configured into the tabbed pane environment of
  * {@link gda.gui.AcquisitionFrame}
  */
-public class MessagePanel extends JPanel implements Findable, Configurable, Tidyable {
+public class MessagePanel extends JPanel implements Findable, Configurable {
 	private transient int tabIndex;
 
 	/**
@@ -49,16 +49,7 @@ public class MessagePanel extends JPanel implements Findable, Configurable, Tidy
 
 	/**
 	 * Subclasses to override this method.
-	 * 
-	 * @see gda.gui.Tidyable#tidyup()
-	 */
-	@Override
-	public void tidyup() {
-	}
-
-	/**
-	 * Subclasses to override this method.
-	 * 
+	 *
 	 * @see gda.factory.Configurable#configure()
 	 */
 	@Override

@@ -365,9 +365,6 @@ public class AcquisitionFrame extends JFrame implements DockableHolder {
 	}
 
 	public void exit() {
-		for (int i = 0; i < tabbedPane.getTabCount(); i++) {
-			((Tidyable) tabbedPane.getComponentAt(i)).tidyup();
-		}
 
 		// NOTE: This shutdown code is also in gda.rcp.Application
 		//

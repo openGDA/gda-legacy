@@ -53,14 +53,6 @@ public class ODCCDPanel extends AcquisitionPanel {
 	private String _ccdName = null;
 
 	/**
-	 * Called when the GDA GUI closes.
-	 */
-	@Override
-	public void tidyup() {
-
-	}
-
-	/**
 	 * This is called to set up the GDA GUI panel.
 	 * 
 	 * @throws FactoryException
