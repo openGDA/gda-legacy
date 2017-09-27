@@ -148,7 +148,6 @@ public class JythonTerminal extends JPanel implements Runnable, IObserver, Termi
 	private JTextArea txtOutput = new JTextArea();
 
 	JTextField txtInput = new TabTextField();
-	AutoCompleter autoCompleter = new AutoCompleter(txtInput, this);
 
 	JPanel pnlLeft = new JPanel();
 
@@ -171,7 +170,6 @@ public class JythonTerminal extends JPanel implements Runnable, IObserver, Termi
 			commandserver = JythonServerFacade.getInstance();
 			commandserver.addIObserver(this);
 			userScriptDir = commandserver.getDefaultScriptProjectFolder();
-			autoCompleter.setJythonServerFacade(commandserver);
 			configured = true;
 
 			// start watches
