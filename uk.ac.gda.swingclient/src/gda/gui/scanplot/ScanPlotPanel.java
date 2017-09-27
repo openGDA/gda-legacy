@@ -21,10 +21,10 @@ package gda.gui.scanplot;
 
 import gda.configuration.properties.LocalProperties;
 import gda.factory.Finder;
-import gda.jython.GeneralScanDataPointObserver;
+import gda.jython.IScanDataPointObserver;
 import gda.jython.IScanDataPointProvider;
+import gda.jython.InterfaceProvider;
 import gda.jython.gui.JythonGuiConstants;
-import gda.observable.IObserver;
 import gda.plots.Type;
 import gda.scan.IScanDataPoint;
 
@@ -52,7 +52,7 @@ import org.slf4j.LoggerFactory;
 /**
  * A visual component to hold a GDAJythonInterpreter. It is designed to be similar to a command terminal.
  */
-public class ScanPlotPanel extends JPanel implements IObserver, ChangeListener {
+public class ScanPlotPanel extends JPanel implements IScanDataPointObserver, ChangeListener {
 
 	private static final Logger logger = LoggerFactory.getLogger(ScanPlotPanel.class);
 
@@ -96,14 +96,12 @@ public class ScanPlotPanel extends JPanel implements IObserver, ChangeListener {
 	JCheckBox chkClearGraphs = new JCheckBox();
 
 	JComboBox cmbLineTypeSelection = Type.getChooser();
-
-	private GeneralScanDataPointObserver generalScanDataPointObserver;
 	/**
 	 * method called to connect to other objects in the system. must be called when other objects are instantiated
 	 */
 	public void configure() {
 		if (!configured) {
-			generalScanDataPointObserver = new GeneralScanDataPointObserver(this);
+			InterfaceProvider.getScanDataPointProvider().addIScanDataPointObserver(this);
 			if (numberInitialGraphs == 0) {
 				// remove graphics and hide the divider
 			} else if (numberInitialGraphs >= 1) {
@@ -130,9 +128,7 @@ public class ScanPlotPanel extends JPanel implements IObserver, ChangeListener {
 	 * can be registered with the command server.
 	 */
 	public void dispose() {
-		if (generalScanDataPointObserver != null) {
-			generalScanDataPointObserver.dispose();
-		}
+		InterfaceProvider.getScanDataPointProvider().deleteIScanDataPointObserver(this);
 		for(ScanPlot s : graphs){
 			graphPanel.remove(s);
 			graphs.remove(s);
