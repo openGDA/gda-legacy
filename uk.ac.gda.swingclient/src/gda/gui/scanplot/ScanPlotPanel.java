@@ -24,7 +24,6 @@ import gda.factory.Finder;
 import gda.jython.IScanDataPointObserver;
 import gda.jython.IScanDataPointProvider;
 import gda.jython.InterfaceProvider;
-import gda.jython.gui.JythonGuiConstants;
 import gda.plots.Type;
 import gda.scan.IScanDataPoint;
 
@@ -55,6 +54,8 @@ import org.slf4j.LoggerFactory;
 public class ScanPlotPanel extends JPanel implements IScanDataPointObserver, ChangeListener {
 
 	private static final Logger logger = LoggerFactory.getLogger(ScanPlotPanel.class);
+
+	private static final String TERMINALNAME = "JythonTerminal";
 
 	// to make sure configure is only run once
 	private boolean configured = false;
@@ -139,7 +140,7 @@ public class ScanPlotPanel extends JPanel implements IScanDataPointObserver, Cha
 
 	@Override
 	public String getName() {
-		return JythonGuiConstants.TERMINALNAME;
+		return TERMINALNAME;
 	}
 
 	/**
