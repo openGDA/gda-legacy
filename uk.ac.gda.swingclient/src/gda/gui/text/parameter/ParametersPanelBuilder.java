@@ -19,7 +19,7 @@
 
 package gda.gui.text.parameter;
 
-import gda.gui.text.Formatter.SimpleFormatter;
+import gda.gui.text.formatter.SimpleFormatter;
 import gda.gui.text.validator.ConfirmerMessage;
 import gda.gui.text.validator.TextFieldValidator;
 
