@@ -18,18 +18,18 @@
 
 package gda.gui.beans;
 
+import java.text.DecimalFormat;
+
+import org.apache.commons.lang.math.NumberUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import gda.device.DeviceException;
 import gda.device.Scannable;
 import gda.device.scannable.PVScannable;
 import gda.device.scannable.ScannableStatus;
 import gda.device.scannable.ScannableUtils;
 import gda.factory.Finder;
-
-import java.text.DecimalFormat;
-
-import org.apache.commons.lang.math.NumberUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Displays and allows user to change the value of a single pv via control of a PVScannable object (or a Dummy Scannable
@@ -69,10 +69,7 @@ public class PVScannableBean extends BeanBase {
 	@Override
 	public void update(Object theObserved, Object changeCode) {
 		if (theObserved instanceof Scannable && changeCode instanceof ScannableStatus) {
-			ScannableStatus ms = (ScannableStatus) changeCode;
-			if (ms.getScannableName().equals(scannableName)) {
-				super.update(theObserved, changeCode);
-			}
+			super.update(theObserved, changeCode);
 		}
 	}
 
@@ -103,7 +100,7 @@ public class PVScannableBean extends BeanBase {
 		try {
 			theScannable.moveTo(NumberUtils.createDouble(getTxtNoCommas()));
 		} catch (DeviceException e) {
-			// 
+			//
 		}
 	}
 
