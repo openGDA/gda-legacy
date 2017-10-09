@@ -37,7 +37,7 @@ import com.jidesoft.docking.DockContext;
  * A class to provide a uniform interface for all panels that will be configured into the tabbed pane environment of
  * {@link gda.gui.AcquisitionFrame}
  */
-public class AcquisitionPanel extends JPanel implements Findable, Configurable, Tidyable, INamedScanDataPointObserver {
+public class AcquisitionPanel extends JPanel implements Findable, Configurable, INamedScanDataPointObserver {
 
 	private transient int tabIndex;
 	private static HashMap<String, Integer> initModes = new HashMap<String, Integer>();
@@ -154,15 +154,6 @@ public class AcquisitionPanel extends JPanel implements Findable, Configurable, 
 	 */
 	public int getInitModeAsInt() {
 		return initModeAsInt;
-	}
-
-	/**
-	 * Subclasses to override this method.
-	 * 
-	 * @see gda.gui.Tidyable#tidyup()
-	 */
-	@Override
-	public void tidyup() {
 	}
 
 	/**

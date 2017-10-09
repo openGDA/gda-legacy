@@ -19,8 +19,6 @@
 
 package gda.plots;
 
-import gda.plots.SimplePlot;
-
 import javax.swing.JFrame;
 
 import junit.framework.TestCase;
@@ -157,24 +155,8 @@ public class SimplePlotTest extends TestCase {
 			sp.setTitle("initialized line 0");
 			Thread.sleep(sleepTime);
 
-			sp.setLineColor(0, "blue");
-			sp.setTitle("line 0 colour to blue");
-			Thread.sleep(sleepTime);
-
 			sp.setLineType(0, "lineandpoints");
 			sp.setTitle("line 0 type to lineandpoints");
-			Thread.sleep(sleepTime);
-
-			sp.setLineMarkerColor(0, "yellow");
-			sp.setTitle("line 0 marker colour to yellow");
-			Thread.sleep(sleepTime);
-
-			sp.setLinePattern(0, "Dotted");
-			sp.setTitle("line 0 style to dotted");
-			Thread.sleep(sleepTime);
-
-			sp.setLineMarker(0, "Square");
-			sp.setTitle("line 0 marker to square");
 			Thread.sleep(sleepTime);
 
 			sp.setLineName(0, "ethelred");
@@ -203,10 +185,6 @@ public class SimplePlotTest extends TestCase {
 			sp.addPointToLine(0, 1.0, 0.5);
 			sp.addPointToLine(0, 2.0, 1.5);
 			sp.setTitle("re-initialized line 0");
-			Thread.sleep(sleepTime);
-
-			sp.addYAxisTwo();
-			sp.setTitle("added second y axis");
 			Thread.sleep(sleepTime);
 
 			sp.initializeLine(2, 1);

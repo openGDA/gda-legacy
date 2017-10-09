@@ -31,7 +31,6 @@ import org.slf4j.LoggerFactory;
 import gda.factory.Configurable;
 import gda.factory.FactoryException;
 import gda.factory.Findable;
-import gda.gui.Tidyable;
 import gda.observable.IObservable;
 import gda.observable.IObserver;
 import gda.observable.ObservableComponent;
@@ -42,7 +41,7 @@ import uk.ac.diamond.daq.persistence.jythonshelf.LocalParameters;
 /**
  *
  */
-public class PixelToMMConverter implements Findable, Configurable, Tidyable, IObservable {	
+public class PixelToMMConverter implements Findable, Configurable, IObservable {
 
 	/**
 	 * @param name 
@@ -210,12 +209,6 @@ public class PixelToMMConverter implements Findable, Configurable, Tidyable, IOb
 	{
 		config.reload();
 		this.load();
-	}
-
-	@Override
-	public void tidyup() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	/**

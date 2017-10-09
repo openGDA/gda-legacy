@@ -82,10 +82,6 @@ public class OEMovePanel extends AcquisitionPanel {
 		}
 	}
 
-	@Override
-	public void tidyup() {
-	}
-
 	private void loadDefaultRepresentations() {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override

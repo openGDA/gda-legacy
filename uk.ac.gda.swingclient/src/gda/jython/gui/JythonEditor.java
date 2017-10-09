@@ -61,7 +61,9 @@ public class JythonEditor extends AcquisitionPanel implements IObserver {
 	 * The name this object should always be known as within the GDA Finder
 	 */
 	public static final String NAME = "JythonEditor";
-	
+
+	private static final String TERMINALNAME = "JythonTerminal";
+
 	/** Number of last new document created */
 	private AtomicInteger lastNewFileNumber = new AtomicInteger();
 	
@@ -275,7 +277,7 @@ public class JythonEditor extends AcquisitionPanel implements IObserver {
 			this.btnSaveAs.setEnabled(false);
 
 			// run the file through the GDAJythonInterpreter
-			jythonFacade.runScript(editor.getFile(), JythonGuiConstants.TERMINALNAME);
+			jythonFacade.runScript(editor.getFile(), TERMINALNAME);
 		}
 	}
 

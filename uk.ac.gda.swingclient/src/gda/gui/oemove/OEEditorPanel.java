@@ -180,10 +180,6 @@ public class OEEditorPanel extends AcquisitionPanel {
 		addArrowImages("Images/", arrowMenu);
 	}
 
-	@Override
-	public void tidyup() {
-	}
-
 	private void addDOFImage() {
 		JMenu leftSubMenu = new JMenu("Left");
 		JMenu rightSubMenu = new JMenu("Right");

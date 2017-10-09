@@ -82,6 +82,8 @@ public class JythonTerminal extends JPanel implements Runnable, IObserver, Termi
 
 	static private final int maxCommandsToSave = 100;
 
+	private static final String TERMINALNAME = "JythonTerminal";
+
 	// the instance of the scripting mediator
 	JythonServerFacade commandserver = null;
 
@@ -148,7 +150,6 @@ public class JythonTerminal extends JPanel implements Runnable, IObserver, Termi
 	private JTextArea txtOutput = new JTextArea();
 
 	JTextField txtInput = new TabTextField();
-	AutoCompleter autoCompleter = new AutoCompleter(txtInput, this);
 
 	JPanel pnlLeft = new JPanel();
 
@@ -171,7 +172,6 @@ public class JythonTerminal extends JPanel implements Runnable, IObserver, Termi
 			commandserver = JythonServerFacade.getInstance();
 			commandserver.addIObserver(this);
 			userScriptDir = commandserver.getDefaultScriptProjectFolder();
-			autoCompleter.setJythonServerFacade(commandserver);
 			configured = true;
 
 			// start watches
@@ -251,7 +251,7 @@ public class JythonTerminal extends JPanel implements Runnable, IObserver, Termi
 
 	@Override
 	public String getName() {
-		return JythonGuiConstants.TERMINALNAME;
+		return TERMINALNAME;
 	}
 
 	/**
@@ -259,7 +259,7 @@ public class JythonTerminal extends JPanel implements Runnable, IObserver, Termi
 	 */
 	public JythonTerminal() {
 		try {
-			setName(JythonGuiConstants.TERMINALNAME);
+			setName(TERMINALNAME);
 			jbInit();
 		} catch (Exception e) {
 			logger.debug(e.getStackTrace().toString());
